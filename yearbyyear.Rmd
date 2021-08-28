@@ -1,0 +1,37 @@
+---
+title: Year Comparison
+output: html_document
+params:
+  daily_focal: "unknown"
+  schoolkids_daily: "unknown"
+---
+
+<h2 id="dejavu">Comparing last academic year with this academic year</h2>
+
+In the over 20 months since covid started spreading we have learned a lot: vaccines are now available (in the US), we know masks help, and so forth. However, the virus continues to evolve, too. 
+
+We can see how students age 5-18 (so equivalent to K-12, generally) have had positive cases in East Tennessee.
+
+```{r dejavuschoolkids, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of cases in children 5-18 in 2020 vs 2021"}
+schoolkids_daily_by_year <- schoolkids_daily
+schoolkids_daily_by_year$Year <- format(schoolkids_daily_by_year$DATE, format="%Y")
+schoolkids_daily_by_year$MONTH_DAY_IFFY_YEAR <- as.Date(as.POSIXct(paste0("2021-",format(schoolkids_daily_by_year$DATE, format="%m-%d"), "%Y-%m-%d"))) #the year isn't right for some, but this helps plotting
+schoolkids_daily_by_year <- subset(schoolkids_daily_by_year, Region=="East TN")
+try(student_covid_daily_by_year_plot <- ggplot(schoolkids_daily_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_CASES, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = "none") + ylab("New cases for age 5-18 students, 7 day avg") + xlab("Date") + ggtitle("New Age 5-18 student cases in East Tennessee by year") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
+try(print(student_covid_daily_by_year_plot))
+```
+
+Or positive covid cases across all individuals:
+
+```{r dejavucases, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of cases in 2020 vs 2021"}
+try(daily_case_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_CASES, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = "none") + ylab("New cases per day") + xlab("Date") + ggtitle("Cases in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
+try(print(daily_case_by_year_plot))
+```
+
+
+Or deaths over time across all individuals:
+
+```{r dejavudeath, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of deaths in 2020 vs 2021"}
+try(daily_death_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_DEATHS, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = "none") + ylab("Deaths per day") + xlab("Date") + ggtitle("Deaths in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal')) 
+try(print(daily_death_by_year_plot))
+```

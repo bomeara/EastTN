@@ -1,0 +1,6 @@
+library(targets)
+#options(clustermq.scheduler = "multiprocess")
+#tar_make_clustermq(workers = parallel::detectCores()-1)
+tar_make()
+#system("git commit -m'updated data' -a")
+#system('git push')

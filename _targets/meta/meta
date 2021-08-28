@@ -1,0 +1,19 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|iteration|parent|children|seconds|warnings|error
+daily_focal|stem|2da3f9d5c6d462e5|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18867.1570687374s|283a7fd02fab701c|128084|rds|vector|||9.683||
+schoolkids_daily|stem|0fd4d5a40900c88a|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18867.1591865251s|272cb1f5dcfb6f5b|8025|rds|vector|||1.636||
+schools_oakridge|stem|2368ed9a641d701d|5ef76551f256f52d|480ce473a321c6b1|340842418||t18867.1693138508s|619ded5eb9099221|2138|rds|vector|||2.009||
+hospital_knox|stem|42bf6ec98da5dfaa|69f903d639eb813d|14cdc82e12a9df9e|-977223956||t18867.1694007799s|ff901cd7c79d739b|28894|rds|vector|||9.496|the condition has length  1 and only the first element will be used|
+yearbyyear|stem|73a0eaaa0f6207b9|3ab94c6df211ab1c|09aae38e54aaf5d2|-827229406|yearbyyear.html*yearbyyear.Rmd|t18867.1712829295s|0f24f061bc6f89e3|882393|file|vector|||1.493||
+CreateHospitalKnox|function|592247e94d432b23||||||||||||||
+CreateSchoolsOakRidge|function|a281e427b1b34968||||||||||||||
+FocalCountiesEastTN|function|0c89dba02f5e5384||||||||||||||
+.Random.seed|object|1d74c1a45e276faf||||||||||||||
+CreateHHSDataFocalCitiesPretty|function|b81e1b621769e73f||||||||||||||
+FocalCountiesHospitalKnoxArea|function|d7f7d9a717d146d0||||||||||||||
+CreateHHSDataFocalCities|function|1d3d85691b73ffbf||||||||||||||
+CreateHHSDataTN|function|fe4621ce9e4ccdff||||||||||||||
+CreateSchoolkidsDaily|function|7b4ff9a76c781e3f||||||||||||||
+CreateDailyFocal|function|5c30d3f9e81d240b||||||||||||||
+hhs_capacity_tn|stem|a8dabbca4a45a5b6|369b8318dc581c83|f36faba461c0f4a6|-630002740||t18867.1788645149s|fbed9e5591abe694|512758|rds|vector|||61.993||
+hhs_capacity_tn_focal_latest|stem|5974a01dbd2d95a3|d2d6506164590404|49069729ccebedb2|990891124||t18867.1788665429s|138dd220e8351264|3412|rds|vector|||0.154||
+hhs_capacity_tn_focal_latest_pretty|stem|6444131295b0759d|841f45d389f1f8a4|3eadc3c4adc974bb|2119897042||t18867.1788668552s|69b70c4f5a79833e|566|rds|vector|||0.014||
