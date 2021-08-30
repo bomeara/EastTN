@@ -1,0 +1,61 @@
+---
+title: Hospitals in Knoxville region
+output: html_document
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("_packages.R")
+source("R/functions.R")
+tar_load(hospital_knox)
+tar_load(daily_focal)
+counties_in_hospital_region <- FocalCountiesEastTN()
+last_hospital_update <- max(hospital_knox$Date)
+```
+
+The Knox County Health Department puts out information on hospital capacity in their region, which is `r paste0(sort(gsub(", ", "", counties_in_hospital_region)), ", ")` Counties; there are 19 hospitals in this region with potential ICU beds.
+
+As of the last time the data were updated (likely `r as.numeric(difftime(Sys.Date(), as.Date(last_hospital_update), units="days"))` days ago), regional hospitals had `r tail(subset(hospital_knox, East.Region.Hospitals=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, East.Region.Hospitals=="ICU Beds")$Total.Capacity,1)` total, and `r tail(subset(hospital_knox, East.Region.Hospitals=="Ventilators")$Available,1)` available ventilators out of `r tail(subset(hospital_knox, East.Region.Hospitals=="Ventilators")$Total.Capacity,1)` total, (`r 100-round(100*( as.numeric(tail(subset(hospital_knox, East.Region.Hospitals=="Ventilators")$Available,1)) / as.numeric(tail(subset(hospital_knox, East.Region.Hospitals=="Ventilators")$Total.Capacity,1))))` percent capacity). The hospitals overall had `r tail(subset(hospital_knox, East.Region.Hospitals=="All Hospital Beds")$Available,1)` beds available of `r tail(subset(hospital_knox, East.Region.Hospitals=="All Hospital Beds")$Total.Capacity,1)` total (so was at `r 100-round(100*( as.numeric(tail(subset(hospital_knox, East.Region.Hospitals=="All Hospital Beds")$Available,1)) / as.numeric(tail(subset(hospital_knox, East.Region.Hospitals=="All Hospital Beds")$Total.Capacity,1))))` percent capacity). This is based on 19 acute care hospitals in the East TN region. When a line hits 100% (indicated in red), the local hospitals are theoretically full for that resource (for *all* patients, not just covid patients), though there is surge capacity on top of this. Note that these data are updated only twice a week, so current conditions maybe be much better or worse than these plots show. Data on capacity from Knox County's dashboard, using their percent utilization metric.
+
+
+```{r hospitalcapacityplot, echo=FALSE, message=FALSE, warning=FALSE}
+#try(hosp_plot <- ggplot(subset(hospital_knox, Date>="2021-06-01"), aes(x=Date, y=Current.Utilization, group=East.Region.Hospitals)) + geom_line(aes(colour=East.Region.Hospitals)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_classic() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+try(hosp_plot <- ggplot(hospital_knox, aes(x=Date, y=Current.Utilization, group=East.Region.Hospitals)) + geom_line(aes(colour=East.Region.Hospitals)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_classic() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+try(print(hosp_plot))
+
+```
+
+Trends in hospitalization of covid patients over time. The vertical dotted line shows the last day with updated capacity information from Knox County, when there were `r tail(subset(hospital_knox, East.Region.Hospitals=="ICU Beds")$Available,1)` ICU beds available (ignoring surge capacity) for people in the East Tennessee region. The seven day average is shown.
+
+```{r plotsD, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") 
+
+print(new_hospitalization)
+
+# tn_daily_aggregate <- daily %>% group_by(DATE) %>% summarise(new_hosp = sum(NEW_HOSPITALIZED))
+#
+#
+# tn_new_hospitalization <- ggplot(tn_daily_aggregate[!is.na(tn_daily_aggregate$new_hosp),], aes(x=DATE, y=new_hosp)) + geom_smooth() + geom_point() + ylab("Number of new covid hospitalizations in TN each day") + xlab("Date") + ylim(0,NA)
+# print(tn_new_hospitalization)
+
+# all_confirmed <- data.frame(date=c(us_aggregate$date, tn_aggregate$date, knox$date), percentconfirmed=c(us_aggregate$percentconfirmed, tn_aggregate$percentconfirmed, knox$percentconfirmed), region=c(rep("US", nrow(us_aggregate)),rep("TN", nrow(tn_aggregate)), rep("Knox", nrow(knox))))
+# con <- ggplot(all_confirmed, aes(x=date, y=percentconfirmed, color=region)) + geom_smooth() + geom_point() + ylab("Percent of population with confirmed tests")
+# print(con)
+#
+# three_weeks_ago <- tail(sort(unique(all_confirmed$date)),21)[1]
+# all_confirmed_3 <- all_confirmed[all_confirmed$date>=three_weeks_ago,]
+#
+# con3 <- ggplot(all_confirmed_3, aes(x=date, y=percentconfirmed, color=region)) + geom_smooth() + geom_point() + ylab("Percent of population with confirmed tests")
+# print(con3)
+#
+# diff_confirmed <-  data.frame(date=c(us_diff$date, tn_diff$date, knox_diff$date), daily_percent_confirmed=c(us_diff$daily_percent_confirmed, tn_diff$daily_percent_confirmed, knox_diff$daily_percent_confirmed), region=c(rep("US", nrow(us_diff)),rep("TN", nrow(tn_diff)), rep("Knox", nrow(knox_diff))))
+# diffplot <- ggplot(diff_confirmed, aes(x=date, y=daily_percent_confirmed, color=region)) + geom_smooth(span=14/nrow(knox_diff)) + geom_point() + ylab("Percent of population new confirmed tests daily")
+# print(diffplot)
+#
+#
+# diff_confirmed_3 <- diff_confirmed[diff_confirmed$date>=three_weeks_ago,]
+# diffplot3 <- ggplot(diff_confirmed_3, aes(x=date, y=daily_percent_confirmed, color=region)) + geom_smooth() + geom_point() + ylab("Percent of population new confirmed tests daily")
+# print(diffplot3)
+
+```

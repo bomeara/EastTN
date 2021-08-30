@@ -255,3 +255,362 @@ CreateHHSDataFocalCitiesPretty <- function(hhs_capacity_tn_focal_latest) {
 
     return(hhs_capacity_tn_focal_latest_pretty)
 }
+
+CreateDemographicDataInTN <- function() {
+    # these hardcoded values come from the census; they are copied in another function, as well
+    population_total <- 6829174
+
+    population_female <- population_total*0.512
+    population_male <- population_total*(1-0.512)
+
+    population_white <- population_total*0.784
+    population_black_africanamerican <- population_total*0.171
+    population_asian <- population_total*0.02
+    population_americanindian_alaskannative <- population_total*0.005
+    population_nativehawaiian_other_pacificislander <- population_total*0.001
+    population_twoormoreraces <- population_total*0.02
+
+    population_hispanic <- population_total*0.057
+    population_not_hispanic <- population_total*(1-0.057)
+
+
+    population_age_under_5 <- population_total*0.06
+    population_age_under_18 <- population_total*0.221
+    population_age_65_and_over <- population_total*0.167
+
+
+
+    temp = tempfile(fileext = ".xlsx")
+    dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/COVID_VACCINE_DEMOGRAPHICS.XLSX"
+    download.file(dataURL, destfile=temp, mode='wb')
+    demographics_vaccine <- readxl::read_xlsx(temp, sheet =1)
+    demographics_vaccine$RECIPIENT_COUNT[is.na(demographics_vaccine$RECIPIENT_COUNT)] <- demographics_vaccine$VACCINE_COUNT[is.na(demographics_vaccine$RECIPIENT_COUNT)]
+    demographics_vaccine$RECIP_FULLY_VACC[is.na(demographics_vaccine$RECIP_FULLY_VACC)] <- 0
+
+
+
+
+
+    race_vaccine <- subset(demographics_vaccine, CATEGORY=="RACE")
+    race_vaccine$Race <- stringr::str_to_title(race_vaccine$CAT_DETAIL)
+    race_vaccine$PercentFullyVaccinated <- NA
+    race_vaccine$PercentFullyVaccinated <- as.numeric(race_vaccine$PercentFullyVaccinated)
+
+    race_vaccine[which(race_vaccine$Race=="White"),]$PercentFullyVaccinated <- 100*race_vaccine[which(race_vaccine$Race=="White"),]$RECIP_FULLY_VACC/population_white
+    race_vaccine[which(race_vaccine$Race=="Black Or African American"),]$PercentFullyVaccinated <- 100*race_vaccine[which(race_vaccine$Race=="Black Or African American"),]$RECIP_FULLY_VACC/population_black_africanamerican
+    race_vaccine[which(race_vaccine$Race=="Asian"),]$PercentFullyVaccinated <- 100*race_vaccine[which(race_vaccine$Race=="Asian"),]$RECIP_FULLY_VACC/population_asian
+
+    race_vaccine <- race_vaccine %>% group_by(Race) %>% mutate(PreviousPercentFullyVaccinated=dplyr::lag(PercentFullyVaccinated, n=1, default=0))
+    race_vaccine$IncreasePercentFullyVaccinated <- race_vaccine$PercentFullyVaccinated - race_vaccine$PreviousPercentFullyVaccinated
+    race_vaccine$IncreasePercentFullyVaccinated[race_vaccine$IncreasePercentFullyVaccinated<0] <- 0 # for cases with sudden drops, probably due to issues in the original data
+
+    race_vaccine <- race_vaccine %>% group_by(Race) %>% mutate(IncreasePercentFullyVaccinated7Day=zoo::rollmean(IncreasePercentFullyVaccinated, k=7, align="right", fill=0))
+
+    race_vaccine <- subset(race_vaccine, !is.na(PercentFullyVaccinated))
+
+    ethnicity_vaccine <- subset(demographics_vaccine, CATEGORY=="ETHN")
+    ethnicity_vaccine$Ethnicity <- stringr::str_to_title(ethnicity_vaccine$CAT_DETAIL)
+
+    ethnicity_vaccine$PercentFullyVaccinated <- NA
+    ethnicity_vaccine$PercentFullyVaccinated <- as.numeric(ethnicity_vaccine$PercentFullyVaccinated)
+
+    ethnicity_vaccine[which(ethnicity_vaccine$Ethnicity=="Hispanic Or Latino"),]$PercentFullyVaccinated <- 100*ethnicity_vaccine[which(ethnicity_vaccine$Ethnicity=="Hispanic Or Latino"),]$RECIP_FULLY_VACC/population_hispanic
+    ethnicity_vaccine[which(ethnicity_vaccine$Ethnicity=="Not Hispanic Or Latino"),]$PercentFullyVaccinated <- 100*ethnicity_vaccine[which(ethnicity_vaccine$Ethnicity=="Not Hispanic Or Latino"),]$RECIP_FULLY_VACC/population_not_hispanic
+
+
+    ethnicity_vaccine <- ethnicity_vaccine %>% group_by(Ethnicity) %>% mutate(PreviousPercentFullyVaccinated=dplyr::lag(PercentFullyVaccinated, n=1, default=0))
+    ethnicity_vaccine$IncreasePercentFullyVaccinated <- ethnicity_vaccine$PercentFullyVaccinated - ethnicity_vaccine$PreviousPercentFullyVaccinated
+    ethnicity_vaccine$IncreasePercentFullyVaccinated[ethnicity_vaccine$IncreasePercentFullyVaccinated<0] <- 0 # for cases with sudden drops, probably due to issues in the original data
+
+    ethnicity_vaccine <- ethnicity_vaccine %>% group_by(Ethnicity) %>% mutate(IncreasePercentFullyVaccinated7Day=zoo::rollmean(IncreasePercentFullyVaccinated, k=7, align="right", fill=0))
+
+    ethnicity_vaccine <- subset(ethnicity_vaccine, !is.na(PercentFullyVaccinated))
+
+
+    sex_vaccine <- subset(demographics_vaccine, CATEGORY=="SEX")
+    sex_vaccine$Sex <- stringr::str_to_title(sex_vaccine$CAT_DETAIL)
+    sex_vaccine$Sex <- gsub("F", "Female", sex_vaccine$Sex)
+    sex_vaccine$Sex <- gsub("M", "Male", sex_vaccine$Sex)
+    sex_vaccine$Sex <- gsub("U", "Unknown", sex_vaccine$Sex)
+    sex_vaccine$Sex <- gsub("O", "Other", sex_vaccine$Sex)
+    sex_vaccine$PercentFullyVaccinated <- NA
+    sex_vaccine$PercentFullyVaccinated <- as.numeric(sex_vaccine$PercentFullyVaccinated)
+    sex_vaccine[which(sex_vaccine$Sex=="Female"),]$PercentFullyVaccinated <- 100*sex_vaccine[which(sex_vaccine$Sex=="Female"),]$RECIP_FULLY_VACC/population_female
+    sex_vaccine[which(sex_vaccine$Sex=="Male"),]$PercentFullyVaccinated <- 100*sex_vaccine[which(sex_vaccine$Sex=="Male"),]$RECIP_FULLY_VACC/population_male
+
+
+
+    sex_vaccine <- sex_vaccine %>% group_by(Sex) %>% mutate(PreviousPercentFullyVaccinated=dplyr::lag(PercentFullyVaccinated, n=1, default=0))
+    sex_vaccine$IncreasePercentFullyVaccinated <- sex_vaccine$PercentFullyVaccinated - sex_vaccine$PreviousPercentFullyVaccinated
+    sex_vaccine$IncreasePercentFullyVaccinated[sex_vaccine$IncreasePercentFullyVaccinated<0] <- 0 # for cases with sudden drops, probably due to issues in the original data
+
+    sex_vaccine <- sex_vaccine %>% group_by(Sex) %>% mutate(IncreasePercentFullyVaccinated7Day=zoo::rollmean(IncreasePercentFullyVaccinated, k=7, align="right", fill=0))
+
+
+    sex_vaccine <- subset(sex_vaccine, !is.na(PercentFullyVaccinated))
+
+
+
+
+
+
+
+    temp = tempfile(fileext = ".xlsx")
+    dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/Public-Dataset-RaceEthSex.XLSX"
+    download.file(dataURL, destfile=temp, mode='wb')
+    demographics <- readxl::read_xlsx(temp, sheet =1)
+    demographics$percent_of_demographic_with_cases <- 0
+    demographics$percent_of_demographic_dead <- 0
+    demographics$Date <- demographics$DATE
+    demographics <- subset(demographics, as.character(demographics$DATE)!="2020-07-28") #there was an error that day for Native Hawaiian or Other Pacific Islander: it went from 2 to 15 recorded deaths. Remove date from all data just to be safe.
+
+
+
+    race <- subset(demographics, CATEGORY=="RACE")
+    race <- subset(race, CAT_DETAIL != "Pending")
+
+
+    race[which(race$CAT_DETAIL=="White"),]$percent_of_demographic_with_cases <- 100*race[which(race$CAT_DETAIL=="White"),]$CAT_TOTALCASES/population_white
+    race[which(race$CAT_DETAIL=="White"),]$percent_of_demographic_dead <- 100*race[which(race$CAT_DETAIL=="White"),]$CAT_TOTALDEATHS/population_white
+    race[which(race$CAT_DETAIL=="Black or African American"),]$percent_of_demographic_with_cases <- 100*race[which(race$CAT_DETAIL=="Black or African American"),]$CAT_TOTALCASES/population_black_africanamerican
+    race[which(race$CAT_DETAIL=="Black or African American"),]$percent_of_demographic_dead <- 100*race[which(race$CAT_DETAIL=="Black or African American"),]$CAT_TOTALDEATHS/population_black_africanamerican
+    race[which(race$CAT_DETAIL=="Asian"),]$percent_of_demographic_with_cases <- 100*race[which(race$CAT_DETAIL=="Asian"),]$CAT_TOTALCASES/population_asian
+    race[which(race$CAT_DETAIL=="Asian"),]$percent_of_demographic_dead <- 100*race[which(race$CAT_DETAIL=="Asian"),]$CAT_TOTALDEATHS/population_asian
+    race[which(race$CAT_DETAIL=="American Indian or Alaska Native"),]$percent_of_demographic_with_cases <- 100*race[which(race$CAT_DETAIL=="American Indian or Alaska Native"),]$CAT_TOTALCASES/population_americanindian_alaskannative
+    race[which(race$CAT_DETAIL=="American Indian or Alaska Native"),]$percent_of_demographic_dead <- 100*race[which(race$CAT_DETAIL=="American Indian or Alaska Native"),]$CAT_TOTALDEATHS/population_americanindian_alaskannative
+    race[which(race$CAT_DETAIL=="Native Hawaiian or Other Pacific Islander"),]$percent_of_demographic_with_cases <- 100*race[which(race$CAT_DETAIL=="Native Hawaiian or Other Pacific Islander"),]$CAT_TOTALCASES/population_nativehawaiian_other_pacificislander
+    race[which(race$CAT_DETAIL=="Native Hawaiian or Other Pacific Islander"),]$percent_of_demographic_dead <- 100*race[which(race$CAT_DETAIL=="Native Hawaiian or Other Pacific Islander"),]$CAT_TOTALDEATHS/population_nativehawaiian_other_pacificislander
+    race[which(race$CAT_DETAIL=="Other/Multiracial"),]$percent_of_demographic_with_cases <- 100*race[which(race$CAT_DETAIL=="Other/Multiracial"),]$CAT_TOTALCASES/population_twoormoreraces
+    race[which(race$CAT_DETAIL=="Other/Multiracial"),]$percent_of_demographic_dead <- 100*race[which(race$CAT_DETAIL=="Other/Multiracial"),]$CAT_TOTALDEATHS/population_twoormoreraces
+    race <- subset(race, CAT_DETAIL!="Other/Multiracial") # see note above
+    race <- subset(race, CAT_DETAIL!="Other/ Multiracial") # see note above
+
+    race$Race <- race$CAT_DETAIL
+
+
+    ethnicity <- subset(demographics, CATEGORY=="ETHNICITY")
+    ethnicity <- subset(ethnicity, CAT_DETAIL != "Pending")
+    ethnicity$Ethnicity <- ethnicity$CAT_DETAIL
+
+
+    ethnicity[which(ethnicity$CAT_DETAIL=="Hispanic"),]$percent_of_demographic_with_cases <- 100*ethnicity[which(ethnicity$CAT_DETAIL=="Hispanic"),]$CAT_TOTALCASES/population_hispanic
+    ethnicity[which(ethnicity$CAT_DETAIL=="Hispanic"),]$percent_of_demographic_dead <- 100*ethnicity[which(ethnicity$CAT_DETAIL=="Hispanic"),]$CAT_TOTALDEATHS/population_hispanic
+
+
+    ethnicity[which(ethnicity$CAT_DETAIL=="Not Hispanic or Latino"),]$percent_of_demographic_with_cases <- 100*ethnicity[which(ethnicity$CAT_DETAIL=="Not Hispanic or Latino"),]$CAT_TOTALCASES/population_not_hispanic
+    ethnicity[which(ethnicity$CAT_DETAIL=="Not Hispanic or Latino"),]$percent_of_demographic_dead <- 100*ethnicity[which(ethnicity$CAT_DETAIL=="Not Hispanic or Latino"),]$CAT_TOTALDEATHS/population_not_hispanic
+
+
+
+    sex <- subset(demographics, CATEGORY=="SEX")
+    sex <- subset(sex, CAT_DETAIL != "Pending")
+
+
+    sex[which(sex$CAT_DETAIL=="Female"),]$percent_of_demographic_with_cases <- 100*sex[which(sex$CAT_DETAIL=="Female"),]$CAT_TOTALCASES/population_female
+    sex[which(sex$CAT_DETAIL=="Female"),]$percent_of_demographic_dead <- 100*sex[which(sex$CAT_DETAIL=="Female"),]$CAT_TOTALDEATHS/population_female
+
+    sex[which(sex$CAT_DETAIL=="Male"),]$percent_of_demographic_with_cases <- 100*sex[which(sex$CAT_DETAIL=="Male"),]$CAT_TOTALCASES/population_male
+    sex[which(sex$CAT_DETAIL=="Male"),]$percent_of_demographic_dead <- 100*sex[which(sex$CAT_DETAIL=="Male"),]$CAT_TOTALDEATHS/population_male
+    sex$Sex <- sex$CAT_DETAIL
+
+    return(list(race_vaccine=race_vaccine, ethnicity_vaccine=ethnicity_vaccine, sex_vaccine=sex_vaccine, race=race, ethnicity=ethnicity, sex=sex))
+}
+
+CreateSummaryTable <- function(covid_by_demographic_in_tn) {
+       # these hardcoded values come from the census; they are copied in another function, as well
+    population_total <- 6829174
+
+    population_female <- population_total*0.512
+    population_male <- population_total*(1-0.512)
+
+    population_white <- population_total*0.784
+    population_black_africanamerican <- population_total*0.171
+    population_asian <- population_total*0.02
+    population_americanindian_alaskannative <- population_total*0.005
+    population_nativehawaiian_other_pacificislander <- population_total*0.001
+    population_twoormoreraces <- population_total*0.02
+
+    population_hispanic <- population_total*0.057
+    population_not_hispanic <- population_total*(1-0.057)
+
+
+    population_age_under_5 <- population_total*0.06
+    population_age_under_18 <- population_total*0.221
+    population_age_65_and_over <- population_total*0.167
+
+
+
+    race <- covid_by_demographic_in_tn$race
+    ethnicity <- covid_by_demographic_in_tn$ethnicity
+    sex <- covid_by_demographic_in_tn$sex
+    race_vaccine <- covid_by_demographic_in_tn$race_vaccine
+    ethnicity_vaccine <- covid_by_demographic_in_tn$ethnicity_vaccine
+    sex_vaccine <- covid_by_demographic_in_tn$sex_vaccine
+    # I'm doing this poorly using hard coding, but I don't know of a better way
+    racesum <- data.frame(Category="Race", Group=c("American Indian or Alaska Native", "Asian", "Black or African American", "Native Hawaiian or Other Pacific Islander", "White"), Positive_Covid_Test=NA, Covid_Death=NA, At_Least_One_Vaccination=NA, Fully_Vaccinated=NA)
+    race_recent <- subset(race, Date==max(race$Date))
+    for (i in seq_along(racesum$Group)) {
+        racesum$Positive_Covid_Test[i] <- race_recent$percent_of_demographic_with_cases[which(race_recent$CAT_DETAIL==racesum$Group[i])]
+        racesum$Covid_Death[i] <- race_recent$percent_of_demographic_dead[which(race_recent$CAT_DETAIL==racesum$Group[i])]
+
+    }
+    race_vaccine_recent <- subset(race_vaccine, DATE==max(race_vaccine$DATE))
+
+    racesum[which(racesum$Group=="Asian"),]$At_Least_One_Vaccination <- 100*race_vaccine_recent[which(race_vaccine_recent$Race=="Asian"),]$RECIPIENT_COUNT / population_asian
+
+    racesum[which(racesum$Group=="Asian"),]$Fully_Vaccinated <- 100*race_vaccine_recent[which(race_vaccine_recent$Race=="Asian"),]$RECIP_FULLY_VACC / population_asian
+
+
+    racesum[which(racesum$Group=="Black or African American"),]$At_Least_One_Vaccination <- 100*race_vaccine_recent[which(race_vaccine_recent$Race=="Black Or African American"),]$RECIPIENT_COUNT / population_black_africanamerican
+
+    racesum[which(racesum$Group=="Black or African American"),]$Fully_Vaccinated <- 100*race_vaccine_recent[which(race_vaccine_recent$Race=="Black Or African American"),]$RECIP_FULLY_VACC / population_black_africanamerican
+
+
+    racesum[which(racesum$Group=="White"),]$At_Least_One_Vaccination <- 100*race_vaccine_recent[which(race_vaccine_recent$Race=="White"),]$RECIPIENT_COUNT / population_white
+
+    racesum[which(racesum$Group=="White"),]$Fully_Vaccinated <- 100*race_vaccine_recent[which(race_vaccine_recent$Race=="White"),]$RECIP_FULLY_VACC / population_white
+
+    sumtab <- racesum
+
+
+    ethnicitysum <- data.frame(Category="Ethnicity", Group=c("Hispanic", "Not Hispanic or Latino"), Positive_Covid_Test=NA, Covid_Death=NA, At_Least_One_Vaccination=NA, Fully_Vaccinated=NA)
+    ethnicity_recent <- subset(ethnicity, Date==max(ethnicity$Date))
+    for (i in seq_along(ethnicitysum$Group)) {
+        ethnicitysum$Positive_Covid_Test[i] <- ethnicity_recent$percent_of_demographic_with_cases[which(ethnicity_recent$CAT_DETAIL==ethnicitysum$Group[i])]
+        ethnicitysum$Covid_Death[i] <- ethnicity_recent$percent_of_demographic_dead[which(ethnicity_recent$CAT_DETAIL==ethnicitysum$Group[i])]
+
+    }
+    ethnicity_vaccine_recent <- subset(ethnicity_vaccine, DATE==max(ethnicity_vaccine$DATE))
+
+    ethnicitysum[which(ethnicitysum$Group=="Hispanic"),]$At_Least_One_Vaccination <- 100*ethnicity_vaccine_recent[which(ethnicity_vaccine_recent$Ethnicity=="Hispanic Or Latino"),]$RECIPIENT_COUNT / population_hispanic
+
+    ethnicitysum[which(ethnicitysum$Group=="Hispanic"),]$Fully_Vaccinated <- 100*ethnicity_vaccine_recent[which(ethnicity_vaccine_recent$Ethnicity=="Hispanic Or Latino"),]$RECIP_FULLY_VACC / population_hispanic
+
+
+    ethnicitysum[which(ethnicitysum$Group=="Not Hispanic or Latino"),]$At_Least_One_Vaccination <- 100*ethnicity_vaccine_recent[which(ethnicity_vaccine_recent$Ethnicity=="Not Hispanic Or Latino"),]$RECIPIENT_COUNT / population_not_hispanic
+
+    ethnicitysum[which(ethnicitysum$Group=="Not Hispanic or Latino"),]$Fully_Vaccinated <- 100*ethnicity_vaccine_recent[which(ethnicity_vaccine_recent$Ethnicity=="Not Hispanic Or Latino"),]$RECIP_FULLY_VACC / population_not_hispanic
+
+    sumtab <- rbind(sumtab, ethnicitysum)
+
+    sexsum <- data.frame(Category="Sex", Group=c("Female", "Male"), Positive_Covid_Test=NA, Covid_Death=NA, At_Least_One_Vaccination=NA, Fully_Vaccinated=NA)
+    sex_recent <- subset(sex, Date==max(sex$Date))
+    for (i in seq_along(sexsum$Group)) {
+        sexsum$Positive_Covid_Test[i] <- sex_recent$percent_of_demographic_with_cases[which(sex_recent$CAT_DETAIL==sexsum$Group[i])]
+        sexsum$Covid_Death[i] <- sex_recent$percent_of_demographic_dead[which(sex_recent$CAT_DETAIL==sexsum$Group[i])]
+
+    }
+    sex_vaccine_recent <- subset(sex_vaccine, DATE==max(sex_vaccine$DATE))
+
+    sexsum[which(sexsum$Group=="Female"),]$At_Least_One_Vaccination <- 100*sex_vaccine_recent[which(sex_vaccine_recent$Sex=="Female"),]$RECIPIENT_COUNT / population_female
+
+    sexsum[which(sexsum$Group=="Female"),]$Fully_Vaccinated <- 100*sex_vaccine_recent[which(sex_vaccine_recent$Sex=="Female"),]$RECIP_FULLY_VACC / population_female
+
+    sexsum[which(sexsum$Group=="Male"),]$At_Least_One_Vaccination <- 100*sex_vaccine_recent[which(sex_vaccine_recent$Sex=="Male"),]$RECIPIENT_COUNT / population_male
+
+    sexsum[which(sexsum$Group=="Male"),]$Fully_Vaccinated <- 100*sex_vaccine_recent[which(sex_vaccine_recent$Sex=="Male"),]$RECIP_FULLY_VACC / population_male
+
+    sumtab <- rbind(sumtab, sexsum)
+
+    sumtab[,c(3,5,6)] <- round(sumtab[,c(3,5,6)], 1)
+    sumtab[,4] <- round(sumtab[,4], 2)
+
+    for(i in seq(from=3, to=6, by=1)) {
+    sumtab[,i] <- paste0(sumtab[,i], "%")
+    }
+    colnames(sumtab) <-gsub("_", " ",colnames(sumtab) )
+    for (i in sequence(nrow(sumtab))) {
+    for (j in sequence(ncol(sumtab))) {
+        if(sumtab[i,j]=="NA%") {
+        sumtab[i,j]<- ""
+        }
+    }
+    }
+    sumtab[which(sumtab=="NA%")] <- " "
+    return(sumtab)
+}
+
+ComputeSummaryTableFraction <- function(sumtab){
+    sumtab$'Positive Covid Test' <- paste0("1/",round(100/as.numeric(gsub("%", "", sumtab$'Positive Covid Test')),0))
+    sumtab$'Covid Death' <- paste0("1/",round(100/as.numeric(gsub("%", "", sumtab$'Covid Death')),0))
+    #sumtab$'At Least One Vaccination' <- paste0("10/",round(1000/as.numeric(gsub("%", "", sumtab$'At Least One Vaccination')),0))
+   # sumtab$'Fully Vaccinated' <- paste0("10/",round(1000/as.numeric(gsub("%", "", sumtab$'Fully Vaccinated')),0))
+    for (i in sequence(nrow(sumtab))) {
+        for (j in sequence(ncol(sumtab))) {
+            if(grepl("/NA", sumtab[i,j])) {
+                sumtab[i,j] <- ""
+            }
+        }
+    }
+    return(sumtab)
+}
+
+CreateSalivaData <- function() {
+
+    saliva_data <- read.csv(file="7 LIVE_saliva_test_data_Page 1_Table.csv", stringsAsFactors=FALSE)
+    saliva_data2 <- read.csv(file="LIVE spring 2021 saliva table_Page 1_Table.csv", stringsAsFactors=FALSE)
+    saliva_data2 <- subset(saliva_data2, Category=="Residents")
+    saliva_data2$Locations <- "Residents"
+    saliva_data2$Week <- saliva_data2$Week.ending
+    saliva_data2$Positive.diagnostic.tests. <- saliva_data2$Positive.diagnostic.tests
+    saliva_data2$Positive.pools <- saliva_data2$Number.of.positive.pools
+
+    saliva_data2$Participation.rate <- as.numeric(gsub('%', '', saliva_data2$Participation.rate))/100
+    saliva_data <- plyr::rbind.fill(saliva_data, saliva_data2)
+
+    saliva_data$Active_cases_per_100k = 100000*saliva_data$Positive.diagnostic.tests./saliva_data$Samples
+    saliva_data$Active_cases_per_30k = 30000*saliva_data$Positive.diagnostic.tests./saliva_data$Samples
+    saliva_data$New_cases_per_100k = saliva_data$Active_cases_per_100k / 14
+    saliva_data$DATE <- as.Date(saliva_data$Week,"%b %d, %Y")
+
+    saliva_data$New_cases_per_100k_lower <- 100000*binom::binom.confint(saliva_data$Positive.diagnostic.tests., saliva_data$Samples, method="exact")$lower/14
+    saliva_data$New_cases_per_100k_upper<- 100000*binom::binom.confint(saliva_data$Positive.diagnostic.tests., saliva_data$Samples, method="exact")$upper/14
+    return(saliva_data)
+}
+
+ComputeUTKCasesOld <- function() {
+
+    webfiles <- list.files(path="/Users/bomeara/Dropbox/UTKCovid", pattern="*html", full.names =TRUE)
+    utk.cases <- data.frame()
+    for(i in seq_along(webfiles)) {
+    raw <- paste0(readLines(webfiles[i]),collapse=" ")
+    raw <- gsub('\\x3c', '', raw, fixed=TRUE)
+    raw <- gsub('\\x3d', '', raw, fixed=TRUE)
+    raw <- gsub('\\x3e', '', raw, fixed=TRUE)
+    raw <- gsub('/span/tdtd style\"width: \\d+\\.*\\d*%;\"span style\"font-size: 18px;\"', '', raw, fixed=FALSE)
+    raw <- gsub('/span/tdtd style\"width: \\d+\\.*\\d*%; text-align: left;\"span style\"font-size: 18px;\"', '', raw, fixed=FALSE)
+    students <- as.numeric(gsub("Students", "", stringr::str_extract(raw, "Students\\d+")))
+        faculty <- as.numeric(gsub("Faculty", "", stringr::str_extract(raw, "Faculty\\d+")))
+        staff <- as.numeric(gsub("Staff", "", stringr::str_extract(raw, "Staff\\d+")))
+    actual_time <- anytime::anytime(stringr::str_extract(webfiles[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
+    result <- data.frame(date=rep(actual_time, 3), count=c(students, faculty, staff), group=c("students", "faculty", "staff"))
+    if(i==1) {
+        utk.cases <- result
+    } else {
+        utk.cases <- rbind(utk.cases, result)
+    }
+    }
+    utk.cases$group <- as.factor(utk.cases$group)
+    return(utk.cases)
+}
+
+ComputeUTKActiveCasesReported <- function() {
+
+    utk_active_cases_reported <- read.csv("1 active cases_Page 1_Line chart.csv")
+    utk_active_cases_reported$DATE <- as.Date(utk_active_cases_reported[,1], "%B %d, %Y")
+    utk_active_cases_reported$ProportionFacultyStaff <- utk_active_cases_reported$Employees/6600 # Using size of pool from Chancellor update of Aug 19, 2021
+    utk_active_cases_reported$ProportionStudents <- utk_active_cases_reported$Students/30000 # Using size of pool from Chancellor update of Aug 19, 2021
+    utk_active_cases_reported$StudentProportionOverEmployeeProportion <- utk_active_cases_reported$ProportionStudents/utk_active_cases_reported$ProportionFacultyStaff
+    return(utk_active_cases_reported)
+}
+
+ComputeUTKIsolationsReported <- function() {
+    utk_isolations_reported_raw <- read.csv("3 active self_isolations_group_Page 1_Bar chart.csv")
+    utk_isolations_reported_raw$DATE <- as.Date(utk_isolations_reported_raw[,1], "%B %d, %Y")
+    utk_isolations_reported <- rbind(
+        data.frame(DATE=utk_isolations_reported_raw$DATE, Percentage=100*utk_isolations_reported_raw$Employees/6600, Population="Employees"),
+        data.frame(DATE=utk_isolations_reported_raw$DATE, Percentage=100*utk_isolations_reported_raw$Students..residential./8000, Population="Students (residential)"),
+        data.frame(DATE=utk_isolations_reported_raw$DATE, Percentage=100*utk_isolations_reported_raw$Students..non.residential./22000, Population="Students (nonresidential)")
+    )
+    return(utk_isolations_reported)
+}

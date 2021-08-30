@@ -1,0 +1,34 @@
+---
+title: Oak Ridge Schools
+output: html_document
+---
+
+Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, whicn includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of positive covid cases year to date"}
+source("_packages.R")
+tar_load(schools_oakridge)
+nonzero_schools <- unique(subset(schools_oakridge, PercentPositiveStudentsYearToDate>0)$School)
+nonzero_schools <- nonzero_schools[!grepl("Totals for",nonzero_schools)]
+schools_oakridge_nonzero <- schools_oakridge[which(schools_oakridge$School %in% nonzero_schools),]
+data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
+data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentPositiveStudentsYearToDate,1), '%)')
+try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=School)) + theme_classic() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentPositiveStudentsYearToDate)))
+print(oakridge_schools_ytd)
+```
+
+The plot below shows the proportion of students with active covid cases at any one time. Willow Brook Elementary had mandatory masking put in place starting Monday, Aug. 9, 2021. Jefferson and Robertsville Middle Schools had mask mandates put in place starting Monday, Aug. 16, 2021. In response to Gov. Lee's executive order 84 allowing parents to opt out of mask mandates, on Wed., Aug. 19, 2021, Oak Ridge Schools [chose to eliminate all mask mandates](https://oakridgetoday.com/2021/08/20/oak-ridge-schools-will-not-require-masks-after-governors-order/). However, mask mandates (though with parental opt outs) were reinstated at a [school board meeting on Aug. 23, 2021](https://oakridgetoday.com/2021/08/23/oak-ridge-schools-approves-mask-mandate/).
+
+The [CDC](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/k-12-guidance.html) and the [American Academy of Pediatrics](https://www.aappublications.org/news/2021/07/18/schools-071821) recommend that everyone in schools over the age of 2 wear a mask. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases now in Oak Ridge schools"}
+data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
+data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentActiveCovidStudents,1), '%)')
+
+try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_classic() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)))
+print(oakridge_schools_active)
+```
+
+I also maintain [vaccication.org](http://vaccication.org). This has information about vaccination in various US counties; below is the page for Anderson County, home of Oak Ridge (which also is part of Roane County). Pay special note to the vaccination rate for those age 12-18.
+
+<iframe src='https://vaccication.org/counties/Anderson_TN.html' width="100%" height=1600></iframe>

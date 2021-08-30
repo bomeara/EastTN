@@ -1,0 +1,50 @@
+---
+title: Vaccination
+output: html_document
+---
+
+
+Tennessee releases information on demographics of individuals getting vaccinated. All terminology follows that used by the state, including terms like race and sex. The way the census and Tennessee count individuals who identify as not being in Asian, White, or Black or African American groups (people who are multiracial, Native American, Pacific Islander, other) seems to differ in ways that make calculating the percentage of members of the these groups difficult; the same happens for people who do not identify as male or female.
+
+You can also look at rates for counties like [Knox](https://vaccication.org/counties/Knox_TN.html) or [Anderson](https://vaccication.org/counties/Anderson_TN.html) on my [vaccication.org](https://vaccication.org) site (made for people considering travel during summer 2021, before delta started spreading, to see how safe different counties would be, with look up by place names, too (so you can see what it is like at [Disney World](https://vaccication.org/counties/Orange_FL.html) without knowing its county)).
+
+```{r vaccination1, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+source("_packages.R")
+tar_load(covid_by_demographic_in_tn)
+race <- covid_by_demographic_in_tn$race
+ethnicity <- covid_by_demographic_in_tn$ethnicity
+sex <- covid_by_demographic_in_tn$sex
+race_vaccine <- covid_by_demographic_in_tn$race_vaccine
+ethnicity_vaccine <- covid_by_demographic_in_tn$ethnicity_vaccine
+sex_vaccine <- covid_by_demographic_in_tn$sex_vaccine
+
+
+plot_race_covid_vaccination_full <- ggplot(race_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Race)) + geom_line(aes(colour=Race))+ xlab("Date") + ylim(0,100) + theme_classic() + ylab("Percentage of people fully vaccinated") 
+print(plot_race_covid_vaccination_full)
+
+plot_ethnicity_covid_vaccination_full <- ggplot(ethnicity_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ xlab("Date") + theme_classic() + ylim(0,100) + ylab("Percentage of people fully vaccinated") 
+print(plot_ethnicity_covid_vaccination_full)
+
+plot_sex_covid_vaccination_full <- ggplot(sex_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Sex)) + geom_line(aes(colour=Sex))+ xlab("Date") + theme_classic() + ylim(0,100) + ylab("Percentage of people fully vaccinated") 
+print(plot_sex_covid_vaccination_full)
+
+#vax_plot <- ggarrange(plot_race_covid_vaccination_full, plot_ethnicity_covid_vaccination_full, plot_sex_covid_vaccination_full, labels=c("", "", ""), ncol=3, nrow=1)
+#print(vax_plot)
+```
+
+One concern has been changes in the number of people getting vaccinated over time. These plots show for each demographic group the percentage of individuals in that group getting fully vaccinated (7 day rolling mean). There has been an expansion of who can get vaccinated: adults in high risk categories, all adults, children age 12 and up. These plots show the dramatic decrease in demand for getting vaccinated, despite the proportion of fully vaccinated people being well below what is recommended. The vaccination capacity is clearly higher than demand at the moment.
+
+```{r vaccination_increase, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+
+plot_race_covid_vaccination_delta_full <- ggplot(subset(race_vaccine, !is.na(race_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Race)) + geom_line(aes(colour=Race))+ theme_classic() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
+print(plot_race_covid_vaccination_delta_full)
+
+plot_ethnicity_covid_vaccination_delta_full <- ggplot(subset(ethnicity_vaccine, !is.na(ethnicity_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ theme_classic() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
+print(plot_ethnicity_covid_vaccination_delta_full)
+
+plot_sex_covid_vaccination_delta_full <- ggplot(subset(sex_vaccine, !is.na(sex_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Sex)) + geom_line(aes(colour=Sex))+ theme_classic() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
+print(plot_sex_covid_vaccination_delta_full)
+
+#vax_speed_plot <- ggarrange(plot_race_covid_vaccination_delta_full, plot_ethnicity_covid_vaccination_delta_full, plot_sex_covid_vaccination_delta_full, labels=c("", "", ""), ncol=3, nrow=1)
+#print(vax_speed_plot)
+```

@@ -26,6 +26,17 @@ list(
   tar_target(hhs_capacity_tn, CreateHHSDataTN()),
   tar_target(hhs_capacity_tn_focal_latest, CreateHHSDataFocalCities(hhs_capacity_tn)),
   tar_target(hhs_capacity_tn_focal_latest_pretty, CreateHHSDataFocalCitiesPretty(hhs_capacity_tn_focal_latest)),
-  tar_render(yearbyyear, "yearbyyear.Rmd", params = list(daily_focal=daily_focal, schoolkids_daily=schoolkids_daily))
+  tar_target(covid_by_demographic_in_tn, CreateDemographicDataInTN()),
+  tar_target(sumtab, CreateSummaryTable(covid_by_demographic_in_tn)),
+  tar_target(sumtabfraction, ComputeSummaryTableFraction(sumtab)),
+  tar_target(saliva_data, CreateSalivaData()),
+  tar_target(utk.cases, ComputeUTKCasesOld()),
+  tar_target(utk_active_cases_reported, ComputeUTKActiveCasesReported()),
+  tar_target(utk_isolations_reported, ComputeUTKIsolationsReported())
+
+  #tar_render(yearbyyear, "yearbyyear.Rmd", params = list(daily_focal=daily_focal, schoolkids_daily=schoolkids_daily)),
+  #tar_render(indexhtml, "index.Rmd", params = list(sumtab=sumtabfraction)),
+  #tar_render(oakridgeschools, "oakridgeschools.Rmd", params = list(schools_oakridge=schools_oakridge))
+
 
 )
