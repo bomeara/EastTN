@@ -12,7 +12,7 @@ library(targets)
 
 source("R/functions.R")
 source("_packages.R")
-options(timeout=600) # let things download for at least ten minutes
+options(timeout=1200) # let things download for at least 20 minutes
 options(download.file.method = "libcurl")
 
 
@@ -23,9 +23,9 @@ list(
   tar_target(schoolkids_daily, CreateSchoolkidsDaily()),
   tar_target(hospital_knox, CreateHospitalKnox()),
   tar_target(schools_oakridge, CreateSchoolsOakRidge()),
-  tar_target(hhs_capacity_tn, CreateHHSDataTN()),
-  tar_target(hhs_capacity_tn_focal_latest, CreateHHSDataFocalCities(hhs_capacity_tn)),
-  tar_target(hhs_capacity_tn_focal_latest_pretty, CreateHHSDataFocalCitiesPretty(hhs_capacity_tn_focal_latest)),
+  #tar_target(hhs_capacity_tn, CreateHHSDataTN()),
+  #tar_target(hhs_capacity_tn_focal_latest, CreateHHSDataFocalCities(hhs_capacity_tn)),
+  #tar_target(hhs_capacity_tn_focal_latest_pretty, CreateHHSDataFocalCitiesPretty(hhs_capacity_tn_focal_latest)),
   tar_target(covid_by_demographic_in_tn, CreateDemographicDataInTN()),
   tar_target(sumtab, CreateSummaryTable(covid_by_demographic_in_tn)),
   tar_target(sumtabfraction, ComputeSummaryTableFraction(sumtab)),
