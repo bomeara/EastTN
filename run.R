@@ -3,7 +3,7 @@ source("_packages.R")
 source("R/functions.R")
 #options(clustermq.scheduler = "multiprocess")
 #tar_make_clustermq(workers = parallel::detectCores()-1)
-rerun <- FALSE
+rerun <- TRUE
 if(rerun) {
 	tar_invalidate(contains("_"))
 	tar_invalidate(contains("sum"))

@@ -4,7 +4,12 @@ output: html_document
 ---
 
 
-Official information about covid at UTK available at https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options. CDC guidance for institutions of higher education who don't require vaccination, which includes UTK, is [here](https://www.cdc.gov/coronavirus/2019-ncov/community/colleges-universities/considerations.html#section3). There are also CDC recommendations for everywhere, not just higher education: Knox County is currently an area with substantial to high covid spread, so **the CDC recommendation is that everyone wear masks indoors, even those fully vaccinated**.
+Official information about covid at UTK available at https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options. CDC guidance for institutions of higher education who don't require vaccination, which includes UTK, is [here](https://www.cdc.gov/coronavirus/2019-ncov/community/colleges-universities/considerations.html#section3). There are also CDC recommendations for everywhere, not just higher education: Knox County is currently an area with substantial to high covid spread, so **the CDC recommendation is that everyone wear masks indoors, even those fully vaccinated**. Some of the other dashboards other the the one below:
+
+* [UTK's Covid Dashboard](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options.html). Updated weekly
+* [UT System Dashboard](https://tennessee.edu/coronavirus/dashboard/). Updated daily, with a potential for filtering by campus
+* [Alex Zukowski Dashboard](https://sites.google.com/view/utk-covid19). Created by a UTK student.
+* [Matthew Martin Dashboard](https://datastudio.google.com/s/lKcORv-VO2Q). Created by another UTK student.
 
 UTK is releasing [some data](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options/), though less than some peers or UTK itself last academic year. I cannot find information on number of tests at the student health center, test positivity rate, saliva testing, or wastewater testing. There is no data on vaccination rate in the student body in general or in faculty or staff, nor on hospitalization or death rates. Students in university housing, and their close contacts who are unvaccinated, may have to seek alternate places to live at their own cost if they test positive for covid until the self-isolation period is over. 
 
