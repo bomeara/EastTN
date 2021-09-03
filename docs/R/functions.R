@@ -93,6 +93,7 @@ CreateHospitalKnox <- function() {
         local_beds$Current.Utilization <- as.numeric(gsub('%','', local_beds$Current.Utilization))
         local_beds$Available.Capacity <- as.numeric(gsub('%','', local_beds$Available.Capacity))
         local_beds$Date <- anytime::anytime(stringr::str_extract(hospital_knox_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
+		colnames(local_beds) <- gsub("\\.$", "", colnames(local_beds))
         if (i==1) {
             hospital_knox <- local_beds
         } else {

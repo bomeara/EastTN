@@ -12,5 +12,5 @@ if(rerun) {
 tar_make()
 rmarkdown::render_site()
 #system("open docs/index.html")
-#system("git commit -m'updated data' -a")
-#system('git push')
+system("git commit -m'updated data' -a")
+system('git push')
