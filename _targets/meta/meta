@@ -6,7 +6,7 @@ CreateHospitalKnox|function|82f4fc2d197b18bc||||||||||||||
 CreateSchoolsOakRidge|function|a281e427b1b34968||||||||||||||
 ComputeSummaryTableFraction|function|a69c5211151931e9||||||||||||||
 FocalCountiesEastTN|function|0c89dba02f5e5384||||||||||||||
-.Random.seed|object|b0f314a57eadae54||||||||||||||
+.Random.seed|object|d970d078935f5b14||||||||||||||
 CreateHHSDataFocalCitiesPretty|function|b81e1b621769e73f||||||||||||||
 FocalCountiesHospitalKnoxArea|function|d7f7d9a717d146d0||||||||||||||
 ComputeUTKCasesOld|function|2a93706fd3ada3bb||||||||||||||
@@ -19,14 +19,14 @@ CreateHHSDataTN|function|fe4621ce9e4ccdff||||||||||||||
 ComputeUTKIsolationsReported|function|c6644cef7e53cd29||||||||||||||
 CreateSchoolkidsDaily|function|7b4ff9a76c781e3f||||||||||||||
 CreateDailyFocal|function|5c30d3f9e81d240b||||||||||||||
-utk_active_cases_reported|stem|6cec5af2ef1b5381|63c504ab5a3e108d|d31afc996d576229|1499524117||t18874.7183967938s|11e15f06e12fd3e4|7019|rds|vector|||0.005||
-schoolkids_daily|stem|bcae19884babf5cd|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18874.7184246436s|e3472a49c072c417|8184|rds|vector|||2.39||
-covid_by_demographic_in_tn|stem|51db35100eb0b977|bbae286ae893afb2|afff393fe82a31e5|284864431||t18874.7184466505s|8c49cf1d9f904b60|243747|rds|vector|||1.876||
-saliva_data|stem|684ef797925256b0|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18874.7184469541s|b22f121d9f154410|2108|rds|vector|||0.021||
-utk.cases|stem|34f4908bce9f9abd|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18874.7185709895s|03f6889c95fdc837|4883|rds|vector|||10.712||
-utk_isolations_reported|stem|e50f667e68898a39|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18874.7185711532s|911d7a825f27239f|3455|rds|vector|||0.01||
-schools_oakridge|stem|cccebb5ea0493a0e|5ef76551f256f52d|480ce473a321c6b1|340842418||t18874.7185732331s|c5d5fb8969daffc1|3323|rds|vector|||0.177||
-hospital_knox|stem|b9979e221fc49a8b|69f903d639eb813d|deff990b6488cb9b|-977223956||t18874.7186269771s|1952a6b109568ec0|29457|rds|vector|||4.632|the condition has length  1 and only the first element will be used|
-daily_focal|stem|ce0b528691ad4ce4|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18874.718719868s|4ace9479b44c72db|130187|rds|vector|||8||
-sumtab|stem|17899ea952714a59|62c71d0987f6fe42|e041334053c0fc3b|-1100657709||t18874.7187218434s|98594e1ece5d97aa|469|rds|vector|||0.14||
-sumtabfraction|stem|271ccaa9ec54beab|019189a1de934492|2ce40d79f111cc6a|1297427247||t18874.7187220213s|ab391a7f8bcafba3|473|rds|vector|||0.009||
+utk_active_cases_reported|stem|6cec5af2ef1b5381|63c504ab5a3e108d|d31afc996d576229|1499524117||t18874.9621521731s|11e15f06e12fd3e4|7019|rds|vector|||0.004||
+schoolkids_daily|stem|bcae19884babf5cd|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18874.96217099s|e3472a49c072c417|8184|rds|vector|||1.611||
+covid_by_demographic_in_tn|stem|51db35100eb0b977|bbae286ae893afb2|afff393fe82a31e5|284864431||t18874.9621919043s|8c49cf1d9f904b60|243747|rds|vector|||1.78||
+saliva_data|stem|684ef797925256b0|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18874.962192193s|b22f121d9f154410|2108|rds|vector|||0.02||
+utk.cases|stem|34f4908bce9f9abd|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18874.9623083042s|03f6889c95fdc837|4883|rds|vector|||10.028||
+utk_isolations_reported|stem|e50f667e68898a39|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18874.9623084849s|911d7a825f27239f|3455|rds|vector|||0.011||
+schools_oakridge|stem|b6983dbb4ec99f6b|5ef76551f256f52d|480ce473a321c6b1|340842418||t18874.9623102451s|7db2c1ab339fc76d|3353|rds|vector|||0.149||
+hospital_knox|stem|b9979e221fc49a8b|69f903d639eb813d|deff990b6488cb9b|-977223956||t18874.9623638985s|1952a6b109568ec0|29457|rds|vector|||4.623|the condition has length  1 and only the first element will be used|
+daily_focal|stem|ce0b528691ad4ce4|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18874.962435741s|4ace9479b44c72db|130187|rds|vector|||6.184||
+sumtab|stem|17899ea952714a59|62c71d0987f6fe42|e041334053c0fc3b|-1100657709||t18874.9624374337s|98594e1ece5d97aa|469|rds|vector|||0.138||
+sumtabfraction|stem|271ccaa9ec54beab|019189a1de934492|2ce40d79f111cc6a|1297427247||t18874.9624376397s|ab391a7f8bcafba3|473|rds|vector|||0.01||
