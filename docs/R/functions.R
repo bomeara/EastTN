@@ -642,3 +642,15 @@ GetZukowskiData <- function() {
 	zukowski_data$DATE <- as.Date(zukowski_data$DATE, "%Y-%m-%d")
 	return(zukowski_data)
 }
+
+Get17To25Knox <- function() {
+
+    temp = tempfile(fileext = ".xlsx")
+    dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/Public-Dataset-Daily-County-Cases-17-25-Years.XLSX"
+    download.file(dataURL, destfile=temp, mode='wb')
+
+    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("date", "text", rep("numeric",8)))
+    daily_knox <- subset(daily, COUNTY=="Knox")
+    daily_knox$DATE <- as.Date(daily_knox$DATE)
+    return(daily_knox)
+}

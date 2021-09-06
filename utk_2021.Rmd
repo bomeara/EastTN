@@ -21,6 +21,7 @@ Note that UTK's data is released [here](https://www.utk.edu/coronavirus/guides/d
 source("_packages.R")
 tar_load(utk_active_cases_reported)
 tar_load(zukowski_data)
+tar_load(knox17to25)
 #utk_active_cases_pivoted <- data.frame(DATE=rep(utk_active_cases_reported$DATE,2), PercentageActive=100*c(utk_active_cases_reported$ProportionFacultyStaff, utk_active_cases_reported$ProportionStudents), Population=c(rep("Employees", nrow(utk_active_cases_reported)),rep("Students", nrow(utk_active_cases_reported) )))
 utk_active_cases_pivoted <- data.frame(DATE=rep(zukowski_data$DATE,2), PercentageActive=as.numeric(gsub('%', '', c(zukowski_data$CASES_ACTIVE_EMPLOYEES_PERPOP, zukowski_data$CASES_ACTIVE_STUDENTS_PERPOP))), Population=c(rep("Employees", nrow(zukowski_data)),rep("Students", nrow(zukowski_data) )))
 
@@ -40,6 +41,15 @@ utk_isolations_pivoted <- data.frame(DATE=rep(zukowski_data$DATE,3), Percentage=
 utk_isolations_plot <- ggplot(subset(utk_isolations_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,.1+round(max(utk_isolations_pivoted$Percentage)))  + scale_colour_viridis_d(end=0.8) + theme_classic() 
 
 print(utk_isolations_plot)
+```
+
+There is separate [data from the state](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html) on cases of people age 17 to 25 in Knox County. This may include UTK student data (it is unclear what the address used is for students being tested). Note that here I'm plotting all the new cases in UTK, not just those by students: new cases are not being separated out by population. However, the vast majority of UTK cases are in the student body.
+
+```{r local_comparison, echo=FALSE, message=FALSE, warning=FALSE}
+local_cases <- data.frame(DATE=c(zukowski_data$DATE,knox17to25$DATE), Cases=c(zukowski_data$CASES_NEW, knox17to25$NEW_CASES), Population=c(rep("UTK all", nrow(zukowski_data)), rep("Knox County age 17-25", nrow(knox17to25))))
+local_cases_plot <- ggplot(local_cases, aes(x=DATE, y=Cases, group=Population, colour=Population)) +  geom_line() + ylab("Number of new cases per day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+print(local_cases_plot)
+
 ```
 
 From Aug. 2, 2021, to August 22, 2021, UT's policy was for masks to be worn in classrooms, labs, and during indoor mandatory training events. Spaces like hallways, dining halls, elevators, and libraries were not included in this requirement, in contrast to the CDC's recommendations in order to **protect others and themselves** by wearing masks in all indoor spaces. On Aug. 23, 2021, UT instituted a mask mandate in all indoor spaces except for private indoor spaces, dining, and other limited exceptions. Unlike [over 650 other colleges and universities](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), UTK has no vaccination mandate in general (there may be exceptions in particular areas, like nursing with high patient contact). According to an [Aug. 2 notice by the Chancellor](https://chancellor.utk.edu/2021/08/02/updated-covid-guidelines/), the university will no longer be requesting saliva testing to track spread (though testing kits are available in the student health center). I do not know of data on vaccination rate at UTK; a rough estimate may come from LSU, which as of [Aug. 2 had a 34% vaccination rate among students](https://www.washingtonpost.com/education/2021/08/06/college-covid-vaccines-student-rates/).
