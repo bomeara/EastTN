@@ -6,7 +6,7 @@ output: html_document
 
 Official information about covid at UTK available at https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options. CDC guidance for institutions of higher education who don't require vaccination, which includes UTK, is [here](https://www.cdc.gov/coronavirus/2019-ncov/community/colleges-universities/considerations.html#section3). There are also CDC recommendations for everywhere, not just higher education: Knox County is currently an area with substantial to high covid spread, so **the CDC recommendation is that everyone wear masks indoors, even those fully vaccinated**. Some of the other dashboards other the the one below:
 
-* [UTK's Covid Dashboard](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options.html). Updated weekly
+* [UTK's Covid Dashboard](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options.html). Updated weekdays
 * [UT System Dashboard](https://tennessee.edu/coronavirus/dashboard/). Updated daily, with a potential for filtering by campus
 * [Alex Zukowski Dashboard](https://sites.google.com/view/utk-covid19). Created by a UTK student.
 * [Matthew Martin Dashboard](https://datastudio.google.com/s/lKcORv-VO2Q). Created by another UTK student.
