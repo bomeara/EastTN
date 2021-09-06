@@ -148,7 +148,7 @@ CreateSchoolsKnox <- function() {
     school_knox_info$Date <- as.Date(school_knox_info$Date,"%b %d, %Y")
     colnames(school_knox_info) <- c("Date", "Active_Staff_Count", "Active_Students_Count")
     school_knox_info$Active_Staff_Percent <- 100*school_knox_info$Active_Staff_Count/staff_total
-    school_knox_info$Active_Student_Percent <- 100*school_knox_info$Active_Students_Count/student_total
+    school_knox_info$Active_Students_Percent <- 100*school_knox_info$Active_Students_Count/student_total
     return(school_knox_info)
 }
 
