@@ -15,7 +15,7 @@ UTK is releasing [some data](https://www.utk.edu/coronavirus/guides/data-monitor
 
 The first plot shows the percentage of students and employees with active covid cases *known to UTK* at any one time. I am curious about the overall trend in each, as well as about which group has more reported cases at the moment. One guess could be that covid proportion might be higher among students (high density housing, generally lower vaccination rate for younger populations), but they might get tested at lower rates. Approximate total population size in each group comes from the Chancellor's update of Aug. 19, 2021.
 
-Note that UTK's data is released [here](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options/), but it requires manual download; I am taking advantage of [Alex Zukowski's website](https://sites.google.com/view/utk-covid19/data?authuser=0) to get their compilation of the data.
+Note that UTK's data is released [here](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options/), but it requires manual download; I am taking advantage of [Alex Zukowski's website](https://sites.google.com/view/utk-covid19/data?authuser=0) to get that compilation of the data. Citation: Zukowski, Taylor A. “University of Tennessee, Knoxville COVID-19 Dataset.” COVID-19 in The University of Tennessee, Knoxville, 2020, sites.google.com/view/utk-covid19/data
 
 ```{r utk2021, echo=FALSE, message=FALSE, warning=FALSE}
 source("_packages.R")
@@ -43,7 +43,7 @@ utk_isolations_plot <- ggplot(subset(utk_isolations_pivoted, DATE>="2021-08-01")
 print(utk_isolations_plot)
 ```
 
-There is separate [data from the state](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html) on cases of people age 17 to 25 in Knox County. This may include UTK student data (it is unclear what the address used is for students being tested). Note that here I'm plotting all the new cases in UTK, not just those by students: new cases are not being separated out by population. However, the vast majority of UTK cases are in the student body.
+There is a separate [dataset from the state](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html) on cases of people age 17 to 25 in Knox County. This may include UTK student data (it is unclear what the address used is for students being tested). Note that here I'm plotting all the new cases in UTK, not just those by students: new cases are not being separated out by population. However, the vast majority of UTK cases are in the student body.
 
 ```{r local_comparison, echo=FALSE, message=FALSE, warning=FALSE}
 local_cases <- data.frame(DATE=c(zukowski_data$DATE,knox17to25$DATE), Cases=c(zoo::rollmean(zukowski_data$CASES_NEW, k=7, align="right", na.pad=TRUE), zoo::rollmean(knox17to25$NEW_CASES, k=7, align="right", na.pad=TRUE)), Population=c(rep("UTK all", nrow(zukowski_data)), rep("Knox County age 17-25", nrow(knox17to25))))
