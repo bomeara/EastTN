@@ -46,8 +46,8 @@ print(utk_isolations_plot)
 There is separate [data from the state](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html) on cases of people age 17 to 25 in Knox County. This may include UTK student data (it is unclear what the address used is for students being tested). Note that here I'm plotting all the new cases in UTK, not just those by students: new cases are not being separated out by population. However, the vast majority of UTK cases are in the student body.
 
 ```{r local_comparison, echo=FALSE, message=FALSE, warning=FALSE}
-local_cases <- data.frame(DATE=c(zukowski_data$DATE,knox17to25$DATE), Cases=c(zukowski_data$CASES_NEW, knox17to25$NEW_CASES), Population=c(rep("UTK all", nrow(zukowski_data)), rep("Knox County age 17-25", nrow(knox17to25))))
-local_cases_plot <- ggplot(local_cases, aes(x=DATE, y=Cases, group=Population, colour=Population)) +  geom_line() + ylab("Number of new cases per day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+local_cases <- data.frame(DATE=c(zukowski_data$DATE,knox17to25$DATE), Cases=c(zoo::rollmean(zukowski_data$CASES_NEW, k=7, align="right", na.pad=TRUE), zoo::rollmean(knox17to25$NEW_CASES, k=7, align="right", na.pad=TRUE)), Population=c(rep("UTK all", nrow(zukowski_data)), rep("Knox County age 17-25", nrow(knox17to25))))
+local_cases_plot <- ggplot(local_cases, aes(x=DATE, y=Cases, group=Population, colour=Population)) +  geom_line() + ylab("Number of new cases per day (7 day average)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic()
 print(local_cases_plot)
 
 ```
