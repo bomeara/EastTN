@@ -84,26 +84,28 @@ CreateHospitalKnox <- function() {
     hospital_knox_files <- list.files(path="/Users/bomeara/Dropbox/KnoxCovid", pattern="*covid_bed_capacity.csv", full.names=TRUE)
     hospital_knox <- data.frame()
     for (i in seq_along(hospital_knox_files)) {
-    local_beds <- NA
-    try(local_beds <- read.csv(hospital_knox_files[i]), silent=TRUE)
-    if(!is.na(local_beds)) {
-        local_beds$East.Region.Hospitals <- gsub('All Hospital Beds*', 'All Hospital Beds *', gsub('All Hospital Beds *', 'All Hospital Beds', local_beds$East.Region.Hospitals, fixed=TRUE), fixed=TRUE)
-        local_beds$Total.Capacity <- as.numeric(gsub(",",'', local_beds$Total.Capacity))
-        local_beds$Current.Census <- as.numeric(gsub(",",'', local_beds$Current.Census))
-        local_beds$Current.Utilization <- as.numeric(gsub('%','', local_beds$Current.Utilization))
-        local_beds$Available.Capacity <- as.numeric(gsub('%','', local_beds$Available.Capacity))
-        local_beds$Date <- anytime::anytime(stringr::str_extract(hospital_knox_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
-		colnames(local_beds) <- gsub("\\.$", "", colnames(local_beds))
-        if (i==1) {
-            hospital_knox <- local_beds
-        } else {
-            hospital_knox <- rbind(hospital_knox, local_beds)
+        local_beds <- NA
+        try(local_beds <- read.csv(hospital_knox_files[i]), silent=TRUE)
+        if(!is.na(local_beds)) {
+            local_beds$East.Region.Hospitals <- gsub('All Hospital Beds*', 'All Hospital Beds *', gsub('All Hospital Beds *', 'All Hospital Beds', local_beds$East.Region.Hospitals, fixed=TRUE), fixed=TRUE)
+            local_beds$Total.Capacity <- as.numeric(gsub(",",'', local_beds$Total.Capacity))
+            local_beds$Current.Census <- as.numeric(gsub(",",'', local_beds$Current.Census))
+            local_beds$Current.Utilization <- as.numeric(gsub('%','', local_beds$Current.Utilization))
+            local_beds$Available.Capacity <- as.numeric(gsub('%','', local_beds$Available.Capacity))
+            local_beds$Date <- anytime::anytime(stringr::str_extract(hospital_knox_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
+            colnames(local_beds) <- gsub("\\.$", "", colnames(local_beds))
+            if (i==1) {
+                hospital_knox <- local_beds
+            } else {
+                hospital_knox <- rbind(hospital_knox, local_beds)
+            }
         }
-    }
     }
     hospital_knox <- subset(hospital_knox, East.Region.Hospitals != "Adult Floor Beds/Non-ICU")
     hospital_knox <- hospital_knox[which(nchar(hospital_knox$East.Region.Hospitals)>0),]
     hospital_knox$Current.Utilization[which(hospital_knox$Current.Utilization>100)] <- hospital_knox$Current.Utilization[which(hospital_knox$Current.Utilization>100)]/100 #to fix two days of data where Knox County was multiplying these by 100, getting 7935% utilization
+    hospital_knox <- hospital_knox[!grepl('\\*', hospital_knox$East.Region.Hospitals),]
+    colnames(hospital_knox) <- gsub("East.Region.Hospitals", "Resource", colnames(hospital_knox))
     return(hospital_knox)
 }
 

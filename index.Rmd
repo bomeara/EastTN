@@ -7,12 +7,22 @@ params:
 
 The purpose of this is to gather information on how the covid-19 pandemic is progressing in East TN. There are good sites that have info on the pandemic generally across the US and world, but Tennessee as well as local entities put out info that is not captured by these sites. 
 
-I am mostly doing this for my own curiousity as a parent in Oak Ridge, TN; though I work in science, I don't work in epidemiology. Thus, I'm not presenting any predictions of future spread, etc. -- I'm taking published datasets and plotting them. For datasets that are presented as current conditions but do not have a history, I take a copy of them (usually every six hours) to be able to plot how they change over time.
+I am mostly doing this for my own curiosity as a parent in Oak Ridge, TN; though I work in science, I don't work in epidemiology. Thus, I'm not presenting any predictions of future spread, etc. -- I'm taking published datasets and plotting them. For datasets that are presented as current conditions but do not have a history, I take a copy of them (usually every six hours) to be able to plot how they change over time.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("_packages.R")
+source("R/functions.R")
+tar_load(hospital_knox)
+tar_load(daily_focal)
+counties_in_hospital_region <- FocalCountiesEastTN()
+last_hospital_update <- max(hospital_knox$Date)
+```
+
+As of the last time the data were updated (likely `r as.numeric(difftime(Sys.Date(), as.Date(last_hospital_update), units="days"))` days ago), the 19 regional hospitals around Knoxville had only `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, Resource=="ICU Beds")$Total.Capacity,1)` total.
 
 A high level overview of the pandemic in Tennessee as a whole (using Tennessee's definitions of groups):
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-source("_packages.R")
 tar_load(sumtabfraction)
 knitr::kable(sumtabfraction)
 ```
