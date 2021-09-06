@@ -1,3 +1,4 @@
+setwd("/Users/bomeara/Documents/MyDocuments/GitClones/EastTN")
 library(targets)
 source("_packages.R")
 source("R/functions.R")
