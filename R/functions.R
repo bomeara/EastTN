@@ -636,3 +636,9 @@ ComputeUTKIsolationsReported <- function() {
     )
     return(utk_isolations_reported)
 }
+
+GetZukowskiData <- function() {
+	zukowski_data <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRRoX-icFl5a6T5OVpSllMJ3QGVplgdDEKPHtuvEjcDKNEvw5X6dcgGYSMGmynFcdxUwH2u4kZjBTiT/pub?gid=1053792052&single=true&output=csv")
+	zukowski_data$DATE <- as.Date(zukowski_data$DATE, "%Y-%m-%d")
+	return(zukowski_data)
+}

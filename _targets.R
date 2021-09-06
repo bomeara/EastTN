@@ -24,6 +24,7 @@ list(
   tar_target(hospital_knox, CreateHospitalKnox()),
   tar_target(schools_oakridge, CreateSchoolsOakRidge()),
   tar_target(schools_knox, CreateSchoolsKnox()),
+  tar_target(zukowski_data, GetZukowskiData()),
   #tar_target(hhs_capacity_tn, CreateHHSDataTN()),
   #tar_target(hhs_capacity_tn_focal_latest, CreateHHSDataFocalCities(hhs_capacity_tn)),
   #tar_target(hhs_capacity_tn_focal_latest_pretty, CreateHHSDataFocalCitiesPretty(hhs_capacity_tn_focal_latest)),

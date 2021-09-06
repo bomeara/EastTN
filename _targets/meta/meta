@@ -6,7 +6,8 @@ CreateHospitalKnox|function|82f4fc2d197b18bc||||||||||||||
 CreateSchoolsOakRidge|function|a281e427b1b34968||||||||||||||
 ComputeSummaryTableFraction|function|a69c5211151931e9||||||||||||||
 FocalCountiesEastTN|function|0c89dba02f5e5384||||||||||||||
-.Random.seed|object|39241049b3faf39c||||||||||||||
+GetZukowskiData|function|7587815406e8ab5d||||||||||||||
+.Random.seed|object|c81b9cc5ff81707d||||||||||||||
 CreateHHSDataFocalCitiesPretty|function|b81e1b621769e73f||||||||||||||
 FocalCountiesHospitalKnoxArea|function|d7f7d9a717d146d0||||||||||||||
 CreateSchoolsKnox|function|773ec434df7424ac||||||||||||||
@@ -20,15 +21,16 @@ CreateHHSDataTN|function|fe4621ce9e4ccdff||||||||||||||
 ComputeUTKIsolationsReported|function|c6644cef7e53cd29||||||||||||||
 CreateSchoolkidsDaily|function|7b4ff9a76c781e3f||||||||||||||
 CreateDailyFocal|function|5c30d3f9e81d240b||||||||||||||
-utk_active_cases_reported|stem|6cec5af2ef1b5381|63c504ab5a3e108d|d31afc996d576229|1499524117||t18876.5243009754s|11e15f06e12fd3e4|7019|rds|vector|||0.005||
-schoolkids_daily|stem|bcae19884babf5cd|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18876.5243306403s|e3472a49c072c417|8184|rds|vector|||2.535||
-covid_by_demographic_in_tn|stem|51db35100eb0b977|bbae286ae893afb2|afff393fe82a31e5|284864431||t18876.5243682762s|8c49cf1d9f904b60|243747|rds|vector|||3.224||
-saliva_data|stem|684ef797925256b0|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18876.5243686366s|b22f121d9f154410|2108|rds|vector|||0.027||
-utk.cases|stem|52386aca2714aff5|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18876.5245205264s|1439d11aee0d2e4a|4906|rds|vector|||13.119||
-utk_isolations_reported|stem|e50f667e68898a39|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18876.5245207217s|911d7a825f27239f|3455|rds|vector|||0.013||
-schools_oakridge|stem|7f63dd9045b2881e|5ef76551f256f52d|480ce473a321c6b1|340842418||t18876.52452252s|726c570a902ddd9b|3565|rds|vector|||0.151||
-schools_knox|stem|dbc539c0415894f8|c5c9d958016c0d6d|73222adff821258f|-676346400||t18876.5245316747s|cf451525f5cb588d|543|rds|vector|||0.788||
-hospital_knox|stem|c26153837934e0f5|69f903d639eb813d|deff990b6488cb9b|-977223956||t18876.5245847862s|28dd80def01445b1|29625|rds|vector|||4.573|the condition has length  1 and only the first element will be used|
-daily_focal|stem|ce0b528691ad4ce4|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18876.5247347349s|4ace9479b44c72db|130187|rds|vector|||12.929||
-sumtab|stem|17899ea952714a59|62c71d0987f6fe42|e041334053c0fc3b|-1100657709||t18876.5247372638s|98594e1ece5d97aa|469|rds|vector|||0.183||
-sumtabfraction|stem|271ccaa9ec54beab|019189a1de934492|2ce40d79f111cc6a|1297427247||t18876.5247375715s|ab391a7f8bcafba3|473|rds|vector|||0.021||
+utk_active_cases_reported|stem|6cec5af2ef1b5381|63c504ab5a3e108d|d31afc996d576229|1499524117||t18876.5594964646s|11e15f06e12fd3e4|7019|rds|vector|||0.004||
+schoolkids_daily|stem|bcae19884babf5cd|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18876.5595168527s|e3472a49c072c417|8184|rds|vector|||1.748||
+covid_by_demographic_in_tn|stem|51db35100eb0b977|bbae286ae893afb2|afff393fe82a31e5|284864431||t18876.5595342277s|8c49cf1d9f904b60|243747|rds|vector|||1.47||
+saliva_data|stem|684ef797925256b0|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18876.5595348286s|b22f121d9f154410|2108|rds|vector|||0.048||
+zukowski_data|stem|663370c2c3fef4af|a477d1b519a4a710|5c561b6dd0e4bfc8|1575020281||t18876.5595750422s|1a14b3b672d8bd4d|60148|rds|vector|||3.459||
+utk.cases|stem|52386aca2714aff5|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18876.5597455653s|1439d11aee0d2e4a|4906|rds|vector|||14.724||
+utk_isolations_reported|stem|e50f667e68898a39|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18876.5597457462s|911d7a825f27239f|3455|rds|vector|||0.011||
+schools_oakridge|stem|7f63dd9045b2881e|5ef76551f256f52d|480ce473a321c6b1|340842418||t18876.5597507611s|726c570a902ddd9b|3565|rds|vector|||0.43||
+schools_knox|stem|dbc539c0415894f8|c5c9d958016c0d6d|73222adff821258f|-676346400||t18876.5597596128s|cf451525f5cb588d|543|rds|vector|||0.762||
+hospital_knox|stem|c26153837934e0f5|69f903d639eb813d|deff990b6488cb9b|-977223956||t18876.5598226415s|28dd80def01445b1|29625|rds|vector|||5.429|the condition has length  1 and only the first element will be used|
+daily_focal|stem|ce0b528691ad4ce4|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18876.5598866399s|4ace9479b44c72db|130187|rds|vector|||5.507||
+sumtab|stem|17899ea952714a59|62c71d0987f6fe42|e041334053c0fc3b|-1100657709||t18876.559889251s|98594e1ece5d97aa|469|rds|vector|||0.222||
+sumtabfraction|stem|271ccaa9ec54beab|019189a1de934492|2ce40d79f111cc6a|1297427247||t18876.5598894991s|ab391a7f8bcafba3|473|rds|vector|||0.013||

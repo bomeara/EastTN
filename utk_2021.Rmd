@@ -15,12 +15,16 @@ UTK is releasing [some data](https://www.utk.edu/coronavirus/guides/data-monitor
 
 The first plot shows the percentage of students and employees with active covid cases *known to UTK* at any one time. I am curious about the overall trend in each, as well as about which group has more reported cases at the moment. One guess could be that covid proportion might be higher among students (high density housing, generally lower vaccination rate for younger populations), but they might get tested at lower rates. Approximate total population size in each group comes from the Chancellor's update of Aug. 19, 2021.
 
+Note that UTK's data is released [here](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options/), but it requires manual download; I am taking advantage of [Alex Zukowski's website](https://sites.google.com/view/utk-covid19/data?authuser=0) to get their compilation of the data.
+
 ```{r utk2021, echo=FALSE, message=FALSE, warning=FALSE}
 source("_packages.R")
 tar_load(utk_active_cases_reported)
-utk_active_cases_pivoted <- data.frame(DATE=rep(utk_active_cases_reported$DATE,2), PercentageActive=100*c(utk_active_cases_reported$ProportionFacultyStaff, utk_active_cases_reported$ProportionStudents), Population=c(rep("Employees", nrow(utk_active_cases_reported)),rep("Students", nrow(utk_active_cases_reported) )))
+tar_load(zukowski_data)
+#utk_active_cases_pivoted <- data.frame(DATE=rep(utk_active_cases_reported$DATE,2), PercentageActive=100*c(utk_active_cases_reported$ProportionFacultyStaff, utk_active_cases_reported$ProportionStudents), Population=c(rep("Employees", nrow(utk_active_cases_reported)),rep("Students", nrow(utk_active_cases_reported) )))
+utk_active_cases_pivoted <- data.frame(DATE=rep(zukowski_data$DATE,2), PercentageActive=as.numeric(gsub('%', '', c(zukowski_data$CASES_ACTIVE_EMPLOYEES_PERPOP, zukowski_data$CASES_ACTIVE_STUDENTS_PERPOP))), Population=c(rep("Employees", nrow(zukowski_data)),rep("Students", nrow(zukowski_data) )))
 
-utk_active_cases_pivoted_plot <- ggplot(subset(utk_active_cases_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=PercentageActive, group=Population, colour=Population)) +  geom_line() + ylab("Percent with active covid infections reported to UTK") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+utk_active_cases_pivoted_plot <- ggplot(subset(utk_active_cases_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=PercentageActive, group=Population, colour=Population)) +  geom_line() + ylab("Percent with active covid infections reported to UTK") + xlab("Date") + ylim(0,0.1+round(max(utk_active_cases_pivoted$PercentageActive)))  + scale_colour_viridis_d(end=0.8) + theme_classic() 
 
 print(utk_active_cases_pivoted_plot)
 ```
@@ -30,7 +34,10 @@ There is also data on those who have reported that they are self-isolating due t
 ```{r utk2021isolations, echo=FALSE, message=FALSE, warning=FALSE}
 
 tar_load(utk_isolations_reported)
-utk_isolations_plot <- ggplot(subset(utk_isolations_reported, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+#utk_isolations_plot <- ggplot(subset(utk_isolations_reported, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+utk_isolations_pivoted <- data.frame(DATE=rep(zukowski_data$DATE,3), Percentage=as.numeric(gsub('%', '', c(zukowski_data$SELF_ISOLATED_NRS_TOTAL_PERPOP, zukowski_data$SELF_ISOLATED_RS_TOTAL_PERPOP, zukowski_data$SELF_ISOLATED_E_TOTAL_PERPOP))), Population=c(rep("Students (residential)", nrow(zukowski_data)),rep("Students (non-residential)", nrow(zukowski_data)), rep("Employees", nrow(zukowski_data))))
+
+utk_isolations_plot <- ggplot(subset(utk_isolations_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,.1+round(max(utk_isolations_pivoted$Percentage)))  + scale_colour_viridis_d(end=0.8) + theme_classic() 
 
 print(utk_isolations_plot)
 ```
