@@ -3,7 +3,7 @@ title: Oak Ridge Schools
 output: html_document
 ---
 
-Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, whicn includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/.
+Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, which includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of positive covid cases year to date"}
 source("_packages.R")

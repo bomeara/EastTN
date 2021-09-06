@@ -111,24 +111,45 @@ CreateSchoolsOakRidge <- function() {
     oakridge_school_files <- list.files(path="/Users/bomeara/Dropbox/OakRidgeCovid", pattern="*oak_ridge_schools.csv", full.names=TRUE)
     schools_oakridge <- data.frame()
     for (i in seq_along(oakridge_school_files)) {
-    school_oakridge_info <- NULL
-    try(school_oakridge_info <- read.csv(oakridge_school_files[i]), silent=TRUE)
-    if(!is.null(school_oakridge_info)) {
-        for (col_index in 3:9) {
-            school_oakridge_info[,col_index] <- as.numeric(school_oakridge_info[,col_index])
+        school_oakridge_info <- NULL
+        try(school_oakridge_info <- read.csv(oakridge_school_files[i]), silent=TRUE)
+        if(!is.null(school_oakridge_info)) {
+            for (col_index in 3:9) {
+                school_oakridge_info[,col_index] <- as.numeric(school_oakridge_info[,col_index])
+            }
+            school_oakridge_info[is.na(school_oakridge_info)] <- 0
+            colnames(school_oakridge_info)[9] <- "student.population"
+            local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population)
+            if (i==1) {
+                schools_oakridge <- local_info
+            } else {
+                schools_oakridge <- rbind(schools_oakridge, local_info)
+            }
         }
-        school_oakridge_info[is.na(school_oakridge_info)] <- 0
-        colnames(school_oakridge_info)[9] <- "student.population"
-        local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population)
-        if (i==1) {
-            schools_oakridge <- local_info
-        } else {
-            schools_oakridge <- rbind(schools_oakridge, local_info)
-        }
-    }
     }
     schools_oakridge <- schools_oakridge[is.finite(schools_oakridge$PercentPositiveStudentsYearToDate),]
     return(schools_oakridge)
+}
+
+CreateSchoolsKnox <- function() {
+    staff_total <-  8000 #"more than" this from knoxschools.org
+    student_total <- 60000 #"more than" this from knoxschools.org
+    school_knox_info <- read.csv("/Users/bomeara/Dropbox/KnoxSchoolsCovid/KCS COVID Status Dashboard 21-22_Page 1_Bar chart.csv")
+    colnames(school_knox_info) <- c("Date", "Active Staff", "Active Student")
+    knox_school_files <- list.files(path="/Users/bomeara/Dropbox/KnoxSchoolsCovid", pattern="*knox_schools.html", full.names=TRUE)
+    for (i in seq_along(knox_school_files)) {
+
+        input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size)
+        input_file_html <- rvest::read_html(input_file)
+        tbl <- as.data.frame(rvest::html_table(rvest::html_nodes(input_file_html, "table"))[[1]])
+        try(school_knox_info <- rbind(school_knox_info, tbl))
+    }
+    school_knox_info <- school_knox_info[!duplicated(school_knox_info$Date),]
+    school_knox_info$Date <- as.Date(school_knox_info$Date,"%b %d, %Y")
+    colnames(school_knox_info) <- c("Date", "Active_Staff_Count", "Active_Students_Count")
+    school_knox_info$Active_Staff_Percent <- 100*school_knox_info$Active_Staff_Count/staff_total
+    school_knox_info$Active_Student_Percent <- 100*school_knox_info$Active_Students_Count/student_total
+    return(school_knox_info)
 }
 
 CreateHHSDataTN <- function() {

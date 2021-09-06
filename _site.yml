@@ -16,6 +16,8 @@ navbar:
       menu: 
         - text: "Oak Ridge"
           href: "oakridgeschools.html"
+        - text: "Knox County"
+          href: "knoxschools.html"
     - text: "UT Knoxville"
       menu:
         - text: "2021-2 Academic Year"
