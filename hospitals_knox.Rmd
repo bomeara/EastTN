@@ -18,8 +18,8 @@ As of the last time the data were updated (likely `r as.numeric(difftime(Sys.Dat
 
 
 ```{r hospitalcapacityplot, echo=FALSE, message=FALSE, warning=FALSE}
-#try(hosp_plot <- ggplot(subset(hospital_knox, Date>="2021-06-01"), aes(x=Date, y=Current.Utilization, group=Resource)) + geom_line(aes(colour=Resource)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_classic() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
-try(hosp_plot <- ggplot(hospital_knox, aes(x=Date, y=Current.Utilization, group=Resource)) + geom_line(aes(colour=Resource)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_classic() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+#try(hosp_plot <- ggplot(subset(hospital_knox, Date>="2021-06-01"), aes(x=Date, y=Current.Utilization, group=Resource)) + geom_line(aes(colour=Resource)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_light() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+try(hosp_plot <- ggplot(hospital_knox, aes(x=Date, y=Current.Utilization, group=Resource)) + geom_line(aes(colour=Resource)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_light() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
 try(print(hosp_plot))
 
 ```
@@ -29,7 +29,7 @@ Trends in hospitalization of covid patients over time. The vertical dotted line 
 ```{r plotsD, echo=FALSE, message=FALSE, warning=FALSE}
 
 
-new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") 
+new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") 
 
 print(new_hospitalization)
 

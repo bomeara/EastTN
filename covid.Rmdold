@@ -735,21 +735,21 @@ daily_focal_by_year <- daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),]
 daily_focal_by_year$Year <- format(daily_focal_by_year$DATE, format="%Y")
 daily_focal_by_year$MONTH_DAY_IFFY_YEAR <- as.Date(as.POSIXct(paste0("2021-",format(daily_focal_by_year$DATE, format="%m-%d"), "%Y-%m-%d"))) #the year isn't right for some, but this helps plotting
 daily_focal_by_year <- subset(daily_focal_by_year, Region=="East TN")
-try(daily_focal_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_HOSPITALIZED, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("Number of people hospitalized per day") + xlab("Date") + ggtitle("Hospitalizations in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
+try(daily_focal_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_HOSPITALIZED, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("Number of people hospitalized per day") + xlab("Date") + ggtitle("Hospitalizations in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
 try(print(daily_focal_by_year_plot))
 ```
 
 Or deaths over time:
 
 ```{r dejavudeath, echo=FALSE, message=FALSE, warning=FALSE}
-try(daily_death_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_DEATHS, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("Deaths per day") + xlab("Date") + ggtitle("Deaths in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal')) 
+try(daily_death_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_DEATHS, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("Deaths per day") + xlab("Date") + ggtitle("Deaths in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal')) 
 try(print(daily_death_by_year_plot))
 ```
 
 Or positive covid cases:
 
 ```{r dejavucases, echo=FALSE, message=FALSE, warning=FALSE}
-try(daily_case_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_CASES, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("New cases per day") + xlab("Date") + ggtitle("Cases in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
+try(daily_case_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_CASES, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("New cases per day") + xlab("Date") + ggtitle("Cases in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
 try(print(daily_case_by_year_plot))
 ```
 
@@ -760,7 +760,7 @@ schoolkids_daily_by_year <- schoolkids_daily
 schoolkids_daily_by_year$Year <- format(schoolkids_daily_by_year$DATE, format="%Y")
 schoolkids_daily_by_year$MONTH_DAY_IFFY_YEAR <- as.Date(as.POSIXct(paste0("2021-",format(schoolkids_daily_by_year$DATE, format="%m-%d"), "%Y-%m-%d"))) #the year isn't right for some, but this helps plotting
 schoolkids_daily_by_year <- subset(schoolkids_daily_by_year, Region=="East TN")
-try(student_covid_daily_by_year_plot <- ggplot(schoolkids_daily_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_CASES, group=Year)) + theme_classic() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("New cases for age 5-18 students, 7 day avg") + xlab("Date") + ggtitle("New Age 5-18 student cases in East Tennessee by year") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
+try(student_covid_daily_by_year_plot <- ggplot(schoolkids_daily_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_CASES, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a")) +  guides(linetype = FALSE) + ylab("New cases for age 5-18 students, 7 day avg") + xlab("Date") + ggtitle("New Age 5-18 student cases in East Tennessee by year") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray",'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal'))
 try(print(student_covid_daily_by_year_plot))
 ```
 
@@ -777,7 +777,7 @@ nonzero_schools <- nonzero_schools[!grepl("Totals for",nonzero_schools)]
 schools_oakridge_nonzero <- schools_oakridge[which(schools_oakridge$School %in% nonzero_schools),]
 data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
 data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentPositiveStudentsYearToDate,1), '%)')
-try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=School)) + theme_classic() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentPositiveStudentsYearToDate)))
+try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentPositiveStudentsYearToDate)))
 print(oakridge_schools_ytd)
 ```
 
@@ -789,7 +789,7 @@ The [CDC](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/
 data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
 data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentActiveCovidStudents,1), '%)')
 
-try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_classic() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)))
+try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)))
 print(oakridge_schools_active)
 ```
 
@@ -808,13 +808,13 @@ You can also look at rates for counties like [Knox](https://vaccication.org/coun
 
 
 
-plot_race_covid_vaccination_full <- ggplot(race_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Race)) + geom_line(aes(colour=Race))+ xlab("Date") + ylim(0,100) + theme_classic() + ylab("Percentage of people fully vaccinated") 
+plot_race_covid_vaccination_full <- ggplot(race_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Race)) + geom_line(aes(colour=Race))+ xlab("Date") + ylim(0,100) + theme_light() + ylab("Percentage of people fully vaccinated") 
 print(plot_race_covid_vaccination_full)
 
-plot_ethnicity_covid_vaccination_full <- ggplot(ethnicity_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ xlab("Date") + theme_classic() + ylim(0,100) + ylab("Percentage of people fully vaccinated") 
+plot_ethnicity_covid_vaccination_full <- ggplot(ethnicity_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ xlab("Date") + theme_light() + ylim(0,100) + ylab("Percentage of people fully vaccinated") 
 print(plot_ethnicity_covid_vaccination_full)
 
-plot_sex_covid_vaccination_full <- ggplot(sex_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Sex)) + geom_line(aes(colour=Sex))+ xlab("Date") + theme_classic() + ylim(0,100) + ylab("Percentage of people fully vaccinated") 
+plot_sex_covid_vaccination_full <- ggplot(sex_vaccine, aes(x=DATE, y=PercentFullyVaccinated, group=Sex)) + geom_line(aes(colour=Sex))+ xlab("Date") + theme_light() + ylim(0,100) + ylab("Percentage of people fully vaccinated") 
 print(plot_sex_covid_vaccination_full)
 
 #vax_plot <- ggarrange(plot_race_covid_vaccination_full, plot_ethnicity_covid_vaccination_full, plot_sex_covid_vaccination_full, labels=c("", "", ""), ncol=3, nrow=1)
@@ -825,13 +825,13 @@ One concern has been changes in the number of people getting vaccinated over tim
 
 ```{r vaccination_increase, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 
-plot_race_covid_vaccination_delta_full <- ggplot(subset(race_vaccine, !is.na(race_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Race)) + geom_line(aes(colour=Race))+ theme_classic() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
+plot_race_covid_vaccination_delta_full <- ggplot(subset(race_vaccine, !is.na(race_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Race)) + geom_line(aes(colour=Race))+ theme_light() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
 print(plot_race_covid_vaccination_delta_full)
 
-plot_ethnicity_covid_vaccination_delta_full <- ggplot(subset(ethnicity_vaccine, !is.na(ethnicity_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ theme_classic() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
+plot_ethnicity_covid_vaccination_delta_full <- ggplot(subset(ethnicity_vaccine, !is.na(ethnicity_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ theme_light() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
 print(plot_ethnicity_covid_vaccination_delta_full)
 
-plot_sex_covid_vaccination_delta_full <- ggplot(subset(sex_vaccine, !is.na(sex_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Sex)) + geom_line(aes(colour=Sex))+ theme_classic() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
+plot_sex_covid_vaccination_delta_full <- ggplot(subset(sex_vaccine, !is.na(sex_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Sex)) + geom_line(aes(colour=Sex))+ theme_light() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") 
 print(plot_sex_covid_vaccination_delta_full)
 
 #vax_speed_plot <- ggarrange(plot_race_covid_vaccination_delta_full, plot_ethnicity_covid_vaccination_delta_full, plot_sex_covid_vaccination_delta_full, labels=c("", "", ""), ncol=3, nrow=1)
@@ -851,10 +851,10 @@ This shows cases locally. I'm zooming in on the most recent months: the huge pea
 #annotate(geom="rect", xmin=min(daily_focal_no_ut_cleaned$DATE), xmax=max(daily_focal_no_ut_cleaned$DATE), ymin=9.5, ymax=max(daily_focal_no_ut_cleaned$New_cases_per_100k_per_week), alpha=.8, fill="khaki1") +
 #annotate(geom="rect", xmin=min(daily_focal_no_ut_cleaned$DATE), xmax=max(daily_focal_no_ut_cleaned$DATE), ymin=49.5, ymax=max(daily_focal_no_ut_cleaned$New_cases_per_100k_per_week), alpha=.8, fill="tan1") +
 #annotate(geom="rect", xmin=min(daily_focal_no_ut_cleaned$DATE), xmax=max(daily_focal_no_ut_cleaned$DATE), ymin=99.5, ymax=max(daily_focal_no_ut_cleaned$New_cases_per_100k_per_week), alpha=.8, fill="indianred1") +
-#theme_classic() + geom_line()  + ylab("Number of new cases in area each week per 100,000 people") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.3) 
+#theme_light() + geom_line()  + ylab("Number of new cases in area each week per 100,000 people") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.3) 
 
 local_new <- ggplot(subset(daily_focal_no_ut_cleaned, DATE>="2021-06-01"), aes(x=DATE, y=New_cases_per_100k_per_week, group=Region, colour=Region)) + 
-theme_classic() + geom_line()  + ylab("Number of new cases in area each week per 100,000 people") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8) 
+theme_light() + geom_line()  + ylab("Number of new cases in area each week per 100,000 people") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8) 
 print(local_new)
 
 #local_active <- ggplot(daily_focal[!is.na(daily_focal$TOTAL_ACTIVE),], aes(x=DATE, y=TOTAL_ACTIVE, group=Region)) +  geom_smooth(aes(colour=Region), se=FALSE) + geom_point(aes(colour=Region), size=0.5) + ylab("Number of active cases in area each day") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8)
@@ -867,7 +867,7 @@ local_positivity <- ggplot(subset(daily_focal_no_ut_cleaned, DATE>="2021-06-01")
 #annotate(geom="rect", xmin=min(daily_focal_no_ut_cleaned$DATE), xmax=max(daily_focal_no_ut_cleaned$DATE), ymin=5, ymax=max(daily_focal_no_ut_cleaned$PositivityPercentage_per_week), alpha=.8, fill="khaki1") +
 #annotate(geom="rect", xmin=min(daily_focal_no_ut_cleaned$DATE), xmax=max(daily_focal_no_ut_cleaned$DATE), ymin=7.95, ymax=max(daily_focal_no_ut_cleaned$PositivityPercentage_per_week), alpha=.8, fill="tan1") +
 #annotate(geom="rect", xmin=min(daily_focal_no_ut_cleaned$DATE), xmax=max(daily_focal_no_ut_cleaned$DATE), ymin=9.95, ymax=max(daily_focal_no_ut_cleaned$PositivityPercentage_per_week), alpha=.8, fill="indianred1") +
-theme_classic() + geom_line()  + ylab("Percentage of positive tests per week") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8) 
+theme_light() + geom_line()  + ylab("Percentage of positive tests per week") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8) 
 print(local_positivity)
 
 #cases_plot <- ggarrange(local_new, local_positivity, labels=c("Cases", "Positivity"), ncol=2, nrow=1)
@@ -884,7 +884,7 @@ print(local_positivity)
 Tennessee now breaks out covid test results for school age children (age 5-18). The number of tests in this age group and the underlying population size aren't known to me, so things like positivity rate and proportion of students infected cannot be determined, but the raw number of students infected can be shown (doing a seven day average):
 
 ```{r studentinfections, echo=FALSE, message=FALSE, warning=FALSE}
-try(student_covid_daily <- ggplot(subset(schoolkids_daily, DATE>="2021-06-01"), aes(x=DATE, y=NEW_CASES, group=Region)) + theme_classic() + geom_ma(aes(colour=Region, linetype="a")) +  guides(linetype = FALSE) + ylab("Number of students with new positive covid results daily, 7 day avg") + xlab("Date") + scale_colour_viridis_d(end=0.8))
+try(student_covid_daily <- ggplot(subset(schoolkids_daily, DATE>="2021-06-01"), aes(x=DATE, y=NEW_CASES, group=Region)) + theme_light() + geom_ma(aes(colour=Region, linetype="a")) +  guides(linetype = FALSE) + ylab("Number of students with new positive covid results daily, 7 day avg") + xlab("Date") + scale_colour_viridis_d(end=0.8))
 try(print(student_covid_daily))
 ```
 
@@ -961,8 +961,8 @@ As of the last time the data were updated (likely `r as.numeric(difftime(Sys.Dat
 
 
 ```{r hospitalcapacityplot, echo=FALSE, message=FALSE, warning=FALSE}
-#try(hosp_plot <- ggplot(subset(hospital_knox, Date>="2021-06-01"), aes(x=Date, y=Current.Utilization, group=East.Region.Hospitals)) + geom_line(aes(colour=East.Region.Hospitals)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_classic() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
-try(hosp_plot <- ggplot(hospital_knox, aes(x=Date, y=Current.Utilization, group=East.Region.Hospitals)) + geom_line(aes(colour=East.Region.Hospitals)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_classic() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+#try(hosp_plot <- ggplot(subset(hospital_knox, Date>="2021-06-01"), aes(x=Date, y=Current.Utilization, group=East.Region.Hospitals)) + geom_line(aes(colour=East.Region.Hospitals)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_light() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+try(hosp_plot <- ggplot(hospital_knox, aes(x=Date, y=Current.Utilization, group=East.Region.Hospitals)) + geom_line(aes(colour=East.Region.Hospitals)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_light() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
 try(print(hosp_plot))
 
 ```
@@ -972,7 +972,7 @@ Trends in hospitalization of covid patients over time. The vertical dotted line 
 ```{r plotsD, echo=FALSE, message=FALSE, warning=FALSE}
 
 
-new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") 
+new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") 
 
 print(new_hospitalization)
 
@@ -1017,7 +1017,7 @@ The first plot shows the percentage of students and employees with active covid 
 ```{r utk2021, echo=FALSE, message=FALSE, warning=FALSE}
 utk_active_cases_pivoted <- data.frame(DATE=rep(utk_active_cases_reported$DATE,2), PercentageActive=100*c(utk_active_cases_reported$ProportionFacultyStaff, utk_active_cases_reported$ProportionStudents), Population=c(rep("Employees", nrow(utk_active_cases_reported)),rep("Students", nrow(utk_active_cases_reported) )))
 
-utk_active_cases_pivoted_plot <- ggplot(subset(utk_active_cases_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=PercentageActive, group=Population, colour=Population)) +  geom_line() + ylab("Percent with active covid infections reported to UTK") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+utk_active_cases_pivoted_plot <- ggplot(subset(utk_active_cases_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=PercentageActive, group=Population, colour=Population)) +  geom_line() + ylab("Percent with active covid infections reported to UTK") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() 
 
 print(utk_active_cases_pivoted_plot)
 ```
@@ -1027,7 +1027,7 @@ There is also data on those who have reported that they are self-isolating due t
 ```{r utk2021isolations, echo=FALSE, message=FALSE, warning=FALSE}
 
 
-utk_isolations_plot <- ggplot(subset(utk_isolations_reported, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_classic() 
+utk_isolations_plot <- ggplot(subset(utk_isolations_reported, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() 
 
 print(utk_isolations_plot)
 ```

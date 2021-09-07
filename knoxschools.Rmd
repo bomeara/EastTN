@@ -12,7 +12,7 @@ tar_load(schools_knox)
 schools_knox_counts <- data.frame(Date=rep(schools_knox$Date,2), Count=c(schools_knox$Active_Students_Count, schools_knox$Active_Staff_Count), Population=c(rep("Student", nrow(schools_knox)), rep("Staff", nrow(schools_knox))))
 
 
-try(knox_schools_ytd <- ggplot(schools_knox_counts, aes(x=Date, y=Count, group=Population)) + geom_line(aes(colour=Population)) + theme_classic() + ylab("Number of individuals with active covid infections") + xlab("Date") + ggtitle("Counts of covid infections in Knox County Schools, TN"))
+try(knox_schools_ytd <- ggplot(schools_knox_counts, aes(x=Date, y=Count, group=Population)) + geom_line(aes(colour=Population)) + theme_light() + ylab("Number of individuals with active covid infections") + xlab("Date") + ggtitle("Counts of covid infections in Knox County Schools, TN"))
 print(knox_schools_ytd)
 ```
 
@@ -23,7 +23,7 @@ schools_knox_percent <- data.frame(Date=rep(schools_knox$Date,2), Percent=c(scho
 
 
 
-try(knox_schools_pct <- ggplot(schools_knox_percent, aes(x=Date, y=Percent, group=Population)) + geom_line(aes(colour=Population)) + theme_classic() + ylab("Percent of individuals with active covid infections") + xlab("Date") + ggtitle("Percentage of covid infections in Knox County Schools, TN"))
+try(knox_schools_pct <- ggplot(schools_knox_percent, aes(x=Date, y=Percent, group=Population)) + geom_line(aes(colour=Population)) + theme_light() + ylab("Percent of individuals with active covid infections") + xlab("Date") + ggtitle("Percentage of covid infections in Knox County Schools, TN"))
 print(knox_schools_pct)
 ```
 
