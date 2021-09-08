@@ -35,7 +35,11 @@ tn_death_prediction_organized <- tn_death_prediction_organized[order(tn_death_pr
 #knitr::kable(tn_death_prediction_organized)
 ```
 
-**As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b %d, %Y")`, `r format(tail(tn_death_history$value,1),big.mark=",",scientific=FALSE)` people have died from covid in Tennessee.** The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models. They predict that **by `r format(as.Date(tail(tn_death_prediction_organized$Date,1)),format="%b %d")` an additional `r tn_death_prediction_organized$Expected_Deaths[1]` (range `r tn_death_prediction_organized$Range[1]`) will have died from covid**, with `r tn_death_prediction_organized$Expected_Deaths[2]`, `r tn_death_prediction_organized$Expected_Deaths[3]`, and `r tn_death_prediction_organized$Expected_Deaths[4]` more covid deaths in the next three weeks.
+**As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b %d, %Y")`, `r format(tail(tn_death_history$value,1),big.mark=",",scientific=FALSE)` people have died from covid in Tennessee.** The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models. They predict that **by `r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")` an additional `r tn_death_prediction_organized$Expected_Deaths[1]` people (range `r tn_death_prediction_organized$Range[1]`) will have died from covid in Tennessee**, with `r tn_death_prediction_organized$Expected_Deaths[2]`, `r tn_death_prediction_organized$Expected_Deaths[3]`, and `r tn_death_prediction_organized$Expected_Deaths[4]` more covid deaths in each of the next three weeks.
+
+See other pages from the menu above for more detail.
+
+To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.
 
 A high level overview of the pandemic in Tennessee as a whole (using Tennessee's definitions of groups):
 
