@@ -656,3 +656,26 @@ Get17To25Knox <- function() {
     daily_knox$DATE <- as.Date(daily_knox$DATE)
     return(daily_knox)
 }
+
+GetTNDeathPredictions <- function() {
+  fdat <- covidHubUtils::load_forecasts(
+		models = c("COVIDhub-ensemble"),
+		dates = as.character(Sys.Date()),
+		source = "zoltar",
+		date_window_size = 6,
+		locations = c("47"),
+		types = c("quantile", "point"),
+		targets = paste(1:4, "wk ahead inc death"),
+		verbose = FALSE
+	)
+	return(fdat)
+}
+
+GetTNDeathRecord <- function() {
+	truth_data <- covidHubUtils::load_truth(
+		truth_source = "JHU",
+		target_variable = "cum death",
+		locations = "47"
+	)	
+	return(truth_data)
+}

@@ -14,11 +14,26 @@ source("_packages.R")
 source("R/functions.R")
 tar_load(hospital_knox)
 tar_load(daily_focal)
+tar_load(tn_death_predictions)
+tar_load(tn_death_history)
 counties_in_hospital_region <- FocalCountiesEastTN()
 last_hospital_update <- max(hospital_knox$Date)
 ```
 
-As of the last time the data were updated, the 19 regional hospitals around Knoxville had only `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, Resource=="ICU Beds")$Total.Capacity,1)` total.
+As of the last time the data were updated, **the 19 regional hospitals around Knoxville had only `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, Resource=="ICU Beds")$Total.Capacity,1)` total**, based on info from the [Knox County Health Department](https://covid.knoxcountytn.gov/case-count.html).
+
+As of `r tail(tn_death_history$target_end_date,1)`, `r tail(tn_death_history$value,1)` people have died from covid in Tennessee. Here are the predictions over the next few weeks, from https://covid19forecasthub.org/ (which aggregates multiple models): 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tn_death_predictions_point <- subset(tn_death_predictions, type=="point")
+
+tn_death_prediction_organized <- data.frame(Date=tn_death_predictions_point$target_end_date,`Expected Deaths`=tn_death_predictions_point$value, Range=rep(NA, nrow(tn_death_predictions_point)))
+for (i in sequence(nrow(tn_death_prediction_organized))) {
+	tn_death_prediction_organized$Range[i] <- paste0(subset(tn_death_predictions, quantile==0.025 & target_end_date== tn_death_prediction_organized$Date[i])$value, "-", subset(tn_death_predictions, quantile==0.975 & target_end_date== tn_death_prediction_organized$Date[i])$value)
+}
+knitr::kable(tn_death_prediction_organized)
+```
+
 
 A high level overview of the pandemic in Tennessee as a whole (using Tennessee's definitions of groups):
 
