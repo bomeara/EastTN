@@ -13,7 +13,7 @@ try(system('mv ~/Downloads/3\\ active\\ self_isolations_group_Page\\ 1_Bar\\ cha
 
 #options(clustermq.scheduler = "multiprocess")
 #tar_make_clustermq(workers = parallel::detectCores()-1)
-rerun <- TRUE
+rerun <- FALSE
 if(rerun) {
 	tar_invalidate(contains("_"))
 	tar_invalidate(contains("sum"))
