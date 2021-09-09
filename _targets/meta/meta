@@ -3,28 +3,13 @@ yearbyyear|stem|73a0eaaa0f6207b9|3ab94c6df211ab1c|09aae38e54aaf5d2|-827229406|ye
 indexhtml|stem|acb9675001facb23|1330ba69247f9926|f8b1459f7afa617e|662177205|index.html*index.Rmd|t18868.8478554841s|9690924908451b98|742016|file|vector|||0.796||
 oakridgeschools|stem|d641184604bff7b6|0169a78c7629b44d|575f97a037986d6c|-905073529|oakridgeschools.html*oakridgeschools.Rmd|t18868.8653414124s|3785549666dcd56c|1565355|file|vector|||3.587|It is deprecated to specify guide  FALSE to remove a guide. Please use guide  none instead.|
 knox17to25|stem|13692f6c40e43351|1a06fd671c53248d|fec1ad9a4babe83f|-1400639483||t18876.6417566222s|0247d5b6e3133b4f|10714|rds|vector|||3.053||
-utk_active_cases_reported|stem|ae925aea461a0363|63c504ab5a3e108d|d31afc996d576229|1499524117||t18879.9657048226s|5b889d9273f77eb0|7017|rds|vector|||0.009||
-schoolkids_daily|stem|b0f0d2bd0b1ff34a|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18879.9657218546s|ed102e652d76ad38|8303|rds|vector|||1.444||
-tn_death_predictions|stem|e1f6f5d425ea21c0|9ba046f952ebaa02|052503c30eaa2a6f|-710989161||t18879.9657933479s|2be16343ed0a782e|915|rds|vector|||6.17||
-covid_by_demographic_in_tn|stem|0f93d722d1fb3d73|bbae286ae893afb2|afff393fe82a31e5|284864431||t18879.9658197753s|c3a1183a7b9b26fd|247875|rds|vector|||2.233||
-saliva_data|stem|e788208cce10a74a|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18879.9658203857s|d8dc57ea58aea9c6|2107|rds|vector|||0.04||
-tn_death_history|stem|4b38f680367c4c6f|2c795da524427119|a92f2108950b6b8e|-321074371||t18879.9658886361s|6fb3b1e9fcff11ca|877|rds|vector|||5.891||
-zukowski_data|stem|274b15aaab4ef259|a477d1b519a4a710|5c561b6dd0e4bfc8|1575020281||t18879.9659179012s|3413a3071bc800df|61174|rds|vector|||2.504||
-utk.cases|stem|d6c2c003918e687e|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18879.966004094s|a0775e1db6b2cc72|4924|rds|vector|||7.437||
-utk_isolations_reported|stem|780c89430782dcf7|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18879.9660043517s|911d7a825f27239f|3455|rds|vector|||0.016||
-schools_oakridge|stem|4c8ecac1c80f4557|5ef76551f256f52d|480ce473a321c6b1|340842418||t18879.9660077487s|6cbc23f9f9575acf|4111|rds|vector|||0.286||
-schools_knox|stem|67e02ffbe820afe8|c5c9d958016c0d6d|73222adff821258f|-676346400||t18879.9660302629s|76c9ef911ac0602c|593|rds|vector|||1.94||
-hospital_knox|stem|76127ad892eabcf5|69f903d639eb813d|f6c12b8de5870c9d|-977223956||t18879.9661146621s|d60c71bf637f5fbc|29861|rds|vector|||7.269|the condition has length  1 and only the first element will be used|
-daily_focal|stem|787821a22a81b17f|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18879.9662246836s|5807d790d8487aa3|131990|rds|vector|||9.449||
-sumtab|stem|0634f11350bb71fa|62c71d0987f6fe42|08cdcac644688107|-1100657709||t18879.9662301862s|f7f8608a8895099d|463|rds|vector|||0.454||
-sumtabfraction|stem|2081bdfe2ccda436|019189a1de934492|6caedf029375f790|1297427247||t18879.9662309297s|f7f8608a8895099d|463|rds|vector|||0.051||
 CreateHospitalKnox|function|e5493ef1e7e0c12f||||||||||||||
 CreateSchoolsOakRidge|function|a281e427b1b34968||||||||||||||
 ComputeSummaryTableFraction|function|a69c5211151931e9||||||||||||||
 GetTNDeathPredictions|function|9b1a2bea0017ee74||||||||||||||
 FocalCountiesEastTN|function|0c89dba02f5e5384||||||||||||||
 GetZukowskiData|function|7587815406e8ab5d||||||||||||||
-.Random.seed|object|6e5aa905ea1f2b44||||||||||||||
+.Random.seed|object|371da10425548efb||||||||||||||
 CreateHHSDataFocalCitiesPretty|function|b81e1b621769e73f||||||||||||||
 Get17To25Knox|function|ac4bbd5c136d2dd7||||||||||||||
 FocalCountiesHospitalKnoxArea|function|d7f7d9a717d146d0||||||||||||||
@@ -40,3 +25,18 @@ CreateHHSDataTN|function|fe4621ce9e4ccdff||||||||||||||
 ComputeUTKIsolationsReported|function|c6644cef7e53cd29||||||||||||||
 CreateSchoolkidsDaily|function|7b4ff9a76c781e3f||||||||||||||
 CreateDailyFocal|function|5c30d3f9e81d240b||||||||||||||
+utk_active_cases_reported|stem|ae925aea461a0363|63c504ab5a3e108d|d31afc996d576229|1499524117||t18879.9925715758s|5b889d9273f77eb0|7017|rds|vector|||0.007||
+schoolkids_daily|stem|b0f0d2bd0b1ff34a|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18879.9925912349s|ed102e652d76ad38|8303|rds|vector|||1.667||
+tn_death_predictions|stem|e1f6f5d425ea21c0|9ba046f952ebaa02|052503c30eaa2a6f|-710989161||t18879.9926715249s|2be16343ed0a782e|915|rds|vector|||6.929||
+covid_by_demographic_in_tn|stem|0f93d722d1fb3d73|bbae286ae893afb2|afff393fe82a31e5|284864431||t18879.9926947868s|c3a1183a7b9b26fd|247875|rds|vector|||1.965||
+saliva_data|stem|e788208cce10a74a|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18879.9926956105s|d8dc57ea58aea9c6|2107|rds|vector|||0.054||
+tn_death_history|stem|4b38f680367c4c6f|2c795da524427119|a92f2108950b6b8e|-321074371||t18879.9927649512s|6fb3b1e9fcff11ca|877|rds|vector|||5.985||
+zukowski_data|stem|274b15aaab4ef259|a477d1b519a4a710|5c561b6dd0e4bfc8|1575020281||t18879.9928013237s|3413a3071bc800df|61174|rds|vector|||3.112||
+utk.cases|stem|d6c2c003918e687e|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18879.9928846874s|a0775e1db6b2cc72|4924|rds|vector|||7.194||
+utk_isolations_reported|stem|780c89430782dcf7|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18879.9928849165s|911d7a825f27239f|3455|rds|vector|||0.013||
+schools_oakridge|stem|96ed91a9e69385b4|5ef76551f256f52d|480ce473a321c6b1|340842418||t18879.9928881258s|69f9f49ff5c4029c|4188|rds|vector|||0.268||
+schools_knox|stem|67e02ffbe820afe8|c5c9d958016c0d6d|73222adff821258f|-676346400||t18879.9929218447s|76c9ef911ac0602c|593|rds|vector|||2.907||
+hospital_knox|stem|bd3e0190feed21c3|69f903d639eb813d|f6c12b8de5870c9d|-977223956||t18879.9930053099s|85838ae325d06377|29875|rds|vector|||7.189|the condition has length  1 and only the first element will be used|
+daily_focal|stem|787821a22a81b17f|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18879.9930935365s|5807d790d8487aa3|131990|rds|vector|||7.589||
+sumtab|stem|0634f11350bb71fa|62c71d0987f6fe42|08cdcac644688107|-1100657709||t18879.9930959512s|f7f8608a8895099d|463|rds|vector|||0.196||
+sumtabfraction|stem|2081bdfe2ccda436|019189a1de934492|6caedf029375f790|1297427247||t18879.9930961733s|f7f8608a8895099d|463|rds|vector|||0.013||
