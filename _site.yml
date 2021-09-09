@@ -1,6 +1,6 @@
 name: "East Tennessee Info"
 navbar:
-  title: "Navigation"
+  title: "East TN Info"
   left:
     - text: "Home"
       href: index.html
@@ -8,6 +8,8 @@ navbar:
       href: yearbyyear.html
     - text: "Vaccination"
       href: vaccination.html
+    - text: "Risk by Activity"
+      href: microcovid.html
     - text: "Hospitalization"
       menu:
         - text: "Knoxville Region"
