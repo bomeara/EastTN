@@ -7,7 +7,7 @@ The [The microCOVID Project](https://microcovid.org/) is a service that uses the
 
 Microcovid.org's point estimate of probability of getting covid at each of these events:
 
-```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE}
 tabl <- "
 | **Scenario** | **Masked & Vaxed** | **Masked, Not Vaxed** |  **Not Vaxed & Not Masked** |
 | -------- | -------------------- | -------------------- | -------------------- |
@@ -16,6 +16,6 @@ tabl <- "
 | Packed in room (church, lecture, etc.), others unmasked  | [1%](https://www.microcovid.org/?distance=close&duration=60&interaction=oneTime&personCount=15&riskProfile=average&scenarioName=custom&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=normal&yourMask=basic&yourVaccineDoses=2&yourVaccineType=pfizer) | [7%](https://www.microcovid.org/?distance=close&duration=60&interaction=oneTime&personCount=15&riskProfile=average&scenarioName=custom&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=normal&yourMask=basic) | [10%](https://www.microcovid.org/?distance=close&duration=60&interaction=oneTime&personCount=15&riskProfile=average&scenarioName=custom&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=normal&yourMask=none) |
 | Packed in room (church, lecture, etc.), others masked  | [0.4%](https://www.microcovid.org/?distance=close&duration=60&interaction=oneTime&personCount=15&riskProfile=average&scenarioName=custom&setting=indoor&subLocation=US_47093&theirMask=basic&topLocation=US_47&voice=normal&yourMask=basic&yourVaccineDoses=2&yourVaccineType=pfizer) | [2.0%](https://www.microcovid.org/?distance=close&duration=60&interaction=oneTime&personCount=15&riskProfile=average&scenarioName=custom&setting=indoor&subLocation=US_47093&theirMask=basic&topLocation=US_47&voice=normal&yourMask=basic) | [3.0%](https://www.microcovid.org/?distance=close&duration=60&interaction=oneTime&personCount=15&riskProfile=average&scenarioName=custom&setting=indoor&subLocation=US_47093&theirMask=basic&topLocation=US_47&voice=normal&yourMask=none) |
 | Going to a bar | [30%](https://www.microcovid.org/?distance=sixFt&duration=120&interaction=oneTime&personCount=15&riskProfile=bars&scenarioName=bar&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=loud&yourMask=basic&yourVaccineDoses=2&yourVaccineType=pfizer) | [91%](https://www.microcovid.org/?distance=sixFt&duration=120&interaction=oneTime&personCount=15&riskProfile=bars&scenarioName=bar&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=loud&yourMask=basic&yourVaccineDoses=2) | [96%](https://www.microcovid.org/?distance=sixFt&duration=120&interaction=oneTime&personCount=15&riskProfile=bars&scenarioName=bar&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=loud&yourMask=none&yourVaccineDoses=2) |"
-cat(tabl)
+#cat(tabl)
 knitr::kable(tabl)
 ```
