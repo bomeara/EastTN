@@ -1,6 +1,9 @@
 ---
 title: Oak Ridge Schools
-output: html_document
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, which includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/.

@@ -1,6 +1,9 @@
 ---
 title: Comparisons
-output: html_document
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 Different universities vary in their approaches. Over [800 universities require covid vaccination for students and/or staff](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), though UTK is not one of them.

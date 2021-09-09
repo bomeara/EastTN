@@ -1,6 +1,9 @@
 ---
 title: Year Comparison
-output: html_document
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
 params:
   daily_focal: "unknown"
   schoolkids_daily: "unknown"

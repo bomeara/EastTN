@@ -1,6 +1,9 @@
 ---
 title: Knox County Schools
-output: html_document
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 Knox County Schools are releasing information at https://www.knoxschools.org/covid, I take a snapshot of this every 24 hours and plot it.

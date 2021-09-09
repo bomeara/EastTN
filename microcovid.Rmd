@@ -1,9 +1,13 @@
 ---
 title: Risk by Activity
-output: html_document
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
-The [The microCOVID Project](https://microcovid.org/) is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes microcovids, a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event. I created a set of scenarios that may represent potential events in East Tennessee; for each one, the expected probability of getting covid at that event per event, based on microcovid's data, is shown. For each, the risk is shown for someone vaccinated and masked, vaccinated but not masked, and not vaccinated nor masked. You can go to the linked page for each to change the parameters. These numbers are as of Sept. 9, 2021.
+
+The [The microCOVID Project](https://microcovid.org/) is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes "microcovids," a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event. I created a set of scenarios that may represent potential events in East Tennessee; for each one, the expected probability of getting covid at that event per event, based on microcovid's data, is shown. For each, the risk is shown for someone vaccinated and masked, vaccinated but not masked, and not vaccinated nor masked. You can go to the linked page for each to change the parameters. These numbers are as of Sept. 9, 2021.
 
 Microcovid.org's point estimate of probability of getting covid at each of these events:
 
@@ -18,3 +22,5 @@ tabl <- "
 | Going to a bar | [30%](https://www.microcovid.org/?distance=sixFt&duration=120&interaction=oneTime&personCount=15&riskProfile=bars&scenarioName=bar&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=loud&yourMask=basic&yourVaccineDoses=2&yourVaccineType=pfizer) | [91%](https://www.microcovid.org/?distance=sixFt&duration=120&interaction=oneTime&personCount=15&riskProfile=bars&scenarioName=bar&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=loud&yourMask=basic&yourVaccineDoses=2) | [96%](https://www.microcovid.org/?distance=sixFt&duration=120&interaction=oneTime&personCount=15&riskProfile=bars&scenarioName=bar&setting=indoor&subLocation=US_47093&theirMask=none&topLocation=US_47&voice=loud&yourMask=none&yourVaccineDoses=2) |"
 cat(tabl)
 ```
+
+Remember that these are *per event* probabilities. So if you have something that has a 3% risk, then the odds you don't get covid is 97%. But the odds of not getting covid three in a row is 97% * 97% 97%, which is 91% (so the odds of getting covid at some point by doing this activity three times is 9%). If you were to do this activity 10 times, the chance of getting covid at least once is 100% - 97% ^ 10 = 26%, even though the chance in each occurrence is only 3%. 

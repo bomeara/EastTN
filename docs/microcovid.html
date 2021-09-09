@@ -32,6 +32,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHSZ84W9K5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHSZ84W9K5');
+</script>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -321,7 +332,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>The <a href="https://microcovid.org/">The microCOVID Project</a> is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes microcovids, a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event. I created a set of scenarios that may represent potential events in East Tennessee; for each one, the expected probability of getting covid at that event per event, based on microcovid’s data, is shown. For each, the risk is shown for someone vaccinated and masked, vaccinated but not masked, and not vaccinated nor masked. You can go to the linked page for each to change the parameters. These numbers are as of Sept. 9, 2021.</p>
+<p>The <a href="https://microcovid.org/">The microCOVID Project</a> is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes “microcovids,” a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event. I created a set of scenarios that may represent potential events in East Tennessee; for each one, the expected probability of getting covid at that event per event, based on microcovid’s data, is shown. For each, the risk is shown for someone vaccinated and masked, vaccinated but not masked, and not vaccinated nor masked. You can go to the linked page for each to change the parameters. These numbers are as of Sept. 9, 2021.</p>
 <p>Microcovid.org’s point estimate of probability of getting covid at each of these events:</p>
 <table>
 <thead>
@@ -365,6 +376,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
+<p>Remember that these are <em>per event</em> probabilities. So if you have something that has a 3% risk, then the odds you don’t get covid is 97%. But the odds of not getting covid three in a row is 97% * 97% 97%, which is 91% (so the odds of getting covid at some point by doing this activity three times is 9%). If you were to do this activity 10 times, the chance of getting covid at least once is 100% - 97% ^ 10 = 26%, even though the chance in each occurrence is only 3%.</p>
 
 
 

@@ -1,7 +1,11 @@
 ---
 title: Hospitals in Knoxville region
-output: html_document
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 source("_packages.R")
