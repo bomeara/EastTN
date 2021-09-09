@@ -1,0 +1,8 @@
+---
+title: Comparisons
+output: html_document
+---
+
+Different universities vary in their approaches. Over [800 universities require covid vaccination for students and/or staff](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), though UTK is not one of them.
+
+As of Sep. 8, UTK has an indoor mask mandate, no reported surveillance of cases, and no vaccination requirement. It is hosting football games and other events with no social distancing or masking requirement, though people may choose to wear masks.

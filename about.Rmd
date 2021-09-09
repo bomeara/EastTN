@@ -1,0 +1,26 @@
+---
+title: About
+output: html_document
+---
+
+This used to be a single long page on my http://www.brianomeara.info personal website, but it seemed easier to make it a separate site with bookmarkable pages. You can see all the code used to make this site at https://github.com/bomeara/EastTN. Note that while I work in science, I am not an expert in epidemiology; this is just a compilation of others' data. Talk to your doctor for making health decisions.
+
+Some of the data sources:
+
+* [Knox County Health Department](https://covid.knoxcountytn.gov/)
+* [Oak Ridge Schools](https://www.ortn.edu/covid-information/)
+* [Knox County Schools](https://www.knoxschools.org/covid)
+* [UT Knoxville](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options/)
+* [Alex Zukowski Dashboard](https://sites.google.com/view/utk-covid19)
+* [Tennessee Department of Health](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html)
+* [COVID-19 Forecast Hub](https://covid19forecasthub.org)
+* [US Health and Human Services](https://healthdata.gov)
+
+Some of the tools used:
+
+* [R](https://www.r-project.org/) along with [many R packages](https://github.com/bomeara/EastTN/blob/main/_packages.R)
+* [github](https://github.com) for hosting
+* [wget](https://www.gnu.org/software/wget/) and [curl](https://curl.haxx.se/) for downloading data
+* [ScrapingAnt](https://scrapingant.com/) for particularly difficult to parse pages
+
+Remember we are still in a pandemic. Get vaccinated to keep others and yourself safe: https://www.vaccines.gov/ to find vaccines.
