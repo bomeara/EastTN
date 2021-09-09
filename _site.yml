@@ -26,5 +26,9 @@ navbar:
           href: "utk_2020.html"
         - text: "Communication"
           href: "utk_social.html"
+        - text: "Comparisons with others"
+          href: "comparisons.html"
+    - text: "About"
+      href: about.html
 
 output_dir: "docs"
