@@ -32,11 +32,11 @@ We can also compare Knox County Schools to what the state has for students age 5
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="school vs state data"}
 schoolkids_knox <- subset(schoolkids_daily, Region=="Knox County")
-active_knox <- data.frame(DATE=rep(schoolkids_knox$DATE,2), ACTIVE_CASES=c(zoo::rollsum(schoolkids_knox$NEW_CASES, k=10, align="right", fill=NA), zoo::rollsum(schoolkids_knox$NEW_CASES, k=14, align="right", fill=NA)), POPULATION=c(rep("Knox County (10 days, age 5-17)", nrow(schoolkids_knox)), rep("Knox County (14 days, age 5-17)", nrow(schoolkids_knox)))) 
+active_knox <- data.frame(DATE=rep(schoolkids_knox$DATE,2), ACTIVE_CASES=c(zoo::rollsum(schoolkids_knox$NEW_CASES, k=10, align="right", fill=NA), zoo::rollsum(schoolkids_knox$NEW_CASES, k=14, align="right", fill=NA)), POPULATION=c(rep("Knox County ('Active' = 10 days, age 5-17)", nrow(schoolkids_knox)), rep("Knox County ('Active' = 14 days, age 5-17)", nrow(schoolkids_knox)))) 
 active_knox <- rbind(active_knox, data.frame(DATE=schools_knox$Date, ACTIVE_CASES=schools_knox$Active_Students_Count, POPULATION=rep("Knox Schools Only Data", nrow(schools_knox))))
 
 
-try(knox_schools_vs_state <- ggplot(subset(active_knox, DATE>=as.Date("2021-06-01")), aes(x=DATE, y=ACTIVE_CASES, group=POPULATION)) + geom_line(aes(colour=POPULATION)) + theme_light() + ylab("Number of active covid cases for people of student age in Knox County") + xlab("Date") + ggtitle("Percentage of covid infections in Knox County Schools, TN"))
+try(knox_schools_vs_state <- ggplot(subset(active_knox, DATE>=as.Date("2021-06-01")), aes(x=DATE, y=ACTIVE_CASES, group=POPULATION)) + geom_line(aes(colour=POPULATION)) + theme_light() + ylab("Number of active covid cases for\npeople of student age in Knox County") + xlab("Date") + ggtitle("Percentage of covid infections in Knox County Schools, TN"))
 print(knox_schools_vs_state)
 ```
 
