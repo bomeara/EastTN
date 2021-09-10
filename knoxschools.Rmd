@@ -12,7 +12,7 @@ Knox County Schools are releasing information at https://www.knoxschools.org/cov
 
 source("_packages.R")
 tar_load(schools_knox)
-schools_knox <- schools_knox[!is.na(schools_knox$Count),]
+schools_knox <- schools_knox[!is.na(schools_knox$Active_Students_Count),]
 
 tar_load(schoolkids_daily)
 schools_knox_counts <- data.frame(Date=rep(schools_knox$Date,2), Count=c(schools_knox$Active_Students_Count, schools_knox$Active_Staff_Count), Population=c(rep("Student", nrow(schools_knox)), rep("Staff", nrow(schools_knox))))
