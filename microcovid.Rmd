@@ -23,4 +23,4 @@ tabl <- "
 cat(tabl)
 ```
 
-Remember that these are *per event* probabilities. So if you have something that has a 3% risk, then the odds you don't get covid is 97%. But the odds of not getting covid three in a row is 97% times 97% times 97%, which is 91% (so the odds of getting covid at some point by doing this activity on three occasions is 9%). If you were to do this activity 10 times, the chance of getting covid at least once is 100% - 97% ^ 10 = 26%, even though the chance in each occurrence is only 3%. 
+Remember that these are *per event* probabilities. So if you have something that has a 3% risk, then the odds you don't get covid doing it once is 97%. But the odds of not getting covid three times in a row is 97% times 97% times 97%, which is 91% (so the odds of getting covid at some point by doing this activity on three occasions is 9%). If you were to do this activity 10 times, the chance of getting covid at least once is 100% - 97% ^ 10 = 26%, even though the chance in each occurrence is only 3%. 
