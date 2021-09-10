@@ -12,9 +12,10 @@ Knox County Schools are releasing information at https://www.knoxschools.org/cov
 
 source("_packages.R")
 tar_load(schools_knox)
+schools_knox <- schools_knox[!is.na(schools_knox$Count),]
+
 tar_load(schoolkids_daily)
 schools_knox_counts <- data.frame(Date=rep(schools_knox$Date,2), Count=c(schools_knox$Active_Students_Count, schools_knox$Active_Staff_Count), Population=c(rep("Student", nrow(schools_knox)), rep("Staff", nrow(schools_knox))))
-
 
 try(knox_schools_ytd <- ggplot(schools_knox_counts, aes(x=Date, y=Count, group=Population)) + geom_line(aes(colour=Population)) + theme_light() + ylab("Number of individuals with active covid infections") + xlab("Date") + ggtitle("Counts of covid infections in Knox County Schools, TN"))
 print(knox_schools_ytd)
