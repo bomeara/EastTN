@@ -32,7 +32,7 @@ try(knox_schools_pct <- ggplot(schools_knox_percent, aes(x=Date, y=Percent, grou
 print(knox_schools_pct)
 ```
 
-We can also compare Knox County Schools to what the state has for students age 5-18 who live in Knox County (who include the students enrolled in the public schools, but also those who go to private schools, who go out of the district, etc.). The state data includes new cases, while Knox County Schools only includes active cases, which depending on definition can be all of those who have been 10 days or 14 days since the onset of symptoms and who have a positive test result.
+We can also compare Knox County Schools to what the state has for students age 5-17 who live in Knox County (who include the students enrolled in the public schools, but also those who go to private schools, who go out of the district, etc.). The state data includes new cases, while Knox County Schools only includes active cases, which depending on definition can be all of those who have been 10 days or 14 days since the onset of symptoms and who have a positive test result.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="school vs state data"}
 schoolkids_knox <- subset(schoolkids_daily, Region=="Knox County")
