@@ -141,9 +141,9 @@ CreateSchoolsKnox <- function() {
     knox_school_files <- list.files(path="/Users/bomeara/Dropbox/KnoxSchoolsCovid", pattern="*knox_schools.html", full.names=TRUE)
     for (i in seq_along(knox_school_files)) {
 
-        input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size)
-        input_file_html <- rvest::read_html(input_file)
-        tbl <- as.data.frame(rvest::html_table(rvest::html_nodes(input_file_html, "table"))[[1]])
+        try(input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size))
+        try(input_file_html <- rvest::read_html(input_file))
+        try(tbl <- as.data.frame(rvest::html_table(rvest::html_nodes(input_file_html, "table"))[[1]]))
         try(school_knox_info <- rbind(school_knox_info, tbl))
     }
     school_knox_info <- school_knox_info[!duplicated(school_knox_info$Date),]
