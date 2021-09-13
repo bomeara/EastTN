@@ -6,7 +6,7 @@ output:
        in_header: GA_Script.html
 ---
 
-This used to be a single long page on my http://www.brianomeara.info personal website, but it seemed easier to make it a separate site with bookmarkable pages. You can see all the code used to make this site at https://github.com/bomeara/EastTN. Note that while I work in science, I am not an expert in epidemiology; this is just a compilation of others' data. Talk to your doctor for making health decisions.
+I am Brian O'Meara, a resident of Oak Ridge, TN. This site used to be a single long page on my http://www.brianomeara.info personal website, but it seemed easier to make it a separate site with bookmarkable pages. You can see all the code used to make this site at https://github.com/bomeara/EastTN. Note that while I work in science, I am not an expert in epidemiology; this is just a compilation of others' data. Talk to your doctor for making health decisions.
 
 Some of the data sources:
 
