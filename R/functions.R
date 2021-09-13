@@ -660,7 +660,7 @@ Get17To25Knox <- function() {
 GetTNDeathPredictions <- function() {
   fdat <- covidHubUtils::load_forecasts(
 		models = c("COVIDhub-ensemble"),
-		dates = as.character(Sys.Date()),
+		dates = as.character(Sys.Date()-1),
 		source = "zoltar",
 		date_window_size = 6,
 		locations = c("47"),
