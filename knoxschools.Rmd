@@ -38,8 +38,9 @@ Knox County Schools now have data on individual schools. We can see the percenta
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
 present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
-plotly_result <- ggplotly(present_plot, tooltip="text")
-print(plotly_result)
+print(present_plot)
+#plotly_result <- ggplotly(present_plot, tooltip="text")
+#print(plotly_result)
 ```
 
 
