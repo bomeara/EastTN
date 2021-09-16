@@ -37,7 +37,8 @@ list(
   tar_target(utk_isolations_reported, ComputeUTKIsolationsReported()),
   tar_target(knox17to25, Get17To25Knox()),
   tar_target(tn_death_predictions, GetTNDeathPredictions()),
-  tar_target(tn_death_history, GetTNDeathRecord())
+  tar_target(tn_death_history, GetTNDeathRecord()),
+  tar_target(individual_schools_knox, CreateIndividualSchoolsKnox())
   #tar_render(yearbyyear, "yearbyyear.Rmd", params = list(daily_focal=daily_focal, schoolkids_daily=schoolkids_daily)),
   #tar_render(indexhtml, "index.Rmd", params = list(sumtab=sumtabfraction)),
   #tar_render(oakridgeschools, "oakridgeschools.Rmd", params = list(schools_oakridge=schools_oakridge))

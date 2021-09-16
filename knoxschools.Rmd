@@ -12,6 +12,8 @@ Knox County Schools are releasing information at https://www.knoxschools.org/cov
 
 source("_packages.R")
 tar_load(schools_knox)
+tar_load(individual_schools_knox)
+individual_schools_most_recent <- subset(individual_schools_knox, Date == max(Date))
 schools_knox <- schools_knox[!is.na(schools_knox$Active_Students_Count),]
 
 tar_load(schoolkids_daily)
@@ -31,6 +33,15 @@ schools_knox_percent <- data.frame(Date=rep(schools_knox$Date,2), Percent=c(scho
 try(knox_schools_pct <- ggplot(schools_knox_percent, aes(x=Date, y=Percent, group=Population)) + geom_line(aes(colour=Population)) + theme_light() + ylab("Percent of individuals with active covid infections") + xlab("Date") + ggtitle("Percentage of covid infections in Knox County Schools, TN"))
 print(knox_schools_pct)
 ```
+
+Knox County Schools now have data on individual schools. We can see the percentage of students and staff in each school (those absent could be out for many different reasons, not just covid).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
+present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
+plotly_result <- ggplotly(present_plot, tooltip="text")
+print(plotly_result)
+```
+
 
 We can also compare Knox County Schools to what the state has for students age 5-17 who live in Knox County (who include the students enrolled in the public schools, but also those who go to private schools, who go out of the district, etc.). The state data includes new cases, while Knox County Schools only includes active cases, which depending on definition can be all of those who have been 10 days or 14 days since the onset of symptoms and who have a positive test result.
 

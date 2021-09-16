@@ -154,6 +154,50 @@ CreateSchoolsKnox <- function() {
     return(school_knox_info)
 }
 
+CreateIndividualSchoolsKnox <- function() {
+	knox_school_files <- list.files(path="/Users/bomeara/Dropbox/CovidData/KnoxSchoolsCovidBySchool", pattern="*knox_schools_by_school.html", full.names=TRUE)
+	individual_schools_knox <- data.frame()
+    for (i in seq_along(knox_school_files)) {
+		try({
+			schools_day <- data.frame()
+			day_info <- NULL
+			input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size)
+			input_file_html <- rvest::read_html(input_file)
+			day_info <- input_file_html %>% html_elements("lego-table") %>% html_elements("div")
+			row_info <- html_text2(day_info) %>% str_split(pattern="\n")
+			row_info_schools <- row_info[sapply(row_info, length)==9]
+			schools_day <- data.frame(do.call(rbind, row_info_schools))
+			colnames(schools_day) <- c("School", "Student_Enrolled", "Student_Present", "Student_Present_Percent", "Student_Active_Cases", "Staff_Employed", "Staff_Present", "Staff_Present_Percent", "Staff_Active_Cases")
+			schools_day$Student_Present_Percent <- as.numeric(gsub('%', "", schools_day$Student_Present_Percent))
+			schools_day$Staff_Present_Percent <- as.numeric(gsub('%', "", schools_day$Staff_Present_Percent))
+			actual_time <- anytime::anytime(stringr::str_extract(knox_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
+			schools_day$Date <- actual_time
+			if(nrow(schools_day)>0) {
+				individual_schools_knox <- plyr::rbind.fill(individual_schools_knox, schools_day)	
+			}
+		})
+    }
+	individual_schools_knox$Level <- "Other"
+	individual_schools_knox$Level[grepl("Elementary", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Middle", individual_schools_knox$School)] <- "Middle"
+	individual_schools_knox$Level[grepl("High", individual_schools_knox$School)] <- "High"
+	individual_schools_knox$Level[grepl("Sarah Moore Greene", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Ridgedale Alternative", individual_schools_knox$School)] <- "Middle"
+	individual_schools_knox$Level[grepl("Paul L. Kelley Volunteer Academy", individual_schools_knox$School)] <- "High"
+	individual_schools_knox$Level[grepl("L & N Stem Academy", individual_schools_knox$School)] <- "High"
+	individual_schools_knox$Level[grepl("Hardin Valley Academy", individual_schools_knox$School)] <- "High"
+	individual_schools_knox$Level[grepl("Hardin Valley Elememntary School", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Green Magnet Academy School", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Farragut Primary School", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Farragut Intermediate School", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Chilhowee Intermediate School", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Level[grepl("Career Magnet Academy At Pellissippi State", individual_schools_knox$School)] <- "High"
+	individual_schools_knox$Level[grepl("Beaumont Magnet Academy", individual_schools_knox$School)] <- "Elementary"
+	individual_schools_knox$Student_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Student_Active_Cases))
+	individual_schools_knox$Staff_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Staff_Active_Cases))
+	return(individual_schools_knox)
+}
+
 CreateHHSDataTN <- function() {
 
     hhs_sources <- jsonlite::fromJSON("https://healthdata.gov/data.json?page=0")
@@ -187,6 +231,7 @@ CreateHHSDataTN <- function() {
     hhs_capacity_tn$number_unoccupied_adult_hospital_ICU_beds <- hhs_capacity_tn$total_staffed_adult_icu_beds_7_day_avg - hhs_capacity_tn$staffed_adult_icu_bed_occupancy_7_day_avg
     return(hhs_capacity_tn)
 }
+
 
 CreateHHSDataFocalCities <- function(hhs_capacity_tn) {
 
