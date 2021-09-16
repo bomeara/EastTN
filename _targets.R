@@ -39,7 +39,14 @@ list(
   tar_target(tn_death_predictions, GetTNDeathPredictions()),
   tar_target(tn_death_history, GetTNDeathRecord()),
   tar_target(individual_schools_knox, CreateIndividualSchoolsKnox()),
-  tar_target(individual_schools_knox_csv_out, target_save_csv(individual_schools_knox, filename="docs/individual_schools_knox.csv"), format="file")
+  tar_target(individual_schools_knox_csv_out, target_save_csv(individual_schools_knox, filename="docs/individual_schools_knox.csv"), format="file"),
+  tar_target(daily_focal_out, target_save_csv(daily_focal, filename="docs/daily_focal.csv"), format="file"),
+  tar_target(schoolkids_daily_out, target_save_csv(schoolkids_daily, filename="docs/schoolkids_daily.csv"), format="file"),
+  tar_target(hospital_knox_out, target_save_csv(hospital_knox, filename="docs/hospital_knox.csv"), format="file"),
+  tar_target(schools_oakridge_out, target_save_csv(schools_oakridge, filename="docs/schools_oakridge.csv"), format="file"),
+  tar_target(schools_knox_out, target_save_csv(schools_knox, filename="docs/schools_knox.csv"), format="file")
+
+
   #tar_render(yearbyyear, "yearbyyear.Rmd", params = list(daily_focal=daily_focal, schoolkids_daily=schoolkids_daily)),
   #tar_render(indexhtml, "index.Rmd", params = list(sumtab=sumtabfraction)),
   #tar_render(oakridgeschools, "oakridgeschools.Rmd", params = list(schools_oakridge=schools_oakridge))
