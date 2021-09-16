@@ -21,6 +21,7 @@ if(rerun) {
 }
 tar_make()
 rmarkdown::render_site()
+system("cp data/*csv docs/*csv")
 #system("open docs/index.html")
 system("git commit -m'updated data' -a")
 system('git push')
