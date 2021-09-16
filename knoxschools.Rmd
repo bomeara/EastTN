@@ -45,7 +45,7 @@ print(present_plot)
 
 Plotting this by individual school over time, students first:
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=30, fig.alt="percentage of students present by school"}
 
 try(knox_schools_ytd <- ggplot(individual_schools_knox, aes(x=Date, y=Student_Present_Percent, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students in attendance") + xlab("Date") + ggtitle("Student attendance in Knox County Schools") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") )
 print(knox_schools_ytd)
@@ -53,7 +53,7 @@ print(knox_schools_ytd)
 
 And staff:
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=30, fig.alt="percentage of staff present by school"}
 
 try(knox_schools_staff_ytd <- ggplot(individual_schools_knox, aes(x=Date, y=Staff_Present_Percent, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of staff in attendance") + xlab("Date") + ggtitle("Staff attendance in Knox County Schools") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") )
 print(knox_schools_staff_ytd)
