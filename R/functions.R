@@ -724,3 +724,8 @@ GetTNDeathRecord <- function() {
 	)	
 	return(truth_data)
 }
+
+target_save_csv <- function(x, filename) {
+	write.csv(x, file=filename, row.names=FALSE)	
+	return(filename)
+}
