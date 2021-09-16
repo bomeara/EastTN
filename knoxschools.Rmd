@@ -37,7 +37,7 @@ print(knox_schools_pct)
 Knox County Schools now have data on individual schools. We can see the percentage of students and staff in each school (those absent could be out for many different reasons, not just covid).
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
-present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
+present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ylim(c(50, 100)) + xlim(c(50, 100)) + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
 print(present_plot)
 #plotly_result <- ggplotly(present_plot, tooltip="text")
 #print(plotly_result)
