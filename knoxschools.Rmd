@@ -37,7 +37,7 @@ print(knox_schools_pct)
 Knox County Schools now have data on individual schools. We can see the percentage of students and staff in each school (those absent could be out for many different reasons, not just covid).
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
-present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ylim(c(50, 100)) + xlim(c(50, 100)) + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
+present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ylim(c(60, 100)) + xlim(c(60, 100)) + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
 print(present_plot)
 #plotly_result <- ggplotly(present_plot, tooltip="text")
 #print(plotly_result)
@@ -51,7 +51,7 @@ individual_schools_knox$School <- gsub(" School", "", individual_schools_knox$Sc
 individual_schools_knox$School <- gsub(" Academy", "", individual_schools_knox$School)
 
 
-try(knox_schools_ytd <- ggplot(individual_schools_knox, aes(x=Date, y=Student_Present_Percent, group=School)) + geom_line(aes(colour=Student_Present_Percent)) + theme_light() + ylab("Percentage of students in attendance") + xlab("Date") + ylim(c(50, 100)) + ggtitle("Student attendance in Knox County Schools") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") + scale_x_datetime(date_labels = "%b %d") + scale_colour_gradient2(mid="purple", midpoint=85, high="blue", low="red"))
+try(knox_schools_ytd <- ggplot(individual_schools_knox, aes(x=Date, y=Student_Present_Percent, group=School)) + geom_line(aes(colour=Student_Present_Percent)) + theme_light() + ylab("Percentage of students in attendance") + xlab("Date") + ylim(c(60, 100)) + ggtitle("Student attendance in Knox County Schools") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") + scale_x_datetime(date_labels = "%b %d") + scale_colour_gradient2(mid="purple", midpoint=85, high="blue", low="red"))
 print(knox_schools_ytd)
 ```
 
@@ -59,7 +59,7 @@ And staff:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=30, fig.alt="percentage of staff present by school"}
 
-try(knox_schools_staff_ytd <- ggplot(individual_schools_knox, aes(x=Date, y=Staff_Present_Percent, group=School)) + geom_line(aes(colour=Staff_Present_Percent)) + theme_light() + ylab("Percentage of staff in attendance") + xlab("Date") + ylim(c(50, 100)) + ggtitle("Staff attendance in Knox County Schools") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") + scale_x_datetime(date_labels = "%b %d") + scale_colour_gradient2(mid="purple", midpoint=85, high="blue", low="red"))
+try(knox_schools_staff_ytd <- ggplot(individual_schools_knox, aes(x=Date, y=Staff_Present_Percent, group=School)) + geom_line(aes(colour=Staff_Present_Percent)) + theme_light() + ylab("Percentage of staff in attendance") + xlab("Date") + ylim(c(60, 100)) + ggtitle("Staff attendance in Knox County Schools") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") + scale_x_datetime(date_labels = "%b %d") + scale_colour_gradient2(mid="purple", midpoint=85, high="blue", low="red"))
 print(knox_schools_staff_ytd)
 ```
 

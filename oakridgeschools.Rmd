@@ -17,7 +17,11 @@ schools_oakridge_nonzero <- schools_oakridge[which(schools_oakridge$School %in% 
 data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
 data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentPositiveStudentsYearToDate,1), '%)')
 #try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentPositiveStudentsYearToDate)))
-try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") )
+schools_oakridge_nonzero$PercentPositiveStudentsYearToDate <- as.numeric(schools_oakridge_nonzero$PercentPositiveStudentsYearToDate)
+
+schools_oakridge_nonzero$PercentActiveCovidStudents <- as.numeric(schools_oakridge_nonzero$PercentActiveCovidStudents)
+
+try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=PercentPositiveStudentsYearToDate)) + scale_colour_gradient2(mid="purple", midpoint=3, high="red", low="blue") + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") )
 print(oakridge_schools_ytd)
 ```
 
@@ -28,9 +32,9 @@ The [CDC](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases now in Oak Ridge schools"}
 data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
 data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentActiveCovidStudents,1), '%)')
-
+schools_oakridge_nonzero$PercentActiveCovidStudents <- as.numeric(schools_oakridge_nonzero$PercentActiveCovidStudents)
 #try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)) + facet_wrap(~ School, ncol=3))
-try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + facet_wrap(~ School, ncol=3) + theme(legend.position = "none"))
+try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=PercentActiveCovidStudents)) + scale_colour_gradient2(mid="purple", midpoint=1.5, high="red", low="blue") + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none"))
 
 print(oakridge_schools_active)
 ```
