@@ -18,6 +18,7 @@ Some of the data sources:
 * [Tennessee Department of Health](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html)
 * [COVID-19 Forecast Hub](https://covid19forecasthub.org)
 * [US Health and Human Services](https://healthdata.gov)
+* [KCS DIY COVID-19 Dashboard](https://kcsdashboard.org/)
 
 Some of the tools used:
 

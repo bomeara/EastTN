@@ -39,6 +39,7 @@ list(
   tar_target(tn_death_predictions, GetTNDeathPredictions()),
   tar_target(tn_death_history, GetTNDeathRecord()),
   tar_target(individual_schools_knox, CreateIndividualSchoolsKnox()),
+  tar_target(kcs_dashboard, read.delim("https://kcsdashboard.org/reports/export?Search%5Bschool_id%5D=&Search%5Bgrade%5D=&Search%5Bstart_date%5D=&Search%5Bend_date%5D=")),
   tar_target(individual_schools_knox_csv_out, target_save_csv(individual_schools_knox, filename="data/individual_schools_knox.csv"), format="file"),
   tar_target(daily_focal_out, target_save_csv(daily_focal, filename="data/daily_focal.csv"), format="file"),
   tar_target(schoolkids_daily_out, target_save_csv(schoolkids_daily, filename="data/schoolkids_daily.csv"), format="file"),
