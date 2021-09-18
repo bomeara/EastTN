@@ -335,21 +335,30 @@ $(document).ready(function () {
 <p>Knox County Schools are releasing information at <a href="https://www.knoxschools.org/covid" class="uri">https://www.knoxschools.org/covid</a>, I take a snapshot of this every 24 hours and plot it. See also this page populated by parents and guardians of students as an unofficial project, which gives more granular data on individual schools: <a href="https://kcsdashboard.org/" class="uri">https://kcsdashboard.org/</a>.</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-1-1.png" title="Line plot of active covid cases" alt="Line plot of active covid cases" width="672" /></p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-2-1.png" title="Line plot of active covid cases now in Oak Ridge schools" alt="Line plot of active covid cases now in Oak Ridge schools" width="672" /></p>
+<div id="byschool" class="section level3">
+<h3>Individual Schools</h3>
 <p>Knox County Schools now have data on individual schools. We can see the percentage of students and staff in each school (those absent could be out for many different reasons, not just covid).</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-3-1.png" title="percentage of staff and students present" alt="percentage of staff and students present" width="672" /></p>
 <p>Plotting this by individual school over time, students first:</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-4-1.png" title="percentage of students present by school" alt="percentage of students present by school" width="672" /></p>
 <p>And staff:</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-5-1.png" title="percentage of staff present by school" alt="percentage of staff present by school" width="672" /></p>
-<p>Using data kindly provided by the <a href="https://kcsdashboard.org/">KCS DIY COVID-19 Dashboard</a>, we can see how long students have gone from having symptoms to getting a positive test result:</p>
+</div>
+<div id="diy" class="section level3">
+<h3>Family-Provided Data</h3>
+<p>Using data kindly provided by the <a href="https://kcsdashboard.org/">KCS DIY COVID-19 Dashboard</a> from reports by families directly, we can see how long students have gone from having symptoms to getting a positive test result:</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-6-1.png" title="first symptoms vs first test" alt="first symptoms vs first test" width="672" /></p>
 <p>We can also see which grades have the most student reports from this family-provided data. However, this only comes from 93 student cases, while far more than 816 students have gotten covid in 2021-2022 school year in Knox County Schools (this is a major underestimate: the school system only releases the number of active cases, not new cases, so the number above is the most in any one day with covid). The DIY dashboard dataset has much more detail – Knox County Schools is giving no indication of cases by grade, for example. To report your student’s own case to the DIY dashboard, go to <a href="https://kcsdashboard.org/reports/create">https://kcsdashboard.org/reports/create</a> and fill out the form.</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-7-1.png" title="distribution by grade" alt="distribution by grade" width="672" /></p>
+</div>
+<div id="countyvsstate" class="section level3">
+<h3>County-Provided vs State-Provided Data</h3>
 <p>We can also compare Knox County Schools to what the state has for students age 5-17 who live in Knox County (who include the students enrolled in the public schools, but also those who go to private schools, who go out of the district, etc.). The state data includes new cases, while Knox County Schools only includes active cases, which depending on definition can be all of those who have been 10 days or 14 days since the onset of symptoms and who have a positive test result.</p>
 <p><img src="knoxschools_files/figure-html/unnamed-chunk-8-1.png" title="school vs state data" alt="school vs state data" width="672" /></p>
 <p>I also maintain <a href="http://vaccication.org">vaccication.org</a>. This has information about vaccination in various US counties; below is the page for Knox County. Pay special note to the vaccination rate for those age 12-18.</p>
 <iframe src="https://vaccication.org/counties/Knox_TN.html" width="100%" height="1600">
 </iframe>
+</div>
 
 
 
