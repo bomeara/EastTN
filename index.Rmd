@@ -12,6 +12,8 @@ The purpose of this is to gather information on how the covid-19 pandemic is pro
 
 I am mostly doing this for my own curiosity as a parent in Oak Ridge, TN; though I work in science, I don't work in epidemiology. Thus, I'm not doing any calculations of future spread, etc. -- I'm taking published datasets and plotting them. For datasets that are presented as current conditions but do not have a history, I take a copy of them (usually every six hours) to be able to plot how they change over time.
 
+Use the menu above for information on vaccinations, conditions in schools, and more. 
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 source("_packages.R")
 source("R/functions.R")
@@ -38,13 +40,14 @@ Currently, at least 1 of every `r round(100/current_active_region)` people in ou
 As of the last time the data were updated, the 19 regional hospitals around Knoxville had **only `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, Resource=="ICU Beds")$Total.Capacity,1)` total**, based on info from the [Knox County Health Department](https://covid.knoxcountytn.gov/case-count.html).
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-tn_death_predictions_point <- subset(tn_death_predictions, type=="point")
 
-tn_death_prediction_organized <- data.frame(Date=tn_death_predictions_point$target_end_date,Expected_Deaths=tn_death_predictions_point$value, Range=rep(NA, nrow(tn_death_predictions_point)))
-for (i in sequence(nrow(tn_death_prediction_organized))) {
-	tn_death_prediction_organized$Range[i] <- paste0(subset(tn_death_predictions, quantile==0.025 & target_end_date== tn_death_prediction_organized$Date[i])$value, "-", subset(tn_death_predictions, quantile==0.975 & target_end_date== tn_death_prediction_organized$Date[i])$value)
-}
-tn_death_prediction_organized <- tn_death_prediction_organized[order(tn_death_prediction_organized$Date),]
+	tn_death_predictions_point <- subset(tn_death_predictions, type=="point")
+
+	tn_death_prediction_organized <- data.frame(Date=tn_death_predictions_point$target_end_date,Expected_Deaths=tn_death_predictions_point$value, Range=rep(NA, nrow(tn_death_predictions_point)))
+	for (i in sequence(nrow(tn_death_prediction_organized))) {
+		tn_death_prediction_organized$Range[i] <- paste0(subset(tn_death_predictions, quantile==0.025 & target_end_date== tn_death_prediction_organized$Date[i])$value, "-", subset(tn_death_predictions, quantile==0.975 & target_end_date== tn_death_prediction_organized$Date[i])$value)
+	}
+	tn_death_prediction_organized <- tn_death_prediction_organized[order(tn_death_prediction_organized$Date),]
 
 
 #knitr::kable(tn_death_prediction_organized)
@@ -52,11 +55,9 @@ tn_death_prediction_organized <- tn_death_prediction_organized[order(tn_death_pr
 
 As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b %d, %Y")`, **`r format(tail(tn_death_history$value,1),big.mark=",",scientific=FALSE)` people have died from covid in Tennessee.** 
 
-The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models every week. They predict that in the week ending on **`r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")`, an additional `r tn_death_prediction_organized$Expected_Deaths[1]` people (range `r tn_death_prediction_organized$Range[1]`) will have died from covid in Tennessee**, with `r tn_death_prediction_organized$Expected_Deaths[2]`, `r tn_death_prediction_organized$Expected_Deaths[3]`, and `r tn_death_prediction_organized$Expected_Deaths[4]` more covid deaths in each of the next three weeks.
+The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models every week. They predict that in the week ending on **`r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")`, an additional `r tn_death_prediction_organized$Expected_Deaths[1]` people (range `r tn_death_prediction_organized$Range[1]`) will have died from covid in Tennessee**, with `r tn_death_prediction_organized$Expected_Deaths[2]` more covid deaths by `r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")`.
 
-See other pages from the menu above for more detail on vaccinations, conditions in schools, and more. *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
-
-
+*To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
 ```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
 

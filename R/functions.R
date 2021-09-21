@@ -703,16 +703,24 @@ Get17To25Knox <- function() {
 }
 
 GetTNDeathPredictions <- function() {
-  fdat <- covidHubUtils::load_forecasts(
-		models = c("COVIDhub-ensemble"),
-		dates = as.character(Sys.Date()-1),
-		source = "zoltar",
-		date_window_size = 6,
-		locations = c("47"),
-		types = c("quantile", "point"),
-		targets = paste(1:4, "wk ahead inc death"),
-		verbose = FALSE
-	)
+  fdat <- data.frame()
+  offset <- 0
+  while(nrow(fdat)==0) {
+	fdat <- covidHubUtils::load_forecasts(
+			models = c("COVIDhub-ensemble"),
+			dates = as.character(Sys.Date()-offset),
+			source = "zoltar",
+			date_window_size = 6,
+			locations = c("47"),
+			types = c("quantile", "point"),
+			targets = paste(1:4, "wk ahead inc death"),
+			verbose = FALSE
+		)
+		offset <- offset + 1
+		print(offset)
+		print(fdat)
+  }
+  fdat <- subset(fdat, target_end_date>Sys.Date())
 	return(fdat)
 }
 
