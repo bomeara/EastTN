@@ -85,7 +85,8 @@ CreateHospitalKnox <- function() {
     hospital_knox <- data.frame()
     for (i in seq_along(hospital_knox_files)) {
         local_beds <- NA
-        try(local_beds <- read.csv(hospital_knox_files[i]), silent=TRUE)
+        try({
+			local_beds <- read.csv(hospital_knox_files[i])
         if(!is.na(local_beds)) {
             local_beds$East.Region.Hospitals <- gsub('All Hospital Beds*', 'All Hospital Beds *', gsub('All Hospital Beds *', 'All Hospital Beds', local_beds$East.Region.Hospitals, fixed=TRUE), fixed=TRUE)
             local_beds$Total.Capacity <- as.numeric(gsub(",",'', local_beds$Total.Capacity))
@@ -100,6 +101,7 @@ CreateHospitalKnox <- function() {
                 hospital_knox <- rbind(hospital_knox, local_beds)
             }
         }
+		})
     }
     hospital_knox <- subset(hospital_knox, East.Region.Hospitals != "Adult Floor Beds/Non-ICU")
     hospital_knox <- hospital_knox[which(nchar(hospital_knox$East.Region.Hospitals)>0),]

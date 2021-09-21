@@ -1,4 +1,9 @@
 setwd("/Users/bomeara/Documents/MyDocuments/GitClones/EastTN")
+system("/usr/local/bin/git pull")
+Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin/pandoc")
+#Sys.setenv(RSTUDIO_PANDOC="/usr/lib/rstudio-server/bin/pandoc")
+system("export PATH=$PATH:/usr/local/bin")
+
 library(targets)
 source("_packages.R")
 source("R/functions.R")
@@ -20,6 +25,13 @@ if(rerun) {
 	tar_invalidate(contains("utk"))
 }
 tar_make()
+Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin/pandoc")
+Sys.setenv(PANDOC="/usr/local/bin/pandoc")
+print(rmarkdown::find_pandoc())
+#to get around path issues
+pandoc_available <- function(...) {
+	return(TRUE)
+}
 rmarkdown::render_site()
 Sys.sleep(10)
 system("cp /Users/bomeara/Documents/MyDocuments/GitClones/EastTN/data/*csv /Users/bomeara/Documents/MyDocuments/GitClones/EastTN/docs")
