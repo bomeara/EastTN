@@ -1,0 +1,11 @@
+---
+title: Social Media
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+This is a feed from local reporters and health departments who typically have information about covid in TN. 
+
+<a class="twitter-timeline" href="https://twitter.com/omearabrian/lists/1440308997542735883?ref_src=twsrc%5Etfw">COVID reporters and info in TN</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
