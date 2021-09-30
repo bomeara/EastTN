@@ -6,6 +6,26 @@ output:
        in_header: GA_Script.html
 ---
 
-Different universities vary in their approaches. Over [800 universities require covid vaccination for students and/or staff](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), though UTK is not one of them.
+Different universities vary in their approaches. Over [1,058 university campuses require covid vaccination for students and/or staff](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), though UTK is not one of them.
 
 As of Sep. 8, UTK has an indoor mask mandate, no reported surveillance of cases, and no vaccination requirement. It is hosting football games and other events with no social distancing or masking requirement, though people may choose to wear masks.
+
+It can be instructive to compare UTK's policies and data to elsewhere. UTK has identified Lousiana State U as one of its [comparable peer institutions](https://oira.utk.edu/peer-institutions/), and LSU has a fair bit of data on their [dashboard](https://www.lsu.edu/roadmap/covid-dashboard/index.php). This info is current as of Sept. 30, 2021. Numbers on cases and tests to date are from May 9, 2021 so only this academic year is included.
+
+| Measure                           | UTK          | LSU                                                                                                     |
+|-----------------------------------|--------------|---------------------------------------------------------------------------------------------------------|
+| Population (students + employees) | 36,600       | 39,000                                                                                                  |
+| Tests given on campus             | 1,138*       | 9,225                                                                                                   |
+| Total positive cases reported     | 914          | 787                                                                                                     |
+| Number of people vaccinated       | unknown      | 30,692                                                                                                  |
+| Wastewater testing                | unknown      | 25 locations (14 w virus detected)                                                                      |
+| Arriving student requirements     | none         | negative test ≤ 5 days before arriving, or covid vaccination, or positive test ≤90 days before arriving |
+| Vaccination for students          | not required | required with limited exceptions (requires monthly testing)                                             |
+| Vaccination for faculty and staff | not required | required with limited exceptions (requires monthly testing)                                             |
+| Football stadium requirements     | none         | proof of vaccination or negative PCR test ≤ 72 hours before entry                                       |
+| Number of deaths       | unknown      | unknown                                                                                                  |
+| Number of hospitalizations       | unknown      | unknown                                                                                                  |
+
+
+* Information on total testing on campus from a public records request by [Alex Zukowski](https://sites.google.com/view/utk-covid19/home)
+
