@@ -3,7 +3,7 @@ title: Comparisons
 output:
   html_document:
     includes:
-       in_header: GA_Script.html
+       in_header: tablestyle.html
 ---
 
 Different universities vary in their approaches. Over [1,058 university campuses require covid vaccination for students and/or staff](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), though UTK is not one of them.
@@ -12,19 +12,74 @@ As of Sep. 8, UTK has an indoor mask mandate, no reported surveillance of cases,
 
 It can be instructive to compare UTK's policies and data to elsewhere. UTK has identified Lousiana State U as one of its [comparable peer institutions](https://oira.utk.edu/peer-institutions/), and LSU has a fair bit of data on their [dashboard](https://www.lsu.edu/roadmap/covid-dashboard/index.php). This info is current as of Sept. 30, 2021. Numbers on cases and tests to date are from May 9, 2021 so only this academic year is included.
 
-| Measure                           | UTK          | LSU                                                                                                     |
-|-----------------------------------|--------------|---------------------------------------------------------------------------------------------------------|
-| Population (students + employees) | 36,600       | 39,000                                                                                                  |
-| Tests given on campus             | 1,138*       | 9,225                                                                                                   |
-| Total positive cases reported     | 914          | 787                                                                                                     |
-| Number of people vaccinated       | unknown      | 30,692                                                                                                  |
-| Wastewater testing                | unknown      | 25 locations (14 w virus detected)                                                                      |
-| Arriving student requirements     | none         | negative test ≤ 5 days before arriving, or covid vaccination, or positive test ≤90 days before arriving |
-| Vaccination for students          | not required | required with limited exceptions (requires monthly testing)                                             |
-| Vaccination for faculty and staff | not required | required with limited exceptions (requires monthly testing)                                             |
-| Football stadium requirements     | none         | proof of vaccination or negative PCR test ≤ 72 hours before entry                                       |
-| Number of deaths       | unknown      | unknown                                                                                                  |
-| Number of hospitalizations       | unknown      | unknown                                                                                                  |
+
+<table>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>UTK</th>
+<th>LSU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Population (students + employees)</td>
+<td>36,600</td>
+<td>39,000</td>
+</tr>
+<tr class="even">
+<td>Tests given on campus</td>
+<td>1,138*</td>
+<td>9,225</td>
+</tr>
+<tr class="odd">
+<td>Total positive cases reported</td>
+<td>914</td>
+<td>787</td>
+</tr>
+<tr class="even">
+<td>Number of people vaccinated</td>
+<td>unknown</td>
+<td>30,692</td>
+</tr>
+<tr class="odd">
+<td>Wastewater testing</td>
+<td>unknown</td>
+<td>25 locations (14 w virus detected)</td>
+</tr>
+<tr class="even">
+<td>Arriving student requirements</td>
+<td>none</td>
+<td>negative test ≤ 5 days before arriving, or covid vaccination, or positive test ≤90 days before arriving</td>
+</tr>
+<tr class="odd">
+<td>Vaccination for students</td>
+<td>not required</td>
+<td>required with limited exceptions (requires monthly testing)</td>
+</tr>
+<tr class="even">
+<td>Vaccination for faculty and staff</td>
+<td>not required</td>
+<td>required with limited exceptions (requires monthly testing)</td>
+</tr>
+<tr class="odd">
+<td>Football stadium requirements</td>
+<td>none</td>
+<td>proof of vaccination or negative PCR test ≤ 72 hours before entry</td>
+</tr>
+<tr class="even">
+<td>Number of deaths</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr class="odd">
+<td>Number of hospitalizations</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>                                                                                            |
+
 
 
 * Information on total testing on campus from a public records request by [Alex Zukowski](https://sites.google.com/view/utk-covid19/home)
