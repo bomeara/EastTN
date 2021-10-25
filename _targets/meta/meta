@@ -8,7 +8,7 @@ CreateSchoolsOakRidge|function|a281e427b1b34968||||||||||||||
 ComputeSummaryTableFraction|function|a69c5211151931e9||||||||||||||
 GetTNDeathPredictions|function|6df94170e0e6a591||||||||||||||
 FocalCountiesEastTN|function|0c89dba02f5e5384||||||||||||||
-.Random.seed|object|0255efd629e1c8e8||||||||||||||
+.Random.seed|object|06809a133e48acec||||||||||||||
 GetZukowskiData|function|7587815406e8ab5d||||||||||||||
 target_save_csv|function|b283551b10787e83||||||||||||||
 CreateHHSDataFocalCitiesPretty|function|b81e1b621769e73f||||||||||||||
@@ -27,26 +27,26 @@ CreateIndividualSchoolsKnox|function|2e9de33745585759||||||||||||||
 ComputeUTKIsolationsReported|function|c6644cef7e53cd29||||||||||||||
 CreateSchoolkidsDaily|function|7b4ff9a76c781e3f||||||||||||||
 CreateDailyFocal|function|5c30d3f9e81d240b||||||||||||||
-hospital_knox|stem|9e28cfd261542e3e|69f903d639eb813d|75e04fe6e5aee563|-977223956||t18925.1057502489s|fad6872f0743d8bd|18276|rds|vector|||4.191|the condition has length  1 and only the first element will be used|
-kcs_dashboard|stem|66ea210179fac6f6|0cf2bcc9bbf2a2cc|c176c592acc6e631|-638782657||t18925.1057563203s|d5333872c0ff92db|1440|rds|vector|||0.512||
-utk_active_cases_reported|stem|4cece9f346be8c53|63c504ab5a3e108d|d31afc996d576229|1499524117||t18925.1057564531s|3153df66cec9abbe|7021|rds|vector|||0.003||
-schoolkids_daily|stem|9aa2601709124892|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18925.1058111302s|6a4345d90698fb79|9083|rds|vector|||4.718||
-tn_death_predictions|stem|206ef6a7aff753d3|9ba046f952ebaa02|5a60c19317ebffed|-710989161||t18925.1058900743s|84ff657f6005ec94|814|rds|vector|||6.813||
-covid_by_demographic_in_tn|stem|ea7ade005b0c1636|bbae286ae893afb2|afff393fe82a31e5|284864431||t18925.1059142987s|1b982342223d71fb|276079|rds|vector|||2.065||
-daily_focal|stem|68875851e739b252|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18925.1060017308s|d87e47264c0b2e41|143137|rds|vector|||7.493||
-saliva_data|stem|185d7bcf9bd98374|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18925.1060061502s|42e883266bc00555|2112|rds|vector|||0.021||
-schools_knox|stem|31ec4b47cd809eb4|c5c9d958016c0d6d|ab5d924eb6b21f18|-676346400||t18925.106132956s|d2471567d5fa1113|1166|rds|vector|||10.953||
-schools_oakridge|stem|b1c22687516f22cb|5ef76551f256f52d|480ce473a321c6b1|340842418||t18925.1061395168s|7d1ebcc402f2fd05|10442|rds|vector|||0.557||
-individual_schools_knox|stem|8d1af201b2a74705|3f14f66ecef00479|7f5cce331d025581|559594257||t18925.1067556802s|4c726800a10ab01f|34036|rds|vector|||53.22|NAs introduced by coercion|
-tn_death_history|stem|ffcaddf1d6cab807|2c795da524427119|a92f2108950b6b8e|-321074371||t18925.1068245038s|fa6fcc4f3576e07b|931|rds|vector|||5.938||
-zukowski_data|stem|cc02707bf21f87e9|a477d1b519a4a710|5c561b6dd0e4bfc8|1575020281||t18925.1068616942s|185328a6d6d15782|67169|rds|vector|||3.195||
-utk.cases|stem|5f0df961466a8ccb|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18925.1070175361s|39ed566eddf61df8|5189|rds|vector|||13.303||
-utk_isolations_reported|stem|10330ff246c43061|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18925.1070180367s|c14a01513abbd3f5|3459|rds|vector|||0.039||
-hospital_knox_out|stem|11943e5608975cb3|3037f8959b403c5d|00b51b84b69eb6f7|-1786901030|data/hospital_knox.csv|t18925.1070182926s|77cae7204c1c8f14|216158|file|vector|||0.018||
-schoolkids_daily_out|stem|9d0af8db666ae096|b239b2c8b4334ada|5580d6af045b468e|-369537773|data/schoolkids_daily.csv|t18925.107018408s|82b53d7e1b9d06b3|52804|file|vector|||0.007||
-sumtab|stem|a7c753b8a9991ddc|62c71d0987f6fe42|3b3a3cb68fc44c6f|-1100657709||t18925.1070201203s|cc6f44201a495457|473|rds|vector|||0.144||
-daily_focal_out|stem|2d3396de37504fe2|207d3b6440af375b|59ed69eaa2ca2295|1606737577|data/daily_focal.csv|t18925.1070207554s|845310ade4758464|384222|file|vector|||0.032||
-schools_knox_out|stem|fe992ddd7ceb800e|6716145ceafc08c3|d76342e01984b8b6|-524921584|data/schools_knox.csv|t18925.1070221398s|986fe7804666b417|2859|file|vector|||0.001||
-schools_oakridge_out|stem|8f6e5f95dbeb762c|f5c44414468c20f8|f4d3c1706244a6d9|1089840944|data/schools_oakridge.csv|t18925.1070223401s|bea955a94b77f257|165760|file|vector|||0.01||
-individual_schools_knox_csv_out|stem|aeffbdb7c0367193|78e9fba770d0a593|16a1b3680615b096|994365499|data/individual_schools_knox.csv|t18925.1070225983s|503dc25dce32195a|944558|file|vector|||0.019||
-sumtabfraction|stem|2ab7bb3c97843da3|019189a1de934492|4135769db748ea68|1297427247||t18925.1070227562s|cc6f44201a495457|473|rds|vector|||0.009||
+hospital_knox|stem|b477025792ad151e|69f903d639eb813d|75e04fe6e5aee563|-977223956||t18925.6057724116s|335c4df9ea5bafd8|18326|rds|vector|||5.822|the condition has length  1 and only the first element will be used|
+kcs_dashboard|stem|66ea210179fac6f6|0cf2bcc9bbf2a2cc|c176c592acc6e631|-638782657||t18925.6057782854s|d5333872c0ff92db|1440|rds|vector|||0.495||
+utk_active_cases_reported|stem|4cece9f346be8c53|63c504ab5a3e108d|d31afc996d576229|1499524117||t18925.6057784207s|3153df66cec9abbe|7021|rds|vector|||0.003||
+schoolkids_daily|stem|9aa2601709124892|feeb17b2f6b679bf|da209525b2ec092a|1308875525||t18925.6058048554s|6a4345d90698fb79|9083|rds|vector|||2.278||
+tn_death_predictions|stem|206ef6a7aff753d3|9ba046f952ebaa02|5a60c19317ebffed|-710989161||t18925.6059241228s|84ff657f6005ec94|814|rds|vector|||10.296|Warning in load_forecasts_zoltar Forecasts are not available. Please check your parameters.|
+covid_by_demographic_in_tn|stem|ea7ade005b0c1636|bbae286ae893afb2|afff393fe82a31e5|284864431||t18925.6059495597s|1b982342223d71fb|276079|rds|vector|||2.169||
+daily_focal|stem|68875851e739b252|46367b767d9ca637|2ae1ea05b9f59153|376252493||t18925.6060379986s|d87e47264c0b2e41|143137|rds|vector|||7.611||
+saliva_data|stem|185d7bcf9bd98374|4a2d8639698d97d0|908f6a03ee1406d2|153026738||t18925.6060387703s|42e883266bc00555|2112|rds|vector|||0.022||
+schools_knox|stem|8c0e5537a342e945|c5c9d958016c0d6d|ab5d924eb6b21f18|-676346400||t18925.6061652327s|a9de2f62bbcaaf0e|1173|rds|vector|||10.89||
+schools_oakridge|stem|4375775c2ea7c027|5ef76551f256f52d|480ce473a321c6b1|340842418||t18925.6061728904s|75282364bfc24037|10504|rds|vector|||0.534||
+individual_schools_knox|stem|8d1af201b2a74705|3f14f66ecef00479|7f5cce331d025581|559594257||t18925.6067950004s|4c726800a10ab01f|34036|rds|vector|||53.734|NAs introduced by coercion|
+tn_death_history|stem|ffcaddf1d6cab807|2c795da524427119|a92f2108950b6b8e|-321074371||t18925.6068571543s|fa6fcc4f3576e07b|931|rds|vector|||5.346||
+zukowski_data|stem|cc02707bf21f87e9|a477d1b519a4a710|5c561b6dd0e4bfc8|1575020281||t18925.606899852s|185328a6d6d15782|67169|rds|vector|||3.633||
+utk.cases|stem|281f4afdeda290e0|845538a5f1637d63|7beefd2f6cc49779|2066268964||t18925.6070587766s|154c04fd5c6b2697|5191|rds|vector|||13.722||
+utk_isolations_reported|stem|10330ff246c43061|2a4404362e4d82ea|72a8a8471afdc2ae|1426134872||t18925.6070591106s|c14a01513abbd3f5|3459|rds|vector|||0.025||
+hospital_knox_out|stem|cfe62e7e2b340040|3037f8959b403c5d|d86c0815129e9a51|-1786901030|data/hospital_knox.csv|t18925.6070593602s|df172c500cb658c9|216842|file|vector|||0.02||
+schoolkids_daily_out|stem|9d0af8db666ae096|b239b2c8b4334ada|5580d6af045b468e|-369537773|data/schoolkids_daily.csv|t18925.6070594816s|82b53d7e1b9d06b3|52804|file|vector|||0.007||
+sumtab|stem|a7c753b8a9991ddc|62c71d0987f6fe42|3b3a3cb68fc44c6f|-1100657709||t18925.6070611635s|cc6f44201a495457|473|rds|vector|||0.141||
+daily_focal_out|stem|2d3396de37504fe2|207d3b6440af375b|59ed69eaa2ca2295|1606737577|data/daily_focal.csv|t18925.6070616101s|845310ade4758464|384222|file|vector|||0.031||
+schools_knox_out|stem|3521740eddadab6c|6716145ceafc08c3|b19ccf7fd6e3afda|-524921584|data/schools_knox.csv|t18925.6070616645s|47858e794cb2e2a9|2902|file|vector|||0.002||
+schools_oakridge_out|stem|6cba145f3897fc62|f5c44414468c20f8|dc2e6aeef8e14600|1089840944|data/schools_oakridge.csv|t18925.6070617962s|e4cad20920aa1aa4|167038|file|vector|||0.009||
+individual_schools_knox_csv_out|stem|aeffbdb7c0367193|78e9fba770d0a593|16a1b3680615b096|994365499|data/individual_schools_knox.csv|t18925.6070620473s|503dc25dce32195a|944558|file|vector|||0.019||
+sumtabfraction|stem|2ab7bb3c97843da3|019189a1de934492|4135769db748ea68|1297427247||t18925.6070622052s|cc6f44201a495457|473|rds|vector|||0.009||
