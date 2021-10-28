@@ -86,7 +86,7 @@ CreateHospitalKnox <- function() {
     for (i in seq_along(hospital_knox_files)) {
         local_beds <- NA
         try({
-			local_beds <- read.csv(hospital_knox_files[i])
+			local_beds <- suppressWarnings(read.csv(hospital_knox_files[i]))
         if(!is.na(local_beds)) {
             local_beds$East.Region.Hospitals <- gsub('All Hospital Beds*', 'All Hospital Beds *', gsub('All Hospital Beds *', 'All Hospital Beds', local_beds$East.Region.Hospitals, fixed=TRUE), fixed=TRUE)
             local_beds$Total.Capacity <- as.numeric(gsub(",",'', local_beds$Total.Capacity))
@@ -101,7 +101,7 @@ CreateHospitalKnox <- function() {
                 hospital_knox <- rbind(hospital_knox, local_beds)
             }
         }
-		})
+		}, silent=TRUE)
     }
     hospital_knox <- subset(hospital_knox, East.Region.Hospitals != "Adult Floor Beds/Non-ICU")
     hospital_knox <- hospital_knox[which(nchar(hospital_knox$East.Region.Hospitals)>0),]
@@ -143,7 +143,7 @@ CreateSchoolsKnox <- function() {
     knox_school_files <- list.files(path="/Users/bomeara/Dropbox/KnoxSchoolsCovid", pattern="*knox_schools.html", full.names=TRUE)
     for (i in seq_along(knox_school_files)) {
 
-        try(input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size))
+        try(input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size), silent=TRUE)
         try(input_file_html <- rvest::read_html(input_file))
         try(tbl <- as.data.frame(rvest::html_table(rvest::html_nodes(input_file_html, "table"))[[1]]))
         try(school_knox_info <- rbind(school_knox_info, tbl))
@@ -177,7 +177,7 @@ CreateIndividualSchoolsKnox <- function() {
 			if(nrow(schools_day)>0) {
 				individual_schools_knox <- plyr::rbind.fill(individual_schools_knox, schools_day)	
 			}
-		})
+		}, silent=TRUE)
     }
 	individual_schools_knox$Level <- "Other"
 	individual_schools_knox$Level[grepl("Elementary", individual_schools_knox$School)] <- "Elementary"
