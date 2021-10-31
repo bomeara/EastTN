@@ -144,9 +144,9 @@ CreateSchoolsKnox <- function() {
     for (i in seq_along(knox_school_files)) {
 
         try(input_file <- readChar(knox_school_files[i], file.info(knox_school_files[i])$size), silent=TRUE)
-        try(input_file_html <- rvest::read_html(input_file))
-        try(tbl <- as.data.frame(rvest::html_table(rvest::html_nodes(input_file_html, "table"))[[1]]))
-        try(school_knox_info <- rbind(school_knox_info, tbl))
+        try(input_file_html <- rvest::read_html(input_file), silent=TRUE)
+        try(tbl <- as.data.frame(rvest::html_table(rvest::html_nodes(input_file_html, "table"))[[1]]), silent=TRUE)
+        try(school_knox_info <- rbind(school_knox_info, tbl), silent=TRUE)
     }
     school_knox_info <- school_knox_info[!duplicated(school_knox_info$Date),]
     school_knox_info$Date <- as.Date(school_knox_info$Date,"%b %d, %Y")
