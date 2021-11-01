@@ -12,7 +12,6 @@ Official information about covid at UTK available at https://www.utk.edu/coronav
 * [UTK's Covid Dashboard](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options.html). Updated weekdays
 * [UT System Dashboard](https://tennessee.edu/coronavirus/dashboard/). Updated daily, with a potential for filtering by campus
 * [Alex Zukowski Dashboard](https://sites.google.com/view/utk-covid19). Created by a UTK student.
-* [Matthew Martin Dashboard](https://datastudio.google.com/s/lKcORv-VO2Q). Created by another UTK student.
 
 UTK is releasing [some data](https://www.utk.edu/coronavirus/guides/data-monitoring-and-contingency-options/), though less than some peers or UTK itself last academic year. I cannot find information on number of tests at the student health center, test positivity rate, saliva testing, or wastewater testing. There is no data on vaccination rate in the student body in general or in faculty or staff, nor on hospitalization or death rates. Students in university housing, and their close contacts who are unvaccinated, may have to seek alternate places to live at their own cost if they test positive for covid until the self-isolation period is over. 
 
