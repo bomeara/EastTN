@@ -39,7 +39,7 @@ print(knox_schools_pct)
 ### Individual Schools {#byschool}
 
 
-Knox County Schools now have data on individual schools. We can see the percentage of students and staff in each school (those absent could be out for many different reasons, not just covid).
+Knox County Schools now have data on individual schools. We can see the percentage of students and staff in each school (those absent could be out for many different reasons, not just covid). Schools are aggregated by type: elementary, middle, high school, or other (such as Knox Adaptive Education Center or Richard Yoakley Alternative School). Note that lines do not change over school breaks.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
 present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ylim(c(60, 100)) + xlim(c(60, 100)) + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
