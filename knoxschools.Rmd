@@ -43,9 +43,25 @@ Knox County Schools now have data on individual schools. We can see the percenta
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="percentage of staff and students present"}
 present_plot <- ggplot(individual_schools_most_recent, aes(x=Student_Present_Percent, y=Staff_Present_Percent, group=Level, text=School)) + geom_point(aes(colour=Level)) + theme_light() + ylab("Percentage of staff present") + xlab("Percentage of students present") + ylim(c(60, 100)) + xlim(c(60, 100)) + ggtitle(paste0("Attendance in each school as of ", as.Date(max(individual_schools_most_recent$Date),"%b %d, %Y")))
-print(present_plot)
-#plotly_result <- ggplotly(present_plot, tooltip="text")
-#print(plotly_result)
+#print(present_plot)
+
+
+individual_schools_knox$Student_Enrolled <- as.numeric(individual_schools_knox$Student_Enrolled)
+individual_schools_knox$Student_Present <- as.numeric(individual_schools_knox$Student_Present)
+individual_schools_knox$Staff_Employed <- as.numeric(individual_schools_knox$Staff_Employed)
+individual_schools_knox$Staff_Present <- as.numeric(individual_schools_knox$Staff_Present)
+
+all_schools_knox <- individual_schools_knox %>% group_by(Date, Level) %>% summarize(Student_Enrolled=sum(Student_Enrolled), Student_Present=sum(Student_Present), Staff_Employed=sum(Staff_Employed), Staff_Present=sum(Staff_Present))
+all_schools_knox$Student_Present_Percent <- 100*all_schools_knox$Student_Present/all_schools_knox$Student_Enrolled
+all_schools_knox$Staff_Present_Percent <- 100*all_schools_knox$Staff_Present/all_schools_knox$Staff_Employed
+
+all_schools_knox_vertical <- rbind(
+	data.frame(Date=all_schools_knox$Date, Level=all_schools_knox$Level, Percent_Present=all_schools_knox$Student_Present_Percent, Population="Student"),
+	data.frame(Date=all_schools_knox$Date, Level=all_schools_knox$Level, Percent_Present=all_schools_knox$Staff_Present_Percent, Population="Staff")
+)
+
+try(knox_schools_aggregate <- ggplot(all_schools_knox_vertical, aes(x=Date, y=Percent_Present, group=Population)) + geom_line(aes(colour=Population)) + theme_light() + ylab("Percentage in attendance") + xlab("Date") + ylim(c(60, 100)) + ggtitle("Attendance in Knox County Schools") + facet_wrap(~ Level, ncol=2) + scale_x_datetime(date_labels = "%b %d"))
+print(knox_schools_aggregate)
 ```
 
 Plotting this by individual school over time, students first:
