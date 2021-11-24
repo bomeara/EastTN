@@ -332,9 +332,15 @@ $(document).ready(function () {
 </div>
 
 
-<p>The <a href="https://microcovid.org/">microCOVID Project</a> is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes “microcovids,” a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event. I created a set of scenarios that may represent potential events in East Tennessee; for each one, the expected probability of getting covid at that event per event, based on microcovid’s data, is shown. For each, the risk is shown for someone vaccinated and masked, vaccinated but not masked, and not vaccinated nor masked. You can go to the linked page for each to change the parameters. These numbers are as of Sept. 15, 2021.</p>
+<p>The <a href="https://microcovid.org/">microCOVID Project</a> is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes “microcovids,” a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event. I created a set of scenarios that may represent potential events in East Tennessee; for each one, the expected probability of getting covid at that event per event, based on microcovid’s data, is shown. For each, the risk is shown for someone vaccinated and masked, vaccinated but not masked, and not vaccinated nor masked. You can go to the linked page for each to change the parameters. These numbers are as of Nov. 23, 2021.</p>
 <p>Microcovid.org’s point estimate of probability of getting covid at each of these events:</p>
 <table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="29%" />
+<col width="29%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th><strong>Scenario</strong></th>
@@ -346,33 +352,33 @@ $(document).ready(function () {
 <tbody>
 <tr class="odd">
 <td>In outdoor stadium or bleachers, others unmasked</td>
-<td><a href="https://www.microcovid.org/?distance=normal&amp;duration=180&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=custom&amp;setting=outdoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">1%</a></td>
-<td><a href="https://www.microcovid.org/?distance=normal&amp;duration=180&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=custom&amp;setting=outdoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic">8%</a></td>
-<td><a href="https://www.microcovid.org/?distance=normal&amp;duration=180&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=custom&amp;setting=outdoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=none">10%</a></td>
+<td><a href="https://www.microcovid.org/?distance=normal&amp;duration=180&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=custom&amp;setting=outdoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">0.1%</a></td>
+<td><a href="https://www.microcovid.org/?distance=normal&amp;duration=180&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=custom&amp;setting=outdoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic">0.5%</a></td>
+<td><a href="https://www.microcovid.org/?distance=normal&amp;duration=180&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=custom&amp;setting=outdoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=none">0.8%</a></td>
 </tr>
 <tr class="even">
 <td>Grocery Store for 60 minutes, others unmasked</td>
-<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=60&amp;interaction=oneTime&amp;personCount=5&amp;riskProfile=average&amp;scenarioName=60minShopping&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=silent&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">0.02%</a></td>
-<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=60&amp;interaction=oneTime&amp;personCount=5&amp;riskProfile=average&amp;scenarioName=60minShopping&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=silent&amp;yourMask=basic">0.10%</a></td>
-<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=60&amp;interaction=oneTime&amp;personCount=5&amp;riskProfile=average&amp;scenarioName=60minShopping&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=silent&amp;yourMask=none">0.20%</a></td>
+<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=60&amp;interaction=oneTime&amp;personCount=5&amp;riskProfile=average&amp;scenarioName=60minShopping&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=silent&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">0.002%</a></td>
+<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=60&amp;interaction=oneTime&amp;personCount=5&amp;riskProfile=average&amp;scenarioName=60minShopping&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=silent&amp;yourMask=basic">0.009%</a></td>
+<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=60&amp;interaction=oneTime&amp;personCount=5&amp;riskProfile=average&amp;scenarioName=60minShopping&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=silent&amp;yourMask=none">0.01%</a></td>
 </tr>
 <tr class="odd">
 <td>Packed in room (lecture, performance, etc.), others unmasked</td>
-<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">1%</a></td>
-<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic">8%</a></td>
-<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=none">10%</a></td>
+<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">0.09%</a></td>
+<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic">0.5%</a></td>
+<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=none">0.8%</a></td>
 </tr>
 <tr class="even">
 <td>Packed in room (lecture, performance, etc.), others masked</td>
-<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=basic&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">0.4%</a></td>
-<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=basic&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic">3.0%</a></td>
-<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=basic&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=none">4.0%</a></td>
+<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=basic&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">0.03%</a></td>
+<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=basic&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic">0.2%</a></td>
+<td><a href="https://www.microcovid.org/?distance=close&amp;duration=60&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=basic&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=none">0.3%</a></td>
 </tr>
 <tr class="odd">
 <td>Going to a bar</td>
-<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=120&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=bar&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=loud&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">40%</a></td>
-<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=120&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=bar&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=loud&amp;yourMask=basic&amp;yourVaccineDoses=2">94%</a></td>
-<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=120&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=bar&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=loud&amp;yourMask=none&amp;yourVaccineDoses=2">97%</a></td>
+<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=120&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=bar&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=loud&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">2.8%</a></td>
+<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=120&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=bar&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=loud&amp;yourMask=basic&amp;yourVaccineDoses=2">15%</a></td>
+<td><a href="https://www.microcovid.org/?distance=sixFt&amp;duration=120&amp;interaction=oneTime&amp;personCount=15&amp;riskProfile=bars&amp;scenarioName=bar&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=loud&amp;yourMask=none&amp;yourVaccineDoses=2">19%</a></td>
 </tr>
 </tbody>
 </table>
