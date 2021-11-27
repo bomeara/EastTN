@@ -739,3 +739,15 @@ target_save_csv <- function(x, filename) {
 	write.csv(x, file=filename, row.names=FALSE)	
 	return(filename)
 }
+
+GetTSAThroughput <- function() {
+	tsa <- read_html("https://www.tsa.gov/coronavirus/passenger-throughput")
+	tsa_screening <- tsa %>% html_elements("table") %>% html_table()
+	tsa_screening <- tsa_screening[[1]]
+	tsa_screening$Day <- format(as.Date(tsa_screening$Date, format="%m/%d/%Y"), "%m/%d")
+	tsa_summary <- data.frame(Date=as.Date(tsa_screening$Date, format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2021 Traveler Throughput`)))
+	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2020"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2020 Traveler Throughput`))))
+	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2019"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2019 Traveler Throughput`))))
+	tsa_summary <- tsa_summary[order(tsa_summary$Date),]	
+	return(tsa_summary)
+}

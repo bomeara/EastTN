@@ -30,6 +30,8 @@ navbar:
           href: "utk_social.html"
         - text: "Comparisons with others"
           href: "comparisons.html"
+    - text: "Travel"
+      href: travel.html
     - text: "About"
       href: about.html
 
