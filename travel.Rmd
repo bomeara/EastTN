@@ -11,6 +11,7 @@ output:
 source("_packages.R")
 source("R/functions.R")
 tar_load(tsa_throughput)
+tar_load(tysflights)
 ```
 
 Here are TSA screenings nationwide over time, pulled from https://www.tsa.gov/coronavirus/passenger-throughput. 
@@ -29,4 +30,52 @@ tsa_throughput$Year <- format(tsa_throughput$Date, "%Y")
 tsa_throughput$Day <- factor(tsa_throughput$Day, c( "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday", "Sunday"))
 plot_tsa_day <- ggplot(subset(tsa_throughput, Year!="2020"), aes(x=Day , y=Throughput, fill=Year)) + geom_boxplot()+ theme_light() + xlab("Day") + ylab("Number of Screened Passengers")
 print(plot_tsa_day)
+```
+
+We can also pull data on [on time performance](https://www.transtats.bts.gov/DL_SelectFields.asp?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr) from the Bureau of Transportation Statistics. This includes up to Aug. 2021 but gives number of flights and destinations. We can see the number of flights and how the frequency of locations changed over time.
+
+```{r flights_over_time, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+flight_numbers <- tysflights %>% group_by(YEAR) %>% count(DEST_CITY_NAME, ORIGIN_CITY_NAME)
+flight_numbers <- flight_numbers[order(flight_numbers$DEST_CITY_NAME, flight_numbers$YEAR),]
+
+departures <- subset(flight_numbers, ORIGIN_CITY_NAME=="Knoxville, TN")
+arrivals <- subset(flight_numbers, DEST_CITY_NAME=="Knoxville, TN")
+arrivals <- arrivals[order(arrivals$ORIGIN_CITY_NAME, arrivals$YEAR),]
+
+departures_formatted <- data.frame(Year=departures$YEAR, Destination=departures$DEST_CITY_NAME, Number_of_Flights=departures$n)
+departures_formatted$Percent_of_Flights <- NA
+
+departures_formatted$Percent_of_Flights[departures_formatted$Year==2019] <- 100*departures_formatted$Number_of_Flights[departures_formatted$Year==2019]/sum(departures_formatted$Number_of_Flights[departures_formatted$Year==2019])
+
+departures_formatted$Percent_of_Flights[departures_formatted$Year==2020] <- 100*departures_formatted$Number_of_Flights[departures_formatted$Year==2020]/sum(departures_formatted$Number_of_Flights[departures_formatted$Year==2020])
+
+
+departures_formatted$Percent_of_Flights[departures_formatted$Year==2021] <- 100*departures_formatted$Number_of_Flights[departures_formatted$Year==2021]/sum(departures_formatted$Number_of_Flights[departures_formatted$Year==2021])
+
+departures_formatted$Percent_of_Flights <- round(departures_formatted$Percent_of_Flights, 2)
+
+
+arrivals_formatted <- data.frame(Year=arrivals$YEAR, Origin=arrivals$ORIGIN_CITY_NAME, Number_of_Flights=arrivals$n)
+arrivals_formatted$Percent_of_Flights <- NA
+
+arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2019] <- 100*arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2019]/sum(arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2019])
+
+arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2020] <- 100*arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2020]/sum(arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2020])
+
+
+arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2021] <- 100*arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2021]/sum(arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2021])
+
+arrivals_formatted$Percent_of_Flights <- round(arrivals_formatted$Percent_of_Flights, 2)
+```
+
+### Departures
+
+```{r departures, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+kable(departures_formatted)
+```
+
+### Arrivals
+
+```{r arrivals, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+kable(arrivals_formatted)
 ```

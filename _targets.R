@@ -46,7 +46,8 @@ list(
   tar_target(hospital_knox_out, target_save_csv(hospital_knox, filename="data/hospital_knox.csv"), format="file"),
   tar_target(schools_oakridge_out, target_save_csv(schools_oakridge, filename="data/schools_oakridge.csv"), format="file"),
   tar_target(schools_knox_out, target_save_csv(schools_knox, filename="data/schools_knox.csv"), format="file"),
-  tar_target(tsa_throughput, GetTSAThroughput())
+  tar_target(tsa_throughput, GetTSAThroughput()),
+  tar_target(tysflights, GetTYSFlights())
 
 
   #tar_render(yearbyyear, "yearbyyear.Rmd", params = list(daily_focal=daily_focal, schoolkids_daily=schoolkids_daily)),

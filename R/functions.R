@@ -751,3 +751,16 @@ GetTSAThroughput <- function() {
 	tsa_summary <- tsa_summary[order(tsa_summary$Date),]	
 	return(tsa_summary)
 }
+
+GetTYSFlights <- function() {
+	#flights <- read.csv("~/Dropbox/Flight/208423505_T_DB1B_COUPON.csv")	
+	flight_files <- list.files("~/Dropbox/Flight/", pattern=".*.csv")
+	tys_flights <- data.frame()
+	for (i in seq_along(flight_files)) {
+		flights <- read.table(paste0("~/Dropbox/Flight/", flight_files[i]), header=TRUE, sep=",")
+		tys_flights <- rbind(tys_flights, flights)
+	}
+	#print(sort(unique(paste0(tys_flights$YEAR, "_",tys_flights$MONTH))))
+	tys_flights_only <- rbind(subset(tys_flights, ORIGIN=="TYS"), subset(tys_flights, DEST=="TYS"))
+	return(tys_flights_only)
+}
