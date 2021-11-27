@@ -52,7 +52,7 @@ departures_formatted$Percent_of_Flights[departures_formatted$Year==2020] <- 100*
 
 departures_formatted$Percent_of_Flights[departures_formatted$Year==2021] <- 100*departures_formatted$Number_of_Flights[departures_formatted$Year==2021]/sum(departures_formatted$Number_of_Flights[departures_formatted$Year==2021])
 
-departures_formatted$Percent_of_Flights <- round(departures_formatted$Percent_of_Flights, 2)
+departures_formatted$Percent_of_Flights <- round(departures_formatted$Percent_of_Flights, 1)
 
 
 arrivals_formatted <- data.frame(Year=arrivals$YEAR, Origin=arrivals$ORIGIN_CITY_NAME, Number_of_Flights=arrivals$n)
@@ -85,5 +85,6 @@ merged_flights <- merged_flights[order(merged_flights$City, merged_flights$Year)
 ### Flights
 
 ```{r both, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+row.names(merged_flights) <- NULL
 kable(merged_flights)
 ```
