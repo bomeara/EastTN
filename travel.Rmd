@@ -66,16 +66,24 @@ arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2020] <- 100*arri
 arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2021] <- 100*arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2021]/sum(arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2021])
 
 arrivals_formatted$Percent_of_Flights <- round(arrivals_formatted$Percent_of_Flights, 2)
+
+arrivals_to_merge <- arrivals_formatted
+colnames(arrivals_to_merge) <- gsub("Origin", "City", colnames(arrivals_to_merge))
+colnames(arrivals_to_merge) <- gsub("Number_of_Flights", "Arrivals (Number)", colnames(arrivals_to_merge))
+colnames(arrivals_to_merge) <- gsub("Percent_of_Flights", "Arrivals (Percent)", colnames(arrivals_to_merge))
+
+departures_to_merge <- departures_formatted
+colnames(departures_to_merge) <- gsub("Destination", "City", colnames(departures_to_merge))
+colnames(departures_to_merge) <- gsub("Number_of_Flights", "Departures (Number)", colnames(departures_to_merge))
+colnames(departures_to_merge) <- gsub("Percent_of_Flights", "Departures (Percent)", colnames(departures_to_merge))
+
+merged_flights <- merge(arrivals_to_merge, departures_to_merge)
+merged_flights <- merged_flights[order(merged_flights$City, merged_flights$Year),]
+
 ```
 
-### Departures
+### Flights
 
-```{r departures, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-kable(departures_formatted)
-```
-
-### Arrivals
-
-```{r arrivals, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-kable(arrivals_formatted)
+```{r both, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+kable(merged_flights)
 ```
