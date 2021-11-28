@@ -65,7 +65,7 @@ arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2020] <- 100*arri
 
 arrivals_formatted$Percent_of_Flights[arrivals_formatted$Year==2021] <- 100*arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2021]/sum(arrivals_formatted$Number_of_Flights[arrivals_formatted$Year==2021])
 
-arrivals_formatted$Percent_of_Flights <- round(arrivals_formatted$Percent_of_Flights, 2)
+arrivals_formatted$Percent_of_Flights <- round(arrivals_formatted$Percent_of_Flights, 1)
 
 arrivals_to_merge <- arrivals_formatted
 colnames(arrivals_to_merge) <- gsub("Origin", "City", colnames(arrivals_to_merge))
