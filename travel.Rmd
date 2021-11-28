@@ -32,7 +32,7 @@ plot_tsa_day <- ggplot(subset(tsa_throughput, Year!="2020"), aes(x=Day , y=Throu
 print(plot_tsa_day)
 ```
 
-We can also pull data on [on time performance](https://www.transtats.bts.gov/DL_SelectFields.asp?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr) from the Bureau of Transportation Statistics. This includes up to Aug. 2021 but gives number of flights and destinations. We can see the number of flights and how the frequency of locations changed over time.
+We can also pull data on [on time performance](https://www.transtats.bts.gov/DL_SelectFields.asp?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr) from the Bureau of Transportation Statistics to find flights to and from Tyson McGee Airport only. This includes up to Aug. 2021 but gives number of flights and destinations. We can see the number of flights and how the frequency of locations changed over time.
 
 ```{r flights_over_time, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 flight_numbers <- tysflights %>% group_by(YEAR) %>% count(DEST_CITY_NAME, ORIGIN_CITY_NAME)
