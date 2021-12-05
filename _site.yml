@@ -4,6 +4,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Last Four Weeks"
+      href: "lastfourweeks.Rmd"
     - text: "Cases 2021 vs 2020"
       href: yearbyyear.html
     - text: "Vaccination"
