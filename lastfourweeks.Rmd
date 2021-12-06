@@ -45,7 +45,7 @@ Total people in the area who have active covid infections right now *and* for wh
 daily_focal_plus_schools <- plyr::rbind.fill(plyr::rbind.fill(daily_focal, schools_knox_percent_for_focal), schools_oakridge_for_focal)
 
 
-active <- ggplot(subset(daily_focal_plus_schools, daily_focal_plus_schools$DATE >= daily_focal_plus_schools$DATE[nrow(daily_focal_plus_schools)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_brewer(palette = "Set1") 
+active <- ggplot(subset(daily_focal_plus_schools, daily_focal_plus_schools$DATE >= daily_focal_plus_schools$DATE[nrow(daily_focal_plus_schools)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_brewer(palette = "Dark2") + theme_light()
 
 print(active)
 ```
