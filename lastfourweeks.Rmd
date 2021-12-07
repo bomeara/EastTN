@@ -43,7 +43,7 @@ Total people in the area who have active covid infections right now *and* for wh
 ```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
 
 
-active <- ggplot(subset(daily_focal, daily_focal$DATE >= daily_focal$DATE[nrow(daily_focal)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_brewer(palette = "Dark2") + theme_light()
+active <- ggplot(subset(daily_focal, daily_focal$DATE >= daily_focal$DATE[nrow(daily_focal)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light()
 
 print(active)
 ```
@@ -52,10 +52,10 @@ We can also look at people in Knox County Schools (KCS) and Oak Ridge Schools (O
 
 ```{r percentageactiveschools, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
 
-schools <- plyr::rbind.fill(schools_knox_percent_for_focal, schools_oakridge_for_focal)
+schools <- rbind(schools_knox_percent_for_focal, schools_oakridge_for_focal)
 
 
-active <- ggplot(subset(schools, schools$DATE >= schools$DATE[nrow(schools)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_brewer(palette = "Dark2") + theme_light()
+active <- ggplot(subset(schools, schools$DATE >= schools$DATE[nrow(schools)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8) + theme_light()
 
 print(active)
 ```
