@@ -53,7 +53,7 @@ We can also look at people in Knox County Schools (KCS) and Oak Ridge Schools (O
 ```{r percentageactiveschools, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
 
 schools <- rbind(schools_knox_percent_for_focal, schools_oakridge_for_focal)
-
+schools$DATE <- as.POSIXct(schools$DATE)
 
 active <- ggplot(subset(schools, schools$DATE >= schools$DATE[nrow(schools)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA) + scale_colour_viridis_d(end=0.8) + theme_light()
 
