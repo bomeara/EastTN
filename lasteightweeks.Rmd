@@ -1,0 +1,70 @@
+---
+title: Last Eight Weeks
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("_packages.R")
+source("R/functions.R")
+tar_load(hospital_knox)
+tar_load(daily_focal)
+counties_in_hospital_region <- FocalCountiesEastTN()
+last_hospital_update <- max(hospital_knox$Date)
+elapsed_seconds <- 56*24*60*60 # for 56 days
+daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
+daily_focal$PercentDead <- 100*daily_focal$TOTAL_DEATHS/daily_focal$Population
+daily_focal$PercentHospitalized <- 100*daily_focal$TOTAL_HOSPITALIZED/daily_focal$Population
+daily_focal$PercentConfirmed <- 100*daily_focal$TOTAL_CONFIRMED/daily_focal$Population
+daily_region <- subset(daily_focal, Region=="East TN")
+
+
+
+tar_load(schools_knox)
+tar_load(individual_schools_knox)
+tar_load(kcs_dashboard)
+schools_knox <- schools_knox[!is.na(schools_knox$Active_Students_Count),]
+
+schools_knox_percent_for_focal <- data.frame(DATE=rep(schools_knox$Date,2), PercentActive=c(schools_knox$Active_Students_Percent, schools_knox$Active_Staff_Percent), Region=c(rep("KCS student", nrow(schools_knox)), rep("KCS staff", nrow(schools_knox))))
+
+tar_load(schools_oakridge)
+schools_oakridge_total <- subset(schools_oakridge, School=='Totals for the District')
+schools_oakridge_for_focal <- data.frame(DATE=schools_oakridge_total$Date, PercentActive=schools_oakridge_total$PercentActiveCovidStudents, Region="ORS student")
+
+```
+
+We can focus on just the last eight weeks, as some past peaks may obscure local dynamics otherwise.
+
+Total people in the area who have active covid infections right now *and* for whom this has been reported to the state. There is all East TN, all people in various counties, and people in Knox County Schools (KCS) and Oak Ridge Schools (ORS)
+
+```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
+
+daily_focal_plus_schools <- plyr::rbind.fill(plyr::rbind.fill(daily_focal, schools_knox_percent_for_focal), schools_oakridge_for_focal)
+
+
+active <- ggplot(subset(daily_focal_plus_schools, daily_focal_plus_schools$DATE >= daily_focal_plus_schools$DATE[nrow(daily_focal_plus_schools)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_brewer(palette = "Dark2") + theme_light()
+
+print(active)
+```
+
+We can also look at deaths per day, though this lags infections by weeks:
+
+```{r numberdead, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Covid deaths per day"}
+
+deaths <- ggplot(subset(daily_focal, daily_focal$DATE >= daily_focal$DATE[nrow(daily_focal)]-elapsed_seconds), aes(x=DATE, y=NEW_DEATHS, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = "none") + ylab("Number of covid deaths per day (7 day average)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light()
+
+print(deaths)
+```
+
+The [Knox County Health Department](https://covid.knoxcountytn.gov) puts out information on hospital capacity in their region, which is `r paste0(sort(counties_in_hospital_region), collapse=", ")` Counties; there are 19 hospitals in this region with potential ICU beds.
+
+
+```{r hospitalcapacityplot, echo=FALSE, message=FALSE, warning=FALSE}
+try(hosp_plot <- ggplot(subset(hospital_knox, Date>=max(hospital_knox$Date)-elapsed_seconds), aes(x=Date, y=Current.Utilization, group=Resource)) + geom_line(aes(colour=Resource)) +  ylab("Percent Utilization in East Tennessee Region") + xlab("Date") + ylim(0,100) + theme_light() + scale_colour_viridis_d(end=0.8) + geom_hline(yintercept=100, col="red"))
+try(print(hosp_plot))
+
+```
+
