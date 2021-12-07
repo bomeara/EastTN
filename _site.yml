@@ -4,8 +4,12 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Last Four Weeks"
-      href: "lastfourweeks.html"
+    - text: Last X Weeks
+      menu:
+        - text: "Last Four Weeks"
+          href: "lastfourweeks.html"
+        - text: "Last Eight Weeks"
+          href: "lasteightweeks.html"
     - text: "Cases 2021 vs 2020"
       href: yearbyyear.html
     - text: "Vaccination"
