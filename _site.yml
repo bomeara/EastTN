@@ -32,8 +32,6 @@ navbar:
           href: "utk_2021.html"
         - text: "2020-1 Academic Year"
           href: "utk_2020.html"
-        - text: "Communication"
-          href: "utk_social.html"
         - text: "Comparisons with others"
           href: "comparisons.html"
     - text: "Travel"
