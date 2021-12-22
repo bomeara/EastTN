@@ -347,420 +347,112 @@ $(document).ready(function () {
 </div>
 
 
-<pre><code>##       hospital_pk collection_week state    ccn
-## 1829       440034      2021/12/10    TN 440034
-## 2836       440034      2021/12/03    TN 440034
-## 17560      440034      2021/11/26    TN 440034
-## 21313      440034      2021/11/12    TN 440034
-## 21995      440034      2021/11/19    TN 440034
-##                               hospital_name                        address
-## 1829  Methodist Medical Center Of Oak Ridge 990 OAK RIDGE TURNPIKE BOX 529
-## 2836  Methodist Medical Center Of Oak Ridge 990 OAK RIDGE TURNPIKE BOX 529
-## 17560 Methodist Medical Center Of Oak Ridge 990 OAK RIDGE TURNPIKE BOX 529
-## 21313 Methodist Medical Center Of Oak Ridge 990 OAK RIDGE TURNPIKE BOX 529
-## 21995 Methodist Medical Center Of Oak Ridge 990 OAK RIDGE TURNPIKE BOX 529
-##            city   zip hospital_subtype fips_code is_metro_micro
-## 1829  OAK RIDGE 37830       Short Term     47001           true
-## 2836  OAK RIDGE 37830       Short Term     47001           true
-## 17560 OAK RIDGE 37830       Short Term     47001           true
-## 21313 OAK RIDGE 37830       Short Term     47001           true
-## 21995 OAK RIDGE 37830       Short Term     47001           true
-##       total_beds_7_day_avg all_adult_hospital_beds_7_day_avg
-## 1829                 212.3                             212.3
-## 2836                 200.7                             200.7
-## 17560                203.4                             203.4
-## 21313                198.0                             198.0
-## 21995                201.4                             201.4
-##       all_adult_hospital_inpatient_beds_7_day_avg inpatient_beds_used_7_day_avg
-## 1829                                          175                         132.9
-## 2836                                          175                         150.0
-## 17560                                         175                         129.1
-## 21313                                         175                         122.0
-## 21995                                         175                         138.4
-##       all_adult_hospital_inpatient_bed_occupied_7_day_avg
-## 1829                                                132.9
-## 2836                                                150.0
-## 17560                                               129.1
-## 21313                                               122.0
-## 21995                                               138.4
-##       total_adult_patients_hospitalized_confirmed_and_suspected_covid_7_day_avg
-## 1829                                                                       22.1
-## 2836                                                                       17.4
-## 17560                                                                      16.9
-## 21313                                                                      14.6
-## 21995                                                                      14.1
-##       total_adult_patients_hospitalized_confirmed_covid_7_day_avg
-## 1829                                                         22.0
-## 2836                                                         17.4
-## 17560                                                        16.9
-## 21313                                                        14.1
-## 21995                                                        14.1
-##       total_pediatric_patients_hospitalized_confirmed_and_suspected_covid_7_day_avg
-## 1829                                                                              0
-## 2836                                                                              0
-## 17560                                                                             0
-## 21313                                                                             0
-## 21995                                                                             0
-##       total_pediatric_patients_hospitalized_confirmed_covid_7_day_avg
-## 1829                                                                0
-## 2836                                                                0
-## 17560                                                               0
-## 21313                                                               0
-## 21995                                                               0
-##       inpatient_beds_7_day_avg total_icu_beds_7_day_avg
-## 1829                       175                       25
-## 2836                       175                       25
-## 17560                      175                       25
-## 21313                      175                       25
-## 21995                      175                       25
-##       total_staffed_adult_icu_beds_7_day_avg icu_beds_used_7_day_avg
-## 1829                                      25                    16.7
-## 2836                                      25                    16.6
-## 17560                                     25                    17.3
-## 21313                                     25                    15.3
-## 21995                                     25                    18.0
-##       staffed_adult_icu_bed_occupancy_7_day_avg
-## 1829                                       16.7
-## 2836                                       16.6
-## 17560                                      17.3
-## 21313                                      15.3
-## 21995                                      18.0
-##       staffed_icu_adult_patients_confirmed_and_suspected_covid_7_day_avg
-## 1829                                                                 6.7
-## 2836                                                                 4.1
-## 17560                                                                 NA
-## 21313                                                                 NA
-## 21995                                                                 NA
-##       staffed_icu_adult_patients_confirmed_covid_7_day_avg
-## 1829                                                   6.6
-## 2836                                                   4.1
-## 17560                                                   NA
-## 21313                                                   NA
-## 21995                                                   NA
-##       total_patients_hospitalized_confirmed_influenza_7_day_avg
-## 1829                                                         NA
-## 2836                                                         NA
-## 17560                                                        NA
-## 21313                                                        NA
-## 21995                                                        NA
-##       icu_patients_confirmed_influenza_7_day_avg
-## 1829                                          NA
-## 2836                                          NA
-## 17560                                         NA
-## 21313                                          0
-## 21995                                          0
-##       total_patients_hospitalized_confirmed_influenza_and_covid_7_day_avg
-## 1829                                                                   NA
-## 2836                                                                   NA
-## 17560                                                                  NA
-## 21313                                                                  NA
-## 21995                                                                  NA
-##       total_beds_7_day_sum all_adult_hospital_beds_7_day_sum
-## 1829                  1486                              1486
-## 2836                  1405                              1405
-## 17560                 1424                              1424
-## 21313                 1386                              1386
-## 21995                 1410                              1410
-##       all_adult_hospital_inpatient_beds_7_day_sum inpatient_beds_used_7_day_sum
-## 1829                                         1225                           930
-## 2836                                         1225                          1050
-## 17560                                        1225                           904
-## 21313                                        1225                           854
-## 21995                                        1225                           969
-##       all_adult_hospital_inpatient_bed_occupied_7_day_sum
-## 1829                                                  930
-## 2836                                                 1050
-## 17560                                                 904
-## 21313                                                 854
-## 21995                                                 969
-##       total_adult_patients_hospitalized_confirmed_and_suspected_covid_7_day_sum
-## 1829                                                                        155
-## 2836                                                                        122
-## 17560                                                                       118
-## 21313                                                                       102
-## 21995                                                                        99
-##       total_adult_patients_hospitalized_confirmed_covid_7_day_sum
-## 1829                                                          154
-## 2836                                                          122
-## 17560                                                         118
-## 21313                                                          99
-## 21995                                                          99
-##       total_pediatric_patients_hospitalized_confirmed_and_suspected_covid_7_day_sum
-## 1829                                                                              0
-## 2836                                                                              0
-## 17560                                                                             0
-## 21313                                                                             0
-## 21995                                                                             0
-##       total_pediatric_patients_hospitalized_confirmed_covid_7_day_sum
-## 1829                                                                0
-## 2836                                                                0
-## 17560                                                               0
-## 21313                                                               0
-## 21995                                                               0
-##       inpatient_beds_7_day_sum total_icu_beds_7_day_sum
-## 1829                      1225                      175
-## 2836                      1225                      175
-## 17560                     1225                      175
-## 21313                     1225                      175
-## 21995                     1225                      175
-##       total_staffed_adult_icu_beds_7_day_sum icu_beds_used_7_day_sum
-## 1829                                     175                     117
-## 2836                                     175                     116
-## 17560                                    175                     121
-## 21313                                    175                     107
-## 21995                                    175                     126
-##       staffed_adult_icu_bed_occupancy_7_day_sum
-## 1829                                        117
-## 2836                                        116
-## 17560                                       121
-## 21313                                       107
-## 21995                                       126
-##       staffed_icu_adult_patients_confirmed_and_suspected_covid_7_day_sum
-## 1829                                                                  47
-## 2836                                                                  29
-## 17560                                                                 26
-## 21313                                                                 19
-## 21995                                                                 27
-##       staffed_icu_adult_patients_confirmed_covid_7_day_sum
-## 1829                                                    46
-## 2836                                                    29
-## 17560                                                   26
-## 21313                                                   19
-## 21995                                                   27
-##       total_patients_hospitalized_confirmed_influenza_7_day_sum
-## 1829                                                         13
-## 2836                                                         20
-## 17560                                                         9
-## 21313                                                         6
-## 21995                                                        23
-##       icu_patients_confirmed_influenza_7_day_sum
-## 1829                                           9
-## 2836                                          NA
-## 17560                                          5
-## 21313                                          0
-## 21995                                          0
-##       total_patients_hospitalized_confirmed_influenza_and_covid_7_day_sum
-## 1829                                                                    9
-## 2836                                                                   12
-## 17560                                                                  NA
-## 21313                                                                  NA
-## 21995                                                                  12
-##       previous_day_admission_adult_covid_confirmed_7_day_sum
-## 1829                                                      13
-## 2836                                                       5
-## 17560                                                     11
-## 21313                                                     12
-## 21995                                                     13
-##       previous_day_admission_adult_covid_confirmed_18.19_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_20.29_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_30.39_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_40.49_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_50.59_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_60.69_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_70.79_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_confirmed_80._7_day_sum
-## 1829                                                           0
-## 2836                                                           0
-## 17560                                                          0
-## 21313                                                          0
-## 21995                                                          0
-##       previous_day_admission_adult_covid_confirmed_unknown_7_day_sum
-## 1829                                                              13
-## 2836                                                               5
-## 17560                                                             11
-## 21313                                                             12
-## 21995                                                             13
-##       previous_day_admission_pediatric_covid_confirmed_7_day_sum
-## 1829                                                           0
-## 2836                                                           0
-## 17560                                                          0
-## 21313                                                          0
-## 21995                                                          0
-##       previous_day_covid_ED_visits_7_day_sum
-## 1829                                       8
-## 2836                                      20
-## 17560                                     20
-## 21313                                     12
-## 21995                                     18
-##       previous_day_admission_adult_covid_suspected_7_day_sum
-## 1829                                                       0
-## 2836                                                       0
-## 17560                                                      0
-## 21313                                                      0
-## 21995                                                      0
-##       previous_day_admission_adult_covid_suspected_18.19_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_20.29_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_30.39_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_40.49_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_50.59_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_60.69_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_70.79_7_day_sum
-## 1829                                                             0
-## 2836                                                             0
-## 17560                                                            0
-## 21313                                                            0
-## 21995                                                            0
-##       previous_day_admission_adult_covid_suspected_80._7_day_sum
-## 1829                                                           0
-## 2836                                                           0
-## 17560                                                          0
-## 21313                                                          0
-## 21995                                                          0
-##       previous_day_admission_adult_covid_suspected_unknown_7_day_sum
-## 1829                                                               0
-## 2836                                                               0
-## 17560                                                              0
-## 21313                                                              0
-## 21995                                                              0
-##       previous_day_admission_pediatric_covid_suspected_7_day_sum
-## 1829                                                           0
-## 2836                                                           0
-## 17560                                                          0
-## 21313                                                          0
-## 21995                                                          0
-##       previous_day_total_ED_visits_7_day_sum
-## 1829                                     446
-## 2836                                     451
-## 17560                                    411
-## 21313                                    413
-## 21995                                    439
-##       previous_day_admission_influenza_confirmed_7_day_sum
-## 1829                                                    NA
-## 2836                                                    NA
-## 17560                                                   NA
-## 21313                                                   NA
-## 21995                                                    4
-##        geocoded_hospital_address     hhs_ids
-## 1829  POINT (-84.2439 36.023397) [C440034-A]
-## 2836  POINT (-84.2439 36.023397) [C440034-A]
-## 17560 POINT (-84.2439 36.023397) [C440034-A]
-## 21313 POINT (-84.2439 36.023397) [C440034-A]
-## 21995 POINT (-84.2439 36.023397) [C440034-A]
-##       previous_week_personnel_covid_vaccinated_doses_administered_7_day
-## 1829                                                                 NA
-## 2836                                                                 NA
-## 17560                                                                NA
-## 21313                                                                NA
-## 21995                                                                NA
-##       total_personnel_covid_vaccinated_doses_none_7_day
-## 1829                                                 NA
-## 2836                                                 NA
-## 17560                                                NA
-## 21313                                                NA
-## 21995                                                NA
-##       total_personnel_covid_vaccinated_doses_one_7_day
-## 1829                                                NA
-## 2836                                                NA
-## 17560                                               NA
-## 21313                                               NA
-## 21995                                               NA
-##       total_personnel_covid_vaccinated_doses_all_7_day
-## 1829                                                NA
-## 2836                                                NA
-## 17560                                               NA
-## 21313                                               NA
-## 21995                                               NA
-##       previous_week_patients_covid_vaccinated_doses_one_7_day
-## 1829                                                       NA
-## 2836                                                       NA
-## 17560                                                      NA
-## 21313                                                      NA
-## 21995                                                      NA
-##       previous_week_patients_covid_vaccinated_doses_all_7_day is_corrected
-## 1829                                                       NA        false
-## 2836                                                       NA        false
-## 17560                                                      NA        false
-## 21313                                                      NA        false
-## 21995                                                      NA        false
-##             DATE
-## 1829  2021-12-10
-## 2836  2021-12-03
-## 17560 2021-11-26
-## 21313 2021-11-12
-## 21995 2021-11-19
-##       percent_icu_adult_patients_who_have_confirmed_and_suspected_covid
-## 1829                                                           40.17094
-## 2836                                                           25.00000
-## 17560                                                          21.48760
-## 21313                                                          17.75701
-## 21995                                                          21.42857
-##       percent_inpatient_adult_patients_who_have_confirmed_and_suspected_covid
-## 1829                                                                 16.66667
-## 2836                                                                 11.61905
-## 17560                                                                13.05310
-## 21313                                                                11.94379
-## 21995                                                                10.21672
-##       number_of_empty_but_staffed_adult_icu_beds
-## 1829                                         8.3
-## 2836                                         8.4
-## 17560                                        7.7
-## 21313                                        9.7
-## 21995                                        7.0</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="23%" />
+<col width="7%" />
+<col width="10%" />
+<col width="14%" />
+<col width="11%" />
+<col width="9%" />
+<col width="13%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Hospital</th>
+<th align="left">City</th>
+<th align="right">Adult beds total</th>
+<th align="right">Adult beds number avail</th>
+<th align="right">Adult beds % avail</th>
+<th align="right">Adult ICU total</th>
+<th align="right">Adult ICU number avail</th>
+<th align="right">Adult ICU % avail</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">University of TN Medical Center</td>
+<td align="left">Knoxville</td>
+<td align="right">653</td>
+<td align="right">75</td>
+<td align="right">12</td>
+<td align="right">93</td>
+<td align="right">11</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">Parkwest Medical Center</td>
+<td align="left">Knoxville</td>
+<td align="right">324</td>
+<td align="right">23</td>
+<td align="right">7</td>
+<td align="right">30</td>
+<td align="right">6</td>
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">Fort Sanders Regional Medical Center</td>
+<td align="left">Knoxville</td>
+<td align="right">317</td>
+<td align="right">15</td>
+<td align="right">5</td>
+<td align="right">60</td>
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Blount Memorial Hospital</td>
+<td align="left">Maryville</td>
+<td align="right">269</td>
+<td align="right">119</td>
+<td align="right">44</td>
+<td align="right">32</td>
+<td align="right">18</td>
+<td align="right">55</td>
+</tr>
+<tr class="odd">
+<td align="left">Tennova North Knoxville Medical Center</td>
+<td align="left">Powell</td>
+<td align="right">219</td>
+<td align="right">16</td>
+<td align="right">7</td>
+<td align="right">36</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Methodist Medical Center Of Oak Ridge</td>
+<td align="left">Oak Ridge</td>
+<td align="right">175</td>
+<td align="right">42</td>
+<td align="right">24</td>
+<td align="right">25</td>
+<td align="right">8</td>
+<td align="right">33</td>
+</tr>
+<tr class="odd">
+<td align="left">Morristown Hamblen Hospital Association</td>
+<td align="left">Morristown</td>
+<td align="right">117</td>
+<td align="right">30</td>
+<td align="right">26</td>
+<td align="right">17</td>
+<td align="right">5</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">Fort Loudon Medical Center</td>
+<td align="left">Lenoir City</td>
+<td align="right">41</td>
+<td align="right">7</td>
+<td align="right">17</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
 
 
 

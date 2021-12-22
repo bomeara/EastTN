@@ -219,6 +219,8 @@ CreateHHSDataTN <- function() {
 
  	hhs_capacity <- read.csv(temp, header=TRUE)
     hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
+	hhs_capacity_tn[hhs_capacity_tn==-999999] <- NA
+	hhs_capacity_tn[hhs_capacity_tn=="-999999"] <- NA
 
     hhs_capacity_tn$percentage_adult_hospital_inpatient_bed_occupied_covid_confirmed_or_suspected_7_day_avg_of_all_occupied <- 100 * hhs_capacity_tn$total_adult_patients_hospitalized_confirmed_and_suspected_covid_7_day_avg / hhs_capacity_tn$all_adult_hospital_inpatient_bed_occupied_7_day_avg
 
