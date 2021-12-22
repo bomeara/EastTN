@@ -202,16 +202,22 @@ CreateIndividualSchoolsKnox <- function() {
 
 CreateHHSDataTN <- function() {
 
-    hhs_sources <- jsonlite::fromJSON("https://healthdata.gov/data.json?page=0")
-    capacity_by_facility_number <- grep("COVID-19 Reported Patient Impact and Hospital Capacity by Facility", hhs_sources$dataset$title)
+    # hhs_sources <- jsonlite::fromJSON("https://healthdata.gov/data.json?page=0")
+    # capacity_by_facility_number <- grep("COVID-19 Reported Patient Impact and Hospital Capacity by Facility", hhs_sources$dataset$title)
 
 
-    capacity_by_facility_url <- hhs_sources$dataset$distribution[capacity_by_facility_number][[1]]$downloadURL[1] #often a week behind though
-    temp = tempfile(fileext = ".csv")
+    # capacity_by_facility_url <- hhs_sources$dataset$distribution[capacity_by_facility_number][[1]]$downloadURL[1] #often a week behind though
+    # temp = tempfile(fileext = ".csv")
 
-    utils::download.file(capacity_by_facility_url, temp, method="libcurl")
+    # utils::download.file(capacity_by_facility_url, temp, method="libcurl")
 
-    hhs_capacity <- read.csv(file=temp)
+    # hhs_capacity <- read.csv(file=temp)
+	
+	temp = tempfile(fileext = ".csv")
+ 	dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
+ 	download.file(dataURL, destfile=temp, mode='wb')
+
+ 	hhs_capacity <- read.csv(temp, header=TRUE)
     hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
 
     hhs_capacity_tn$percentage_adult_hospital_inpatient_bed_occupied_covid_confirmed_or_suspected_7_day_avg_of_all_occupied <- 100 * hhs_capacity_tn$total_adult_patients_hospitalized_confirmed_and_suspected_covid_7_day_avg / hhs_capacity_tn$all_adult_hospital_inpatient_bed_occupied_7_day_avg
@@ -764,3 +770,33 @@ GetTYSFlights <- function() {
 	tys_flights_only <- rbind(subset(tys_flights, ORIGIN=="TYS"), subset(tys_flights, DEST=="TYS"))
 	return(tys_flights_only)
 }
+
+# CreateIndividualHospitalData <- function() {
+# 	temp = tempfile(fileext = ".csv")
+# 	dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
+# 	download.file(dataURL, destfile=temp, mode='wb')
+
+# 	hhs_capacity <- read.csv(temp, header=TRUE)
+# 	]
+# 	hhs_capacity_tn_focal[hhs_capacity_tn_focal==-999999] <- NA
+# 	hhs_capacity_tn_focal[hhs_capacity_tn_focal=="-999999"] <- NA
+# 	hhs_capacity_tn_focal$DATE <- as.Date(hhs_capacity_tn_focal$collection_week)
+
+# 	hhs_capacity_tn_focal$hospital_name <- gsub("TENNOVA HEALTHCARE", "TENNOVA", hhs_capacity_tn_focal$hospital_name )
+# 	hhs_capacity_tn_focal$hospital_name <- stringr::str_to_title(hhs_capacity_tn_focal$hospital_name)
+# 	hhs_capacity_tn_focal$hospital_name[grepl("University Of Tn", hhs_capacity_tn_focal$hospital_name, ignore.case=TRUE)] <- "University of TN Medical Center"
+
+# 	hhs_capacity_tn_focal$percent_icu_adult_patients_who_have_confirmed_and_suspected_covid <- 100*hhs_capacity_tn_focal$staffed_icu_adult_patients_confirmed_and_suspected_covid_7_day_sum/hhs_capacity_tn_focal$staffed_adult_icu_bed_occupancy_7_day_sum
+
+# 	hhs_capacity_tn_focal$percent_inpatient_adult_patients_who_have_confirmed_and_suspected_covid <- 100*hhs_capacity_tn_focal$total_adult_patients_hospitalized_confirmed_and_suspected_covid_7_day_sum/hhs_capacity_tn_focal$all_adult_hospital_inpatient_bed_occupied_7_day_sum
+
+
+# 	hhs_capacity_tn_focal$number_of_empty_but_staffed_adult_icu_beds <- round((1/7)*(hhs_capacity_tn_focal$total_staffed_adult_icu_beds_7_day_sum-hhs_capacity_tn_focal$staffed_adult_icu_bed_occupancy_7_day_sum),1)
+
+# 	hhs_capacity_tn_focal <- dplyr::select(hhs_capacity_tn_focal, -ends_with("coverage"))	
+	
+# 	hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
+
+# 	focal_cities <- toupper(c("Oak Ridge", "Knoxville", "Lenoir City", "Maryville", "Sweetwater", "Harriman", "Powell", "Jefferson City", "Athens", "Morristown", "Sevierville", "Tazewell", "La Follette", "Jellico", "Sneedville", "Oneida"))
+# 	hhs_capacity_tn_focal <- hhs_capacity_tn[hhs_capacity_tn$city%in%focal_cities,
+# }
