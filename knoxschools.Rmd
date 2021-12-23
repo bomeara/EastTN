@@ -24,7 +24,7 @@ try(knox_schools_ytd <- ggplot(schools_knox_counts, aes(x=Date, y=Count, group=P
 print(knox_schools_ytd)
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases now in Oak Ridge schools"}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases now in Knox County schools"}
 
 
 schools_knox_percent <- data.frame(Date=rep(schools_knox$Date,2), Percent=c(schools_knox$Active_Students_Percent, schools_knox$Active_Staff_Percent), Population=c(rep("Student", nrow(schools_knox)), rep("Staff", nrow(schools_knox))))
