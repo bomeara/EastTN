@@ -1,0 +1,21 @@
+---
+title: For Family
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+Medford school numbers
+
+Percent positivity
+
+Cases over time
+
+Hospitalization
+
+Breakdown by age of diagnoses
+
+Deaths over time
+
+Hospital availability
