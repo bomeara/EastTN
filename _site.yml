@@ -20,6 +20,8 @@ navbar:
       menu:
         - text: "Knoxville Region"
           href: "hospitals_knox.html"
+        - text: "Individual Hospitals"
+          href: "individualhospitals.html"
     - text: "K-12 Schools"
       menu: 
         - text: "Oak Ridge"
