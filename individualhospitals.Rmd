@@ -20,13 +20,11 @@ knitr::kable(hhs_capacity_tn_focal_latest_pretty)
 Plotting percentage of ICU patients with covid over time. Some hospitals have much more frequently updated data than others.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=30}
-try(hospital_plot <- ggplot(hhs_capacity_tn_focal, aes(x=DATE, y=percentage_adult_hospital_inpatient_ICU_bed_occupied_of_all_inpatient_ICU_beds)) + geom_line(aes(colour=hospital_name)) + theme_light() + ylab("Percent of ICU patients witth covid") + xlab("Date") + ggtitle("Percent of ICU patients with covid") + facet_wrap(~ hospital_name, ncol=2) + ylim(c(60, 100)) +   guides(colour=FALSE) )
+try(hospital_plot <- ggplot(hhs_capacity_tn_focal, aes(x=DATE, y=percentage_adult_hospital_inpatient_ICU_bed_occupied_of_all_inpatient_ICU_beds)) + geom_point(aes(colour=hospital_name)) + theme_light() + ylab("Percent of ICU patients witth covid") + xlab("Date") + ggtitle("Percent of ICU patients with covid") + facet_wrap(~ hospital_name, ncol=2) + ylim(c(60, 100)) +   guides(colour=FALSE) )
 print(hospital_plot)
 ```
 
-Plotting ICU bed availability over time.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=30}
+```{r, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, fig.height=30}
 try(hospital_plot_beds <- ggplot(hhs_capacity_tn_focal, aes(x=DATE, y=number_unoccupied_adult_hospital_ICU_beds)) + geom_line(aes(colour=hospital_name)) + theme_light() + ylab("Number of available ICU beds") + xlab("Date") + ggtitle("Number of available ICU beds") + facet_wrap(~ hospital_name, ncol=2) + ylim(c(60, 100)) +  guides(colour=FALSE) )
 print(hospital_plot_beds)
 ```
