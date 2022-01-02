@@ -754,10 +754,12 @@ GetTSAThroughput <- function() {
 	tsa_screening <- tsa %>% html_elements("table") %>% html_table()
 	tsa_screening <- tsa_screening[[1]]
 	tsa_screening$Day <- format(as.Date(tsa_screening$Date, format="%m/%d/%Y"), "%m/%d")
-	tsa_summary <- data.frame(Date=as.Date(tsa_screening$Date, format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2021 Traveler Throughput`)))
-	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2020"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2020 Traveler Throughput`))))
-	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2019"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2019 Traveler Throughput`))))
-	tsa_summary <- tsa_summary[order(tsa_summary$Date),]	
+	tsa_summary <- data.frame(Date=as.Date(tsa_screening$Date, format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2022`)))
+	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2021"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2021`))))
+	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2020"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2020`))))
+	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2019"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2019`))))
+	tsa_summary <- tsa_summary[order(tsa_summary$Date),]
+	tsa_summary[!is.na(tsa_summary$Throughput),]	
 	return(tsa_summary)
 }
 
