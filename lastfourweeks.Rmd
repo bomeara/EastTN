@@ -33,6 +33,12 @@ schools_knox_percent_for_focal <- data.frame(DATE=rep(schools_knox$Date,2), Perc
 tar_load(schools_oakridge)
 schools_oakridge_total <- subset(schools_oakridge, School=='Totals for the District')
 schools_oakridge_for_focal <- data.frame(DATE=schools_oakridge_total$Date, PercentActive=schools_oakridge_total$PercentActiveCovidStudents, Region="ORS student")
+schools_oakridge_for_focal <- schools_oakridge_for_focal %>%
+  mutate(DATE = lubridate::floor_date(DATE, "day")) %>%
+           group_by(DATE) %>%
+           summarize(PercentActive = mean(PercentActive))
+schools_oakridge_for_focal$Region <- "ORS student"
+
 
 ```
 
