@@ -10,7 +10,7 @@ navbar:
           href: "lastfourweeks.html"
         - text: "Last Eight Weeks"
           href: "lasteightweeks.html"
-    - text: "Cases 2021 vs 2020"
+    - text: "Cases year by year"
       href: yearbyyear.html
     - text: "Vaccination"
       href: vaccination.html

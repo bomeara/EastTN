@@ -9,7 +9,7 @@ params:
   schoolkids_daily: "unknown"
 ---
 
-<h2 id="dejavu">Comparing last academic year with this academic year</h2>
+<h2 id="dejavu">Comparing year by year</h2>
 
 In the over 20 months since covid started spreading we have learned a lot: vaccines are now available (in the US), we know masks help, and so forth. However, the virus continues to evolve, too. 
 
