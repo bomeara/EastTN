@@ -37,21 +37,12 @@ There is also data on those who are receiving active covid support from UTK.
 ```{r utk2021isolations, echo=FALSE, message=FALSE, warning=FALSE}
 
 tar_load(utk_isolations_reported)
-utk_isolations_plot <- ggplot(subset(utk_isolations_reported, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() 
+utk_isolations_plot <- ggplot(subset(utk_isolations_reported, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent receiving support for covid at UTK") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() 
 #utk_isolations_pivoted <- data.frame(DATE=rep(zukowski_data$DATE,3), Percentage=as.numeric(gsub('%', '', c(zukowski_data$SELF_ISOLATED_NRS_TOTAL_PERPOP, zukowski_data$SELF_ISOLATED_RS_TOTAL_PERPOP, zukowski_data$SELF_ISOLATED_E_TOTAL_PERPOP))), Population=c(rep("Students (residential)", nrow(zukowski_data)),rep("Students (non-residential)", nrow(zukowski_data)), rep("Employees", nrow(zukowski_data))))
 
 #utk_isolations_plot <- ggplot(subset(utk_isolations_pivoted, DATE>="2021-08-01"), aes(x=DATE, y=Percentage, group=Population, colour=Population)) +  geom_line() + ylab("Percent reporting self-isolation to UTK\n(quarantine or isolation)") + xlab("Date") + ylim(0,.1+round(max(utk_isolations_pivoted$Percentage)))  + scale_colour_viridis_d(end=0.8) + theme_light() 
 
 print(utk_isolations_plot)
-```
-
-There is a separate [dataset from the state](https://www.tn.gov/health/cedep/ncov/data/downloadable-datasets.html) on cases of people age 17 to 25 in Knox County. This may include UTK student data (it is unclear what the address used is for students being tested). Note that here I'm plotting all the new cases in UTK, not just those by students: new cases are not being separated out by population. However, the vast majority of UTK cases are in the student body.
-
-```{r local_comparison, echo=FALSE, message=FALSE, warning=FALSE}
-local_cases <- data.frame(DATE=c(zukowski_data$DATE,knox17to25$DATE), Cases=c(zoo::rollmean(zukowski_data$CASES_NEW, k=7, align="right", na.pad=TRUE), zoo::rollmean(knox17to25$NEW_CASES, k=7, align="right", na.pad=TRUE)), Population=c(rep("UTK all", nrow(zukowski_data)), rep("Knox County age 17-25", nrow(knox17to25))))
-local_cases_plot <- ggplot(local_cases, aes(x=DATE, y=Cases, group=Population, colour=Population)) +  geom_line() + ylab("Number of new cases per day (7 day average)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light()
-print(local_cases_plot)
-
 ```
 
 Unlike [over 1,125 other colleges and universities](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), UTK has no vaccination mandate nor mask mandate in general (there may be exceptions in particular areas, like nursing with high patient contact). 

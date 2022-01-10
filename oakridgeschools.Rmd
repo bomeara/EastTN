@@ -25,7 +25,7 @@ try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=Pe
 print(oakridge_schools_active)
 ```
 
-What percentage of students in a school have gotten covid this year alone. Note that this assumes each student gets covid no more than once. However, a bout of covid gives only partial immunity, so some students may have had covid more than once.
+What percentage of students in a school have gotten covid this year alone? Note that this assumes each student gets covid no more than once. However, a bout of covid gives only partial immunity, so some students may have had covid more than once.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of positive covid cases year to date"}
 data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
