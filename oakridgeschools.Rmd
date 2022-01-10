@@ -6,14 +6,28 @@ output:
        in_header: GA_Script.html
 ---
 
-Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, which includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/.
+Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, which includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/. The [CDC](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/k-12-guidance.html) and the [American Academy of Pediatrics](https://www.aappublications.org/news/2021/07/18/schools-071821) recommend that everyone in schools over the age of 2 wear a mask. There are various rules in TN banning mask or vaccination mandates for covid; these have been temporarily stayed due to lawsuits in some districts, but not Oak Ridge so far.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of positive covid cases year to date"}
+The plot below shows the proportion of students with active covid cases at any one time. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases now in Oak Ridge schools"}
 source("_packages.R")
 tar_load(schools_oakridge)
 nonzero_schools <- unique(subset(schools_oakridge, PercentPositiveStudentsYearToDate>0)$School)
 nonzero_schools <- nonzero_schools[!grepl("Totals for",nonzero_schools)]
 schools_oakridge_nonzero <- schools_oakridge[which(schools_oakridge$School %in% nonzero_schools),]
+data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
+data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentActiveCovidStudents,1), '%)')
+schools_oakridge_nonzero$PercentActiveCovidStudents <- as.numeric(schools_oakridge_nonzero$PercentActiveCovidStudents)
+#try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)) + facet_wrap(~ School, ncol=3))
+try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=PercentActiveCovidStudents)) + scale_colour_gradient2(mid="purple", midpoint=1.5, high="red", low="blue") + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none"))
+
+print(oakridge_schools_active)
+```
+
+What percentage of students in a school have gotten covid this year alone. Note that this assumes each student gets covid no more than once. However, a bout of covid gives only partial immunity, so some students may have had covid more than once.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of positive covid cases year to date"}
 data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
 data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentPositiveStudentsYearToDate,1), '%)')
 #try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentPositiveStudentsYearToDate)))
@@ -25,16 +39,3 @@ try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=Perce
 print(oakridge_schools_ytd)
 ```
 
-The plot below shows the proportion of students with active covid cases at any one time. 
-
-The [CDC](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/k-12-guidance.html) and the [American Academy of Pediatrics](https://www.aappublications.org/news/2021/07/18/schools-071821) recommend that everyone in schools over the age of 2 wear a mask. 
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases now in Oak Ridge schools"}
-data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
-data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentActiveCovidStudents,1), '%)')
-schools_oakridge_nonzero$PercentActiveCovidStudents <- as.numeric(schools_oakridge_nonzero$PercentActiveCovidStudents)
-#try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=School)) + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)) + facet_wrap(~ School, ncol=3))
-try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_line(aes(colour=PercentActiveCovidStudents)) + scale_colour_gradient2(mid="purple", midpoint=1.5, high="red", low="blue") + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none"))
-
-print(oakridge_schools_active)
-```
