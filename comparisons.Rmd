@@ -66,5 +66,4 @@ It can be instructive to compare UTK's policies and data to elsewhere. Below sho
 <td>95%</td>
 <td>In person</td>
 </tr>
-</tbody></table>                                                                                 |
-
+</tbody></table> 
