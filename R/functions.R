@@ -132,6 +132,13 @@ CreateSchoolsOakRidge <- function() {
         }
     }
     schools_oakridge <- schools_oakridge[is.finite(schools_oakridge$PercentPositiveStudentsYearToDate),]
+	breakdays <- c(as.Date(paste0("2021-10-", c(4:15))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:25)))) 
+	breakrows <- (as.Date(schools_oakridge$Date) %in% breakdays)
+
+	schools_oakridge$PercentPositiveStudentsYearToDate[breakrows] <- NA
+	schools_oakridge$PercentActiveCovidStudents[breakrows] <- NA
+	
+	
     return(schools_oakridge)
 }
 
@@ -153,6 +160,16 @@ CreateSchoolsKnox <- function() {
     colnames(school_knox_info) <- c("Date", "Active_Staff_Count", "Active_Students_Count")
     school_knox_info$Active_Staff_Percent <- 100*school_knox_info$Active_Staff_Count/staff_total
     school_knox_info$Active_Students_Percent <- 100*school_knox_info$Active_Students_Count/student_total
+	
+	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
+	breakrows <- (as.Date(school_knox_info$Date) %in% breakdays)
+
+	school_knox_info$Active_Staff_Count[breakrows] <- NA
+	school_knox_info$Active_Students_Count[breakrows] <- NA
+	school_knox_info$Active_Staff_Percent[breakrows] <- NA
+	school_knox_info$Active_Students_Percent[breakrows] <- NA
+
+	
     return(school_knox_info)
 }
 
@@ -197,6 +214,16 @@ CreateIndividualSchoolsKnox <- function() {
 	individual_schools_knox$Level[grepl("Beaumont Magnet Academy", individual_schools_knox$School)] <- "Elementary"
 	individual_schools_knox$Student_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Student_Active_Cases))
 	individual_schools_knox$Staff_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Staff_Active_Cases))
+	
+	
+	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
+	breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
+
+	# school_knox_info$Active_Staff_Count[breakrows] <- NA
+	# school_knox_info$Active_Students_Count[breakrows] <- NA
+	# school_knox_info$Active_Staff_Percent[breakrows] <- NA
+	# school_knox_info$Active_Students_Percent[breakrows] <- NA
+	
 	return(individual_schools_knox)
 }
 
