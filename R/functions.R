@@ -219,10 +219,15 @@ CreateIndividualSchoolsKnox <- function() {
 	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
 	breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
 
-	# school_knox_info$Active_Staff_Count[breakrows] <- NA
-	# school_knox_info$Active_Students_Count[breakrows] <- NA
-	# school_knox_info$Active_Staff_Percent[breakrows] <- NA
-	# school_knox_info$Active_Students_Percent[breakrows] <- NA
+	individual_schools_knox$Student_Enrolled[breakrows] <- NA
+	individual_schools_knox$Student_Present[breakrows] <- NA
+	individual_schools_knox$Student_Present_Percent[breakrows] <- NA
+	individual_schools_knox$Student_Active_Cases[breakrows] <- NA
+	individual_schools_knox$Staff_Employed[breakrows] <- NA
+	individual_schools_knox$Staff_Present[breakrows] <- NA
+	individual_schools_knox$Staff_Present_Percent[breakrows] <- NA
+	individual_schools_knox$Staff_Active_Cases[breakrows] <- NA
+	
 	
 	return(individual_schools_knox)
 }
