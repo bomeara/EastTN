@@ -14,12 +14,79 @@ tar_load(tsa_throughput)
 tar_load(tysflights)
 ```
 
-Here are TSA screenings nationwide over time, pulled from https://www.tsa.gov/coronavirus/passenger-throughput. 
+Here are TSA screenings nationwide over time, pulled from https://www.tsa.gov/coronavirus/passenger-throughput. Gray for daily data, red for seven day average.
 
 ```{r tsa_screenings, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-plot_tsa <- ggplot(tsa_throughput, aes(x=Date, y=Throughput)) + geom_line()+ theme_light() + xlab("Date") + ylab("Number of Screened Passengers")
+plot_tsa <- ggplot(tsa_throughput, aes(x=Date, y=Throughput)) + geom_line(colour="gray")+ theme_light() + geom_ma(colour="red", n=7) + guides(linetype = FALSE) +  xlab("Date") + ylab("Number of Screened Passengers")
 print(plot_tsa)
 ```
+
+Plotting on a spiral plot to compare similar high travel times:
+
+```{r tsa_spiral, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+spiral_initialize_by_time(xlim=c(min(tsa_throughput$Date), 365+max(tsa_throughput$Date)),
+                          unit_on_axis = "days", period="years",
+                          start=90, end=(709/365)*360+(28/365)*360+90,
+                          flip="horizontal")
+ymax <- max(tsa_throughput$Throughput)
+spiral_track(ylim=c(0, ymax*.9),
+             background=FALSE, background_gp = gpar(col = NA, fill = NA))
+spiral_polygon(x=c(tsa_throughput$Date, rev(tsa_throughput$Date)),
+               y=c(tsa_throughput$Throughput/2, -rev(tsa_throughput$Throughput/2)),
+               gp = gpar(col="#d32e2b", fill="#d32e2b50"))
+spiral_lines(x=tsa_throughput$Date, y=0)
+spiral_text(x="2019-01-01", y=50000, text="2019",
+            facing = "curved_inside", just = "right",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2020-01-01", y=50000, text="2020",
+            facing = "curved_inside", just = "right",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2021-01-01", y=50000, text="2021",
+            facing = "curved_inside", just = "right",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2022-01-01", y=50000, text="2022",
+            facing = "curved_inside", just = "right",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-01-15", y=50000, text="Jan",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-02-15", y=50000, text="Feb",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-03-15", y=50000, text="Mar",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-04-15", y=50000, text="Apr",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-05-15", y=50000, text="May",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))			
+spiral_text(x="2023-06-15", y=50000, text="Jun",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-07-15", y=50000, text="Jul",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-08-15", y=50000, text="Aug",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-09-15", y=50000, text="Sep",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))	
+spiral_text(x="2023-10-15", y=50000, text="Oct",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))			
+spiral_text(x="2023-11-15", y=50000, text="Nov",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))			
+spiral_text(x="2023-12-15", y=50000, text="Dec",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+								
+```
+
+
 
 Travel volume differs by day of week. Here, we're comparing 2019 vs 2021 (as travel picks back up). 
 
