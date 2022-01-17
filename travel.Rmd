@@ -12,6 +12,9 @@ source("_packages.R")
 source("R/functions.R")
 tar_load(tsa_throughput)
 tar_load(tysflights)
+tsa_throughput$Throughput <- as.numeric(tsa_throughput$Throughput)
+tsa_throughput <- tsa_throughput[!is.na(tsa_throughput$Throughput),]
+
 ```
 
 Here are TSA screenings nationwide over time, pulled from https://www.tsa.gov/coronavirus/passenger-throughput. Gray for daily data, red for seven day average.
@@ -26,7 +29,7 @@ Plotting on a spiral plot to compare similar high travel times:
 ```{r tsa_spiral, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 spiral_initialize_by_time(xlim=c(min(tsa_throughput$Date), 365+max(tsa_throughput$Date)),
                           unit_on_axis = "days", period="years",
-                          start=90, end=(709/365)*360+(28/365)*360+90,
+                          start=90,
                           flip="horizontal")
 ymax <- max(tsa_throughput$Throughput)
 spiral_track(ylim=c(0, ymax*.9),
