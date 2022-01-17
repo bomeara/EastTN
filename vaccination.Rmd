@@ -10,8 +10,6 @@ output:
 
 Tennessee releases information on demographics of individuals getting vaccinated. All terminology follows that used by the state, including terms like race and sex. The way the census and Tennessee count individuals who identify as not being in Asian, White, or Black or African American groups (people who are multiracial, Native American, Pacific Islander, other) seems to differ in ways that make calculating the percentage of members of the these groups difficult; the same happens for people who do not identify as male or female.
 
-You can also look at rates for counties like [Knox](https://vaccication.org/counties/Knox_TN.html) or [Anderson](https://vaccication.org/counties/Anderson_TN.html) on my [vaccication.org](https://vaccication.org) site (made for people considering travel during summer 2021, before delta started spreading, to see how safe different counties would be, with look up by place names, too (so you can see what it is like at [Disney World](https://vaccication.org/counties/Orange_FL.html) without knowing its county)).
-
 ```{r vaccination1, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_packages.R")
 tar_load(covid_by_demographic_in_tn)
