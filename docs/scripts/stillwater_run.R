@@ -1,0 +1,5 @@
+options(gargle_oauth_email = "omeara.brian@gmail.com")
+sheet <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1yzfwp9MzAqGSWw4GTDDNPnQosUUpUR7nVEPrn1DiBNE/edit#gid=0")
+df <- as.data.frame(sheet)
+df <- apply(df,2,as.character)
+write.csv(df, file=paste0("~/Dropbox/StillwaterSchoolCovid/", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"), "-stillwater_schools.csv"))
