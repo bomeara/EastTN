@@ -216,7 +216,7 @@ CreateIndividualSchoolsKnox <- function() {
 	individual_schools_knox$Staff_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Staff_Active_Cases))
 	
 	
-	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
+	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2021-01-", c(15:23))), as.Date(paste0("2022-03-", c(14:18)))) 
 	breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
 
 	individual_schools_knox$Student_Enrolled[breakrows] <- NA
