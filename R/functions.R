@@ -246,13 +246,13 @@ CreateHHSDataTN <- function() {
     # hhs_capacity <- read.csv(file=temp)
 	
 	# hold off on this while internet is slow
-		# temp = tempfile(fileext = ".csv")
-		# dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
-		# download.file(dataURL, destfile=temp, mode='wb')
-		# hhs_capacity <- read.csv(temp, header=TRUE)
+		temp = tempfile(fileext = ".csv")
+		dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
+		download.file(dataURL, destfile=temp, mode='wb')
+		hhs_capacity <- read.csv(temp, header=TRUE)
 	
 	#use this instead while internet is slow
-	hhs_capacity <- read.csv("~/Dropbox/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_Facility.csv", header=TRUE)
+	#hhs_capacity <- read.csv("~/Dropbox/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_Facility.csv", header=TRUE)
     
 	hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
 	hhs_capacity_tn[hhs_capacity_tn==-999999] <- NA
