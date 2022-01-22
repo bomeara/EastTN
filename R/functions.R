@@ -839,17 +839,35 @@ GetTYSFlights <- function() {
 # }
 
 GetMicrocovid <- function() {
-	microfiles <- list.files(path="/Users/bomeara/Dropbox/Microcovid", pattern="*html", full.names=TRUE)
-    microfile_data <- data.frame(names=gsub("/Users/bomeara/Dropbox/Microcovid/", "", microfiles), percent=NA, date=NA, focal_person=NA, others=NA)
-	for (i in seq_along(microfiles)) {
+	microcovids <- list.files(path="/Users/bomeara/Dropbox/Microcovid", pattern="*html", full.names=TRUE)
+    microcovid_data <- data.frame(names=gsub("/Users/bomeara/Dropbox/Microcovid/", "", microcovids), percent=NA, date=NA, focal_person=NA, others=NA)
+	for (i in seq_along(microcovids)) {
 		try({
-			focal <- readLines(microfiles[i])	
+			focal <- readLines(microcovids[i])	
 			percent <- as.numeric(str_extract(str_extract(focal, "\\(\\d+.\\d+\\%\\)</strong> chance of getting COVID from this activity with these people")[1], "\\d+.\\d+")[1])
-			microfile_data$percent[i] <- percent
+			microcovid_data$percent[i] <- percent
 		})
-		date <- strsplit(microfile_data$names[i], "-")[[1]][1]
-		category <- gsub("micro_", "", strsplit(microfile_data$names[i], "-")[[1]][2])
+		microcovid_data$date[i] <- anytime::anytime(strsplit(microcovid_data$names[i], "-")[[1]][1], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")
+		category <- gsub("micro_", "", strsplit(microcovid_data$names[i], "-")[[1]][2])
+		microcovid_data$focal_person[i] <- strsplit(category, "_")[[1]][1]
+		microcovid_data$others[i] <- strsplit(category, "_")[[1]][2]
 	}
-	
-	
+	return(microcovid_data)
+}
+
+SummarizeMicrocovidData <- function(microcovid_data) {
+	focal_categories <- unique(microcovid_data$focal_person)
+	other_categories <- unique(microcovid_data$others)	
+	results <- matrix(nrow=length(focal_categories), ncol=length(other_categories), dimnames=list(focal_categories, other_categories))
+	for (row_index in seq_along(focal_categories)) {
+		for (col_index in seq_along(other_categories)) {
+			relevant_data <- subset(microcovid_data, focal_person==focal_categories[row_index] & others==other_categories[col_index])
+			if(nrow(relevant_data)>0) {
+				relevant_data <- relevant_data[order(relevant_data$date, decreasing=TRUE),]
+				results[row_index, col_index] <- relevant_data$percent[1]
+			}
+		}
+	}
+	results6classes <- round(100*(1-((100-results)/100)^6),1)
+	return(list(perclass=round(results,1), forsixclasses=results6classes))
 }
