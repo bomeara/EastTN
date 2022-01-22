@@ -844,7 +844,7 @@ GetMicrocovid <- function() {
 	for (i in seq_along(microcovids)) {
 		try({
 			focal <- readLines(microcovids[i])	
-			percent <- as.numeric(str_extract(str_extract(focal, "\\(\\d+.\\d+\\%\\)</strong> chance of getting COVID from this activity with these people")[1], "\\d+.\\d+")[1])
+			percent <- as.numeric(str_extract(str_extract(focal, "\\(\\d+.?\\d*\\%\\)</strong> chance of getting COVID from this activity with these people")[1], "\\d+\\.?\\d*")[1])
 			microcovid_data$percent[i] <- percent
 		})
 		microcovid_data$date[i] <- anytime::anytime(strsplit(microcovid_data$names[i], "-")[[1]][1], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")
@@ -868,6 +868,12 @@ SummarizeMicrocovidData <- function(microcovid_data) {
 			}
 		}
 	}
+	
+	rownames(results) <- gsub("boostedN95", "Boosted & N95", rownames(results))
+	rownames(results) <- gsub("vaxednotboostedCloth", "Vax but no booster & cloth", rownames(results))
+	rownames(results) <- gsub("unvaxunmasked", "Not vax, no mask", rownames(results))
+
+	
 	results6classes <- round(100*(1-((100-results)/100)^6),1)
 	return(list(perclass=round(results,1), forsixclasses=results6classes))
 }
