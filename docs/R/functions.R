@@ -841,3 +841,18 @@ GetTYSFlights <- function() {
 # 	focal_cities <- toupper(c("Oak Ridge", "Knoxville", "Lenoir City", "Maryville", "Sweetwater", "Harriman", "Powell", "Jefferson City", "Athens", "Morristown", "Sevierville", "Tazewell", "La Follette", "Jellico", "Sneedville", "Oneida"))
 # 	hhs_capacity_tn_focal <- hhs_capacity_tn[hhs_capacity_tn$city%in%focal_cities,
 # }
+
+
+CreateMicrocovid <- function() {
+    microfiles <- list.files(path="/Users/bomeara/Dropbox/Microcovid", pattern="*html", full.names=TRUE)
+    microfile_data <- data.frame()
+    for (i in seq_along(microfiles)) {
+        try({
+			focal <- readLines(microfiles[i])
+			"(0.5%) chance of getting COVID from this activity"
+			percent <- as.numeric(str_extract(focal, "\\(\\d+\\.\\d+\\) chance of getting COVID from this activity"))
+				str_extract(focal, "Total Risk")
+
+		}
+			
+# }

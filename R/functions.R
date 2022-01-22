@@ -216,7 +216,7 @@ CreateIndividualSchoolsKnox <- function() {
 	individual_schools_knox$Staff_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Staff_Active_Cases))
 	
 	
-	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2021-01-", c(15:23))), as.Date(paste0("2022-03-", c(14:18)))) 
+	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
 	breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
 
 	individual_schools_knox$Student_Enrolled[breakrows] <- NA
@@ -245,16 +245,12 @@ CreateHHSDataTN <- function() {
 
     # hhs_capacity <- read.csv(file=temp)
 	
-	# hold off on this while internet is slow
-		temp = tempfile(fileext = ".csv")
-		dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
-		download.file(dataURL, destfile=temp, mode='wb')
-		hhs_capacity <- read.csv(temp, header=TRUE)
-	
-	#use this instead while internet is slow
-	#hhs_capacity <- read.csv("~/Dropbox/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_Facility.csv", header=TRUE)
-    
-	hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
+	temp = tempfile(fileext = ".csv")
+ 	dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
+ 	download.file(dataURL, destfile=temp, mode='wb')
+
+ 	hhs_capacity <- read.csv(temp, header=TRUE)
+    hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
 	hhs_capacity_tn[hhs_capacity_tn==-999999] <- NA
 	hhs_capacity_tn[hhs_capacity_tn=="-999999"] <- NA
 
@@ -795,7 +791,7 @@ GetTSAThroughput <- function() {
 	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2020"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2020`))))
 	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2019"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2019`))))
 	tsa_summary <- tsa_summary[order(tsa_summary$Date),]
-	tsa_summary[!is.na(tsa_summary$Throughput),]	
+	tsa_summary <- tsa_summary[!is.na(tsa_summary$Throughput),]	
 	return(tsa_summary)
 }
 
@@ -841,3 +837,19 @@ GetTYSFlights <- function() {
 # 	focal_cities <- toupper(c("Oak Ridge", "Knoxville", "Lenoir City", "Maryville", "Sweetwater", "Harriman", "Powell", "Jefferson City", "Athens", "Morristown", "Sevierville", "Tazewell", "La Follette", "Jellico", "Sneedville", "Oneida"))
 # 	hhs_capacity_tn_focal <- hhs_capacity_tn[hhs_capacity_tn$city%in%focal_cities,
 # }
+
+GetMicrocovid <- function() {
+	microfiles <- list.files(path="/Users/bomeara/Dropbox/Microcovid", pattern="*html", full.names=TRUE)
+    microfile_data <- data.frame(names=gsub("/Users/bomeara/Dropbox/Microcovid/", "", microfiles), percent=NA, date=NA, focal_person=NA, others=NA)
+	for (i in seq_along(microfiles)) {
+		try({
+			focal <- readLines(microfiles[i])	
+			percent <- as.numeric(str_extract(str_extract(focal, "\\(\\d+.\\d+\\%\\)</strong> chance of getting COVID from this activity with these people")[1], "\\d+.\\d+")[1])
+			microfile_data$percent[i] <- percent
+		})
+		date <- strsplit(microfile_data$names[i], "-")[[1]][1]
+		category <- gsub("micro_", "", strsplit(microfile_data$names[i], "-")[[1]][2])
+	}
+	
+	
+}
