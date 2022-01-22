@@ -116,20 +116,22 @@ CreateSchoolsOakRidge <- function() {
     schools_oakridge <- data.frame()
     for (i in seq_along(oakridge_school_files)) {
         school_oakridge_info <- NULL
-        try(school_oakridge_info <- read.csv(oakridge_school_files[i]), silent=TRUE)
-        if(!is.null(school_oakridge_info)) {
-            for (col_index in 3:9) {
-                school_oakridge_info[,col_index] <- as.numeric(school_oakridge_info[,col_index])
-            }
-            school_oakridge_info[is.na(school_oakridge_info)] <- 0
-            colnames(school_oakridge_info)[9] <- "student.population"
-            local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population, StudentPopulation=school_oakridge_info$student.population)
-            if (i==1) {
-                schools_oakridge <- local_info
-            } else {
-                schools_oakridge <- rbind(schools_oakridge, local_info)
-            }
-        }
+		try({
+			try(school_oakridge_info <- read.csv(oakridge_school_files[i]), silent=TRUE)
+			if(!is.null(school_oakridge_info)) {
+				for (col_index in 3:9) {
+					school_oakridge_info[,col_index] <- as.numeric(school_oakridge_info[,col_index])
+				}
+				school_oakridge_info[is.na(school_oakridge_info)] <- 0
+				colnames(school_oakridge_info)[9] <- "student.population"
+				local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population, StudentPopulation=school_oakridge_info$student.population)
+				if (i==1) {
+					schools_oakridge <- local_info
+				} else {
+					schools_oakridge <- rbind(schools_oakridge, local_info)
+				}
+			}
+		})
     }
     schools_oakridge <- schools_oakridge[is.finite(schools_oakridge$PercentPositiveStudentsYearToDate),]
 	breakdays <- c(as.Date(paste0("2021-10-", c(4:15))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:25)))) 

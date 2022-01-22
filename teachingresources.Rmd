@@ -1,0 +1,32 @@
+---
+title: Teaching resources
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+These were developed by members of the UTK Ecology and Evolutionary Biology department in consultation with Dr. Courtney Wright of the UTK School of Communications. The context is teaching when the CDC recommends indoor masking, when the number of new cases exceeds a threshold in state law that allows counties to require masks (with the governor's permission), and having a campus with no mask mandate.
+
+* **Maximize inclusion**: Even without a requirement, we can take steps to make things accessible to all. For example, we can turn on automatic captioning as a defult. In the same vein, if we're comfortable having a recorded or streamed version of the class for those who might be out for health reasons, start one (even let students know about this option before classes start).
+* **Know the policies**: The [Provost's Office](https://provost.utk.edu/returntocampus/) has guidelines, and [UTK has general covid information](https://www.utk.edu/coronavirus/). CDC has guidelines for [institutions of higher education](https://www.cdc.gov/coronavirus/2019-ncov/community/colleges-universities/considerations.html) and which [masks](https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/about-face-coverings.html) are good.
+* **Listen to the students**: Our goal is to create a safe, effective learning environment. Ask students (anonymous surveys are fast and easy: [Zoom](https://support.zoom.us/hc/en-us/articles/213756303-Polling-for-meetings), [Google forms](https://html.form.guide/google-forms/make-google-form-survey-anonymous/), [Canvas](https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-create-a-survey-in-my-course/ta-p/782)) how they are feeling; note this can change over the semester.
+* **Create a community**: Good teaching is not the unidirectional pouring of information into empty student minds -- it is engaging students, talking about the reasoning behind what they are learning, making them ask questions, having them talk to each other. A classroom is a community of learners, and the students' efforts and attitudes, as well as those of the instructor(s), affect how well it works. In the same way, having the classroom be a place where people care about each others' learning environment, including whether they feel safe in it, can be important.
+* **Do not impose risks on others**: One core principle is not imposing a higher level of risk on others than they consent to. Moreover, others' risks are unknown to you: do they live with an elderly relative or unvaccinated child, are they immunocomprised, etc.
+* **People have a lot going on**: Higher education is stressful; it's far worse with covid. Health risks, childcare issues, travel restrictions, isolation from family, and more are affecting all of us, often in unseen ways. Be kind.
+
+### Sample syllabus language
+
+The Volunteer Creed reminds us that we bear the torch to give light to others. As Volunteers, we commit to caring for one another and for the members of the communities in which we live, work, and learn.
+ 
+For your safety and the safety of your fellow student scholars, I ask that you wear a properly fitted mask while in class. This greatly reduces the transmission among residents of our community, helping to end this surge sooner and reduce the potential for another variant. It also reduces the chance that we unknowingly pass the disease to an unvaccinated or immunocompromised individual.
+ 
+Current CDC guidelines recommend using N95, KN94 or K95 masks, which are the most effective in preventing infection from the current Omicron variant. A reasonable alternative is double masking. 
+ 
+Almost all of us prefer to learn face-to-face in a regular classroom setting - it is the core of teaching and learning here at UT. I have structured the in-person class to maximize student learning based on previous semesters. However, as covid surges and absences increase, I will need to balance the needs of in-person students as well as those who temporarily cannot attend. In this case, I may make a class-by-class instructional decision to hold class online so that ALL students can learn together. This incidence should be reduced as covid passes.
+
+The classroom is a shared environment: with a different group of students, or a different instructor, the class could work very differently. It is on all of us to create a classroom where everyone can feel safe, be safe, and learn. To that end, please do not impose a higher degree of risk on people than they themselves are comfortable with. If everyone in your study group is comfortable meeting outside, that’s fine! If one person does not want to, do not force them. Within the classroom space, many people will be uncomfortable, and be put at higher risk, to be around people without masks. Please show consideration for each other.
+ 
+#### ADDITIONAL SYLLABUS VERBIAGE IF YOU ARE GOING TO SIMULTANEOUSLY OFFER IN-CLASS AND REMOTE
+
+If you are unwilling or unable to wear a mask, or you have health conditions that place you at a higher risk, you may attend class remotely. Students under quarantine or isolation should also attend class remotely. 

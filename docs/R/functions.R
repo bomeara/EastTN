@@ -116,20 +116,22 @@ CreateSchoolsOakRidge <- function() {
     schools_oakridge <- data.frame()
     for (i in seq_along(oakridge_school_files)) {
         school_oakridge_info <- NULL
-        try(school_oakridge_info <- read.csv(oakridge_school_files[i]), silent=TRUE)
-        if(!is.null(school_oakridge_info)) {
-            for (col_index in 3:9) {
-                school_oakridge_info[,col_index] <- as.numeric(school_oakridge_info[,col_index])
-            }
-            school_oakridge_info[is.na(school_oakridge_info)] <- 0
-            colnames(school_oakridge_info)[9] <- "student.population"
-            local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population, StudentPopulation=school_oakridge_info$student.population)
-            if (i==1) {
-                schools_oakridge <- local_info
-            } else {
-                schools_oakridge <- rbind(schools_oakridge, local_info)
-            }
-        }
+		try({
+			try(school_oakridge_info <- read.csv(oakridge_school_files[i]), silent=TRUE)
+			if(!is.null(school_oakridge_info)) {
+				for (col_index in 3:9) {
+					school_oakridge_info[,col_index] <- as.numeric(school_oakridge_info[,col_index])
+				}
+				school_oakridge_info[is.na(school_oakridge_info)] <- 0
+				colnames(school_oakridge_info)[9] <- "student.population"
+				local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population, StudentPopulation=school_oakridge_info$student.population)
+				if (i==1) {
+					schools_oakridge <- local_info
+				} else {
+					schools_oakridge <- rbind(schools_oakridge, local_info)
+				}
+			}
+		})
     }
     schools_oakridge <- schools_oakridge[is.finite(schools_oakridge$PercentPositiveStudentsYearToDate),]
 	breakdays <- c(as.Date(paste0("2021-10-", c(4:15))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:25)))) 
@@ -216,7 +218,7 @@ CreateIndividualSchoolsKnox <- function() {
 	individual_schools_knox$Staff_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Staff_Active_Cases))
 	
 	
-	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2021-01-", c(15:23))), as.Date(paste0("2022-03-", c(14:18)))) 
+	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
 	breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
 
 	individual_schools_knox$Student_Enrolled[breakrows] <- NA
@@ -245,16 +247,12 @@ CreateHHSDataTN <- function() {
 
     # hhs_capacity <- read.csv(file=temp)
 	
-	# hold off on this while internet is slow
-		temp = tempfile(fileext = ".csv")
-		dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
-		download.file(dataURL, destfile=temp, mode='wb')
-		hhs_capacity <- read.csv(temp, header=TRUE)
-	
-	#use this instead while internet is slow
-	#hhs_capacity <- read.csv("~/Dropbox/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_Facility.csv", header=TRUE)
-    
-	hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
+	temp = tempfile(fileext = ".csv")
+ 	dataURL <- "https://healthdata.gov/api/views/anag-cw7u/rows.csv?accessType=DOWNLOAD&api_foundry=true"
+ 	download.file(dataURL, destfile=temp, mode='wb')
+
+ 	hhs_capacity <- read.csv(temp, header=TRUE)
+    hhs_capacity_tn <- subset(hhs_capacity, state=="TN")
 	hhs_capacity_tn[hhs_capacity_tn==-999999] <- NA
 	hhs_capacity_tn[hhs_capacity_tn=="-999999"] <- NA
 
@@ -795,7 +793,7 @@ GetTSAThroughput <- function() {
 	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2020"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2020`))))
 	tsa_summary <- rbind(tsa_summary, data.frame(Date=as.Date(paste0(tsa_screening$Day, "/2019"), format="%m/%d/%Y"), Throughput = as.numeric(gsub(",", "", tsa_screening$`2019`))))
 	tsa_summary <- tsa_summary[order(tsa_summary$Date),]
-	tsa_summary[!is.na(tsa_summary$Throughput),]	
+	tsa_summary <- tsa_summary[!is.na(tsa_summary$Throughput),]	
 	return(tsa_summary)
 }
 
@@ -842,17 +840,42 @@ GetTYSFlights <- function() {
 # 	hhs_capacity_tn_focal <- hhs_capacity_tn[hhs_capacity_tn$city%in%focal_cities,
 # }
 
+GetMicrocovid <- function() {
+	microcovids <- list.files(path="/Users/bomeara/Dropbox/Microcovid", pattern="*html", full.names=TRUE)
+    microcovid_data <- data.frame(names=gsub("/Users/bomeara/Dropbox/Microcovid/", "", microcovids), percent=NA, date=NA, focal_person=NA, others=NA)
+	for (i in seq_along(microcovids)) {
+		try({
+			focal <- readLines(microcovids[i])	
+			percent <- as.numeric(str_extract(str_extract(focal, "\\(\\d+.?\\d*\\%\\)</strong> chance of getting COVID from this activity with these people")[1], "\\d+\\.?\\d*")[1])
+			microcovid_data$percent[i] <- percent
+		})
+		microcovid_data$date[i] <- anytime::anytime(strsplit(microcovid_data$names[i], "-")[[1]][1], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")
+		category <- gsub("micro_", "", strsplit(microcovid_data$names[i], "-")[[1]][2])
+		microcovid_data$focal_person[i] <- strsplit(category, "_")[[1]][1]
+		microcovid_data$others[i] <- strsplit(category, "_")[[1]][2]
+	}
+	return(microcovid_data)
+}
 
-CreateMicrocovid <- function() {
-    microfiles <- list.files(path="/Users/bomeara/Dropbox/Microcovid", pattern="*html", full.names=TRUE)
-    microfile_data <- data.frame()
-    for (i in seq_along(microfiles)) {
-        try({
-			focal <- readLines(microfiles[i])
-			"(0.5%) chance of getting COVID from this activity"
-			percent <- as.numeric(str_extract(focal, "\\(\\d+\\.\\d+\\) chance of getting COVID from this activity"))
-				str_extract(focal, "Total Risk")
-
+SummarizeMicrocovidData <- function(microcovid_data) {
+	focal_categories <- unique(microcovid_data$focal_person)
+	other_categories <- unique(microcovid_data$others)	
+	results <- matrix(nrow=length(focal_categories), ncol=length(other_categories), dimnames=list(focal_categories, other_categories))
+	for (row_index in seq_along(focal_categories)) {
+		for (col_index in seq_along(other_categories)) {
+			relevant_data <- subset(microcovid_data, focal_person==focal_categories[row_index] & others==other_categories[col_index])
+			if(nrow(relevant_data)>0) {
+				relevant_data <- relevant_data[order(relevant_data$date, decreasing=TRUE),]
+				results[row_index, col_index] <- relevant_data$percent[1]
+			}
 		}
-			
-# }
+	}
+	
+	rownames(results) <- gsub("boostedN95", "Boosted & N95", rownames(results))
+	rownames(results) <- gsub("vaxednotboostedCloth", "Vax but no booster & cloth", rownames(results))
+	rownames(results) <- gsub("unvaxunmasked", "Not vax, no mask", rownames(results))
+
+	
+	results6classes <- round(100*(1-((100-results)/100)^6),1)
+	return(list(perclass=round(results,1), forsixclasses=results6classes))
+}
