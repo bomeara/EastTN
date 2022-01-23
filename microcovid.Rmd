@@ -13,14 +13,16 @@ Microcovid.org's point estimate the percentage chance of getting covid in a one 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Per class risk"}
 tar_load(microcovid_summary)
+#microcovid_summary[[1]] <- paste0(microcovid_summary[[1]], '%')
 knitr::kable(microcovid_summary[[1]])
 ```
 
-And the same percentage chance of getting covid over six class sessions with these conditions;
+And the same percentage chance of getting covid over *six* class sessions with these conditions;
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Per class risk"}
 tar_load(microcovid_summary)
+#microcovid_summary[[2]] <- paste0(microcovid_summary[[2]], '%')
 knitr::kable(microcovid_summary[[2]])
 ```
 
