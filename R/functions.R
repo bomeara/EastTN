@@ -877,5 +877,14 @@ SummarizeMicrocovidData <- function(microcovid_data) {
 
 	
 	results6classes <- round(100*(1-((100-results)/100)^6),1)
-	return(list(perclass=round(results,1), forsixclasses=results6classes))
+	return(list(perclass=ComputeFractionPerCell(round(results,1)), forsixclasses=ComputeFractionPerCell(results6classes)))
+}
+
+ComputeFractionPerCell <- function(input_table) {
+	for (i in sequence(nrow(input_table))) {
+		for (j in sequence(ncol(input_table))) {
+		input_table[i,j] <- paste0("1/", round(1/(.01*as.numeric(input_table[i,j])),0), " (", input_table[i,j], "%)")
+		}
+	}
+	return(input_table)
 }
