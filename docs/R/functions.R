@@ -124,6 +124,8 @@ CreateSchoolsOakRidge <- function() {
 				}
 				school_oakridge_info[is.na(school_oakridge_info)] <- 0
 				colnames(school_oakridge_info)[9] <- "student.population"
+				colnames(school_oakridge_info)[2] <- "School"
+
 				local_info <- data.frame(Date=rep(anytime::anytime(stringr::str_extract(oakridge_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+")), nrow(school_oakridge_info)), School=school_oakridge_info$School, PercentPositiveStudentsYearToDate=100*school_oakridge_info$YTD.Student.Cases/school_oakridge_info$student.population, PercentActiveCovidStudents=100*school_oakridge_info$Current.Student.Cases/school_oakridge_info$student.population, StudentPopulation=school_oakridge_info$student.population)
 				if (i==1) {
 					schools_oakridge <- local_info
