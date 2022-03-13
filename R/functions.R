@@ -986,9 +986,13 @@ GetCommunityTransmissionReport <- function(report_url) {
 		try(cdc_county$Proportion_Initiating_Vaccination_Last_7_days_65_plus <-  cdc_county$"People initiating vaccination as % of population - last 7 days - ages 65+")
 	}
 
-	cdc_county$Percent_inpatient_beds_occupied_by_covid_patient_County <- cdc_county$"% inpatient beds occupied by COVID-19 patient"
+	cdc_county$Percent_inpatient_beds_occupied_by_covid_patient_County <- 100*cdc_county$"% inpatient beds occupied by COVID-19 patient"
 	cdc_county$Confirmed_covid_admissions_per_100K_7_days_County <- cdc_county$"Confirmed COVID-19 admissions - last 7 days"/cdc_county$"Population"*100000
+	cdc_county$Confirmed_covid_admissions_7_days_County <- cdc_county$"Confirmed COVID-19 admissions - last 7 days"
 
+	cdc_county$Cases_7_days_County <- cdc_county$"Cases - last 7 days"
+	cdc_county$Cases_7_days_per_100K_County <- cdc_county$"Cases per 100k - last 7 days"
+	cdc_county$Deaths_7_days_County <- cdc_county$"Deaths - last 7 days"
 
 	
     cdc_state$Population_65_Plus <- cdc_state$`People who are fully vaccinated - ages 65+`/cdc_state$`People who are fully vaccinated as % of population - ages 65+`
@@ -1010,7 +1014,27 @@ GetCommunityTransmissionReport <- function(report_url) {
     cdc_state_hospital <- cdc_state %>% select("State Abbreviation", "% staffed adult ICU beds occupied")
     cdc_county_with_hospital <- cdc_county%>% left_join(cdc_state_hospital, by="State Abbreviation", copy=TRUE, suffix=c("_County", "_State"))
     cdc_county_with_hospital$FIPS <- cdc_county_with_hospital$`FIPS code`
-    cdc_county_with_hospital <- cdc_county_with_hospital %>% select(County, "FIPS", "State Abbreviation", "Population", "Cases per 100k - last 7 days", "Deaths per 100k - last 7 days", "Community Transmission Level - last 7 days", "% staffed adult ICU beds occupied_State", "% staffed adult ICU beds occupied_County", "People who are fully vaccinated as % of total population", "Proportion_Fully_Vaccinated_Under_65", "Vaccination_Data_Is_For_County", "Area of Concern Category", "Proportion_Fully_Vaccinated_12_to_17" , "Proportion_Fully_Vaccinated_18_plus", "Proportion_Fully_Vaccinated_65_plus", "Proportion_Fully_Vaccinated_All", "Proportion_Initiating_Vaccination_Last_7_days_12_to_17", "Proportion_Initiating_Vaccination_Last_7_days_18_plus", "Proportion_Initiating_Vaccination_Last_7_days_65_plus", "Percent_inpatient_beds_occupied_by_covid_patient_County",  "Confirmed_covid_admissions_per_100K_7_days_County")
+    cdc_county_with_hospital <- cdc_county_with_hospital %>% select(County, "FIPS", "State Abbreviation", "Population", "Cases per 100k - last 7 days", "Deaths per 100k - last 7 days", "Community Transmission Level - last 7 days", "% staffed adult ICU beds occupied_State", "% staffed adult ICU beds occupied_County", "People who are fully vaccinated as % of total population", "Proportion_Fully_Vaccinated_Under_65", "Vaccination_Data_Is_For_County", "Area of Concern Category", "Proportion_Fully_Vaccinated_12_to_17" , "Proportion_Fully_Vaccinated_18_plus", "Proportion_Fully_Vaccinated_65_plus", "Proportion_Fully_Vaccinated_All", "Proportion_Initiating_Vaccination_Last_7_days_12_to_17", "Proportion_Initiating_Vaccination_Last_7_days_18_plus", "Proportion_Initiating_Vaccination_Last_7_days_65_plus", "Percent_inpatient_beds_occupied_by_covid_patient_County",  "Confirmed_covid_admissions_per_100K_7_days_County", "Confirmed_covid_admissions_7_days_County", "Cases_7_days_County", "Cases_7_days_per_100K_County", "Deaths_7_days_County")
+	
+	cdc_county_with_hospital$New_Community_Level <- NA
+	try({
+		for (i in sequence(nrow(cdc_county_with_hospital))) {
+			if(cdc_county_with_hospital$Cases_7_days_per_100K_County[i]<200) {
+				cdc_county_with_hospital$New_Community_Level[i] <- "Low"
+				if(cdc_county_with_hospital$Confirmed_covid_admissions_per_100K_7_days_County[i]>=10 || cdc_county_with_hospital$Percent_inpatient_beds_occupied_by_covid_patient_County[i]>=10) {
+					cdc_county_with_hospital$New_Community_Level[i] <- "Medium"
+					if(cdc_county_with_hospital$Confirmed_covid_admissions_per_100K_7_days_County[i]>=20 || cdc_county_with_hospital$Percent_inpatient_beds_occupied_by_covid_patient_County[i]>=15) {
+						cdc_county_with_hospital$New_Community_Level[i] <- "High"
+					}
+				}
+			} else {
+				cdc_county_with_hospital$New_Community_Level[i] <- "Medium"
+				if(cdc_county_with_hospital$Confirmed_covid_admissions_per_100K_7_days_County[i]>=10 || cdc_county_with_hospital$Percent_inpatient_beds_occupied_by_covid_patient_County[i]>=10) {
+					cdc_county_with_hospital$New_Community_Level[i] <- "High"
+				}
+			}
+		}
+	})
     return(cdc_county_with_hospital)
 }
 
