@@ -1016,9 +1016,16 @@ GetCommunityTransmissionReport <- function(report_url) {
     cdc_county_with_hospital$FIPS <- cdc_county_with_hospital$`FIPS code`
     cdc_county_with_hospital <- cdc_county_with_hospital %>% select(County, "FIPS", "State Abbreviation", "Population", "Cases per 100k - last 7 days", "Deaths per 100k - last 7 days", "Community Transmission Level - last 7 days", "% staffed adult ICU beds occupied_State", "% staffed adult ICU beds occupied_County", "People who are fully vaccinated as % of total population", "Proportion_Fully_Vaccinated_Under_65", "Vaccination_Data_Is_For_County", "Area of Concern Category", "Proportion_Fully_Vaccinated_12_to_17" , "Proportion_Fully_Vaccinated_18_plus", "Proportion_Fully_Vaccinated_65_plus", "Proportion_Fully_Vaccinated_All", "Proportion_Initiating_Vaccination_Last_7_days_12_to_17", "Proportion_Initiating_Vaccination_Last_7_days_18_plus", "Proportion_Initiating_Vaccination_Last_7_days_65_plus", "Percent_inpatient_beds_occupied_by_covid_patient_County",  "Confirmed_covid_admissions_per_100K_7_days_County", "Confirmed_covid_admissions_7_days_County", "Cases_7_days_County", "Cases_7_days_per_100K_County", "Deaths_7_days_County")
 	
+	cdc_county_with_hospital <- GetCommunityLevel(cdc_county_with_hospital)
+	
+    return(cdc_county_with_hospital)
+}
+
+
+GetCommunityLevel <- function(cdc_county_with_hospital) {
 	cdc_county_with_hospital$New_Community_Level <- NA
-	try({
-		for (i in sequence(nrow(cdc_county_with_hospital))) {
+	for (i in sequence(nrow(cdc_county_with_hospital))) {
+		try({
 			if(cdc_county_with_hospital$Cases_7_days_per_100K_County[i]<200) {
 				cdc_county_with_hospital$New_Community_Level[i] <- "Low"
 				if(cdc_county_with_hospital$Confirmed_covid_admissions_per_100K_7_days_County[i]>=10 || cdc_county_with_hospital$Percent_inpatient_beds_occupied_by_covid_patient_County[i]>=10) {
@@ -1033,9 +1040,9 @@ GetCommunityTransmissionReport <- function(report_url) {
 					cdc_county_with_hospital$New_Community_Level[i] <- "High"
 				}
 			}
-		}
-	})
-    return(cdc_county_with_hospital)
+		})
+	}
+	return(cdc_county_with_hospital)
 }
 
 # Min date chosen as the date vaccination data first included

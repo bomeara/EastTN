@@ -13,7 +13,7 @@
 
 <title>East TN information</title>
 
-<script src="site_libs/header-attrs-2.11.3/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.11.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -71,6 +71,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -91,6 +92,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -243,7 +247,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -256,7 +260,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Last X Weeks
      
     <span class="caret"></span>
@@ -280,7 +284,7 @@ $(document).ready(function () {
   <a href="microcovid.html">Risk by Activity</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Hospitalization
      
     <span class="caret"></span>
@@ -295,7 +299,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     K-12 Schools
      
     <span class="caret"></span>
@@ -310,7 +314,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     UT Knoxville
      
     <span class="caret"></span>
@@ -358,6 +362,9 @@ $(document).ready(function () {
 <p>As of Sat, Mar 05, 2022, <strong>24,684 people have died from covid in Tennessee.</strong></p>
 <p>The <a href="https://covid19forecasthub.org">COVID-19 Forecast Hub</a> makes predictions based on a number of models every week. They predict that in the week ending on <strong>Mar 19, an additional 161 people (range 26-333) will have died from covid in Tennessee</strong>, with 133 more covid deaths by Mar 26.</p>
 <p><em>To get a vaccine to protect others and yourself, go to <a href="https://www.vaccines.gov/" class="uri">https://www.vaccines.gov/</a>.</em></p>
+<p>We can also plot using the new (Feb 2022) guidelines from the CDC for low, medium, high community level; I’ve also recalculated past data so we can see how it would apply then. The dashed line shows 500 new cases per 7 days per 100K people; under TN law, the governor can allow mask mandates if the level hits 1,000 cases per 14 days per 100K, so this shows the weekly average needed for this (but having 1,300 cases in one week, and none the week before, would also trigger this).</p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" title="Cases per 100K and CDC color" alt="Cases per 100K and CDC color" width="672" /></p>
+<p>Here are the percent of people who have active covid cases right now, who have tested and gotten positive tests, <em>and</em> who have reported this to the state:</p>
 <p><img src="index_files/figure-html/percentageactive-1.png" title="Percentage of people in the region with active covid-19" alt="Percentage of people in the region with active covid-19" width="672" /></p>
 <p>A high level overview of the pandemic in Tennessee as a whole (using Tennessee’s definitions of groups):</p>
 <table style="width:100%;">

@@ -21,6 +21,14 @@ tar_load(hospital_knox)
 tar_load(daily_focal)
 tar_load(tn_death_predictions)
 tar_load(tn_death_history)
+tar_load(cdc_all_reports)
+cdc_knox <- GetCommunityLevel(subset(cdc_all_reports, FIPS==047093))
+cdc_knox$County <- "Knox"
+cdc_anderson <- GetCommunityLevel(subset(cdc_all_reports, FIPS==047001))
+cdc_anderson$County <- "Anderson"
+cdc_local <- rbind(cdc_knox, cdc_anderson) 
+cdc_local <- subset(cdc_local, Cases_7_days_per_100K_County>0) # since these reflect lack of reporting
+cdc_local$Date <- as.Date(cdc_local$ReportDate, format="%Y%m%d")
 counties_in_hospital_region <- FocalCountiesEastTN()
 last_hospital_update <- max(hospital_knox$Date)
 daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
@@ -59,12 +67,27 @@ The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions ba
 
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
+
+We can also plot using the new (Feb 2022) guidelines from the CDC for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. The dashed line shows 500 new cases per 7 days per 100K people; under TN law, the governor can allow mask mandates if the level hits 1,000 cases per 14 days per 100K, so this shows the weekly average needed for this (but having 1,300 cases in one week, and none the week before, would also trigger this).
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
+cdc_local$`Community Level` <- factor(cdc_local$New_Community_Level, levels = c("Low", "Medium", "High"))
+
+cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "khaki1", "red")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1) + geom_hline(yintercept=500, linetype="dashed") 
+print(cdc_new_plot)
+```
+
+Here are the percent of people who have active covid cases right now, who have tested and gotten positive tests, *and* who have reported this to the state:
+
 ```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
 
 active <- ggplot(daily_focal, aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light()
 
 print(active)
 ```
+
+
 
 A high level overview of the pandemic in Tennessee as a whole (using Tennessee's definitions of groups):
 
