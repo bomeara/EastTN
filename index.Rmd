@@ -93,7 +93,7 @@ Here are the percent of people who have active covid cases right now, who have t
 
 ```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
 
-active <- ggplot(daily_focal, aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light()
+active <- ggplot(daily_focal, aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() + theme(legend.justification = c(0, 1), legend.position = c(0.1, .9))
 
 print(active)
 ```
