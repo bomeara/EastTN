@@ -1013,6 +1013,10 @@ GetCommunityTransmissionReport <- function(report_url) {
     # Hospital capacity probably is more relevant on a state basis than a county (since hospitals work regionally -- a small rural county might not have many ICU beds but the neighboring city might)
     cdc_state_hospital <- cdc_state %>% select("State Abbreviation", "% staffed adult ICU beds occupied")
     cdc_county_with_hospital <- cdc_county%>% left_join(cdc_state_hospital, by="State Abbreviation", copy=TRUE, suffix=c("_County", "_State"))
+	transmission <- rep(NA, nrow(cdc_county_with_hospital))
+	try(transmission <- result$`Community Transmission Level`)
+	try(transmission <- result$`Community Transmission Level - last 7 days`)
+	cdc_county_with_hospital$`Community Transmission Level - last 7 days` <- transmission
     cdc_county_with_hospital$FIPS <- cdc_county_with_hospital$`FIPS code`
     cdc_county_with_hospital <- cdc_county_with_hospital %>% select(County, "FIPS", "State Abbreviation", "Population", "Cases per 100k - last 7 days", "Deaths per 100k - last 7 days", "Community Transmission Level - last 7 days", "% staffed adult ICU beds occupied_State", "% staffed adult ICU beds occupied_County", "People who are fully vaccinated as % of total population", "Proportion_Fully_Vaccinated_Under_65", "Vaccination_Data_Is_For_County", "Area of Concern Category", "Proportion_Fully_Vaccinated_12_to_17" , "Proportion_Fully_Vaccinated_18_plus", "Proportion_Fully_Vaccinated_65_plus", "Proportion_Fully_Vaccinated_All", "Proportion_Initiating_Vaccination_Last_7_days_12_to_17", "Proportion_Initiating_Vaccination_Last_7_days_18_plus", "Proportion_Initiating_Vaccination_Last_7_days_65_plus", "Percent_inpatient_beds_occupied_by_covid_patient_County",  "Confirmed_covid_admissions_per_100K_7_days_County", "Confirmed_covid_admissions_7_days_County", "Cases_7_days_County", "Cases_7_days_per_100K_County", "Deaths_7_days_County")
 	
@@ -1069,7 +1073,7 @@ GetAllCommunityTransmissionReports <- function(urls, dates) {
 	for (i in seq_along(urls)) {
 		local_report <- GetCommunityTransmissionReport(urls[i])
 		local_report$ReportDate <- dates[i]
-		all_reports <- rbind(all_reports, local_report)
+		all_reports <- plyr::rbind.fill(all_reports, local_report)
 		Sys.sleep(3)	
 	}	
 	return(as.data.frame(all_reports))
@@ -1238,6 +1242,10 @@ JoinHesitancyWithCDCWeekly <- function(hesitancy_by_county, cdc_weekly) {
     result$County <- result$County_Hesitancy_Name
     result$Percent_Estimated_Vaccination_Hesitant <- result$Percent.estimated.hesitant
     result$Percent_Estimated_Vaccination_Strongly_Hesitant <- result$Percent.estimated.strongly.hesitant
+	transmission <- rep(NA, nrow(result))
+	try(transmission <- result$`Community Transmission Level`)
+	try(transmission <- result$`Community Transmission Level - last 7 days`)
+	result$`Community Transmission Level - last 7 days` <- transmission
     result$Community_Transmission_Level <- result$`Community Transmission Level - last 7 days`
     result$Area_of_Concern_Category <- result$`Area of Concern Category`
     result$State <- result$StateAbbreviation

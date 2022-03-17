@@ -6,7 +6,7 @@ output:
        in_header: GA_Script.html
 ---
 
-Oak Ridge Schools are releasing information at https://www.ortn.edu/covid-information/, which includes info on masking and other measures. I take a snapshot of this every 6 hours and plot it. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/. The [CDC](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/k-12-guidance.html) and the [American Academy of Pediatrics](https://www.aappublications.org/news/2021/07/18/schools-071821) recommend that everyone in schools over the age of 2 wear a mask. There are various rules in TN banning mask or vaccination mandates for covid; these have been temporarily stayed due to lawsuits in some districts, but not Oak Ridge so far.
+Oak Ridge Schools were releasing information on cases in schools; this release, and tracking of cases, stopped in March 2022. The below plots are based on the data that were released and will be updated if new data appear. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/. 
 
 The plot below shows the proportion of students with active covid cases at any one time. 
 

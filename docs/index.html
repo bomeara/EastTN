@@ -353,13 +353,15 @@ $(document).ready(function () {
 <p>The purpose of this is to gather information on how the covid-19 pandemic is progressing in East TN. There are good sites that have info on the pandemic generally across the US and world, but Tennessee as well as local entities put out info that is not captured by these sites.</p>
 <p>I am mostly doing this for my own curiosity as a parent in Oak Ridge, TN; though I work in science, I don’t work in epidemiology. Thus, I’m not doing any calculations of future spread, etc. – I’m taking published datasets and plotting them. For datasets that are presented as current conditions but do not have a history, I take a copy of them (usually every six hours) to be able to plot how they change over time.</p>
 <p>Use the menu above for information on vaccinations, conditions in schools, and more.</p>
-<p>Currently, at least 1 of every 587 people in our region (0.17%) have <em>active covid infections</em> (based on the tests reported to the state; additional people may have covid but have not been tested). Another way of looking at this: if UTK’s Neyland Stadium had this percentage of people with active covid infections, 174 people in the 102,455 person stadium would have covid right now (though hopefully people who know they are sick stay home). Over the course of the pandemic, 387 people in a full stadium would have died from covid, 703 would have been hospitalized, and 21,811 would have had a case of covid.</p>
-<p>As of the last time the data were updated, the 19 regional hospitals around Knoxville had <strong>only 17 ICU beds available of 317 total</strong>, based on info from the <a href="https://covid.knoxcountytn.gov/case-count.html">Knox County Health Department</a>.</p>
+<p>Currently, at least 1 of every 1123 people in our region (0.09%) have <em>active covid infections</em> (based on the tests reported to the state; additional people may have covid but have not been tested). Another way of looking at this: if UTK’s Neyland Stadium had this percentage of people with active covid infections, 91 people in the 102,455 person stadium would have covid right now (though hopefully people who know they are sick stay home). Over the course of the pandemic, 397 people in a full stadium would have died from covid, 716 would have been hospitalized, and 21,841 would have had a case of covid.</p>
+<p>As of the last time the data were updated, the 19 regional hospitals around Knoxville had <strong>only 33 ICU beds available of 317 total</strong>, based on info from the <a href="https://covid.knoxcountytn.gov/case-count.html">Knox County Health Department</a>.</p>
 <p>As of Sat, Mar 12, 2022, <strong>25,035 people have died from covid in Tennessee.</strong></p>
-<p>The <a href="https://covid19forecasthub.org">COVID-19 Forecast Hub</a> makes predictions based on a number of models every week. They predict that in the week ending on <strong>Mar 19, an additional 161 people (range 26-333) will have died from covid in Tennessee</strong>, with 133 more covid deaths by Mar 26.</p>
+<p>The <a href="https://covid19forecasthub.org">COVID-19 Forecast Hub</a> makes predictions based on a number of models every week. They predict that in the week ending on <strong>Mar 19, an additional 174 people (range 75-331) will have died from covid in Tennessee</strong>, with 123 more covid deaths by Mar 26.</p>
 <p><em>To get a vaccine to protect others and yourself, go to <a href="https://www.vaccines.gov/" class="uri">https://www.vaccines.gov/</a>.</em></p>
-<p>We can also plot using the new (Feb 2022) guidelines from the CDC for low, medium, high community level; I’ve also recalculated past data so we can see how it would apply then. The dashed line shows 500 new cases per 7 days per 100K people; under TN law, the governor can allow mask mandates if the level hits 1,000 cases per 14 days per 100K, so this shows the weekly average needed for this (but having 1,300 cases in one week, and none the week before, would also trigger this).</p>
+<p>We can also plot using the new (Feb 2022) guidelines from the CDC for low, medium, high community level; I’ve also recalculated past data so we can see how it would apply then. The dashed line shows 500 new cases per 7 days per 100K people; under TN law, the governor can allow mask mandates if the level hits 1,000 cases per 14 days per 100K, so this shows the weekly average needed for this (but having 1,300 cases in one week, and none the week before, would also trigger this). All counties went <a href="https://twitter.com/BrettKelman/status/1484210159161327632?s=20">well above the required threshold</a> during the omicron wave but no masking requirements were reinstated, so this line might not be relevant in practice.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" title="Cases per 100K and CDC color" alt="Cases per 100K and CDC color" width="672" /></p>
+<p>Here are the deaths over time associated with covid in East TN (excluding Dec 22, 2021, when there seems to be an error in the state’s death records):</p>
+<p><img src="index_files/figure-html/deaths-1.png" title="Covid associated deaths over time" alt="Covid associated deaths over time" width="672" /></p>
 <p>Here are the percent of people who have active covid cases right now, who have tested and gotten positive tests, <em>and</em> who have reported this to the state:</p>
 <p><img src="index_files/figure-html/percentageactive-1.png" title="Percentage of people in the region with active covid-19" alt="Percentage of people in the region with active covid-19" width="672" /></p>
 <p>A high level overview of the pandemic in Tennessee as a whole (using Tennessee’s definitions of groups):</p>
@@ -387,7 +389,7 @@ $(document).ready(function () {
 <td align="left">Race</td>
 <td align="left">American Indian or Alaska Native</td>
 <td align="left">1/10</td>
-<td align="left">1/1429</td>
+<td align="left">1/1250</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -396,16 +398,16 @@ $(document).ready(function () {
 <td align="left">Asian</td>
 <td align="left">1/7</td>
 <td align="left">1/1111</td>
-<td align="left">55.4%</td>
-<td align="left">47.1%</td>
+<td align="left">55.5%</td>
+<td align="left">47.2%</td>
 </tr>
 <tr class="odd">
 <td align="left">Race</td>
 <td align="left">Black or African American</td>
 <td align="left">1/4</td>
-<td align="left">1/286</td>
-<td align="left">42.2%</td>
-<td align="left">36.5%</td>
+<td align="left">1/278</td>
+<td align="left">42.3%</td>
+<td align="left">36.6%</td>
 </tr>
 <tr class="even">
 <td align="left">Race</td>
@@ -419,41 +421,41 @@ $(document).ready(function () {
 <td align="left">Race</td>
 <td align="left">White</td>
 <td align="left">1/4</td>
-<td align="left">1/286</td>
+<td align="left">1/278</td>
 <td align="left">46.1%</td>
-<td align="left">41.7%</td>
+<td align="left">41.8%</td>
 </tr>
 <tr class="even">
 <td align="left">Ethnicity</td>
 <td align="left">Hispanic</td>
 <td align="left">1/4</td>
 <td align="left">1/667</td>
-<td align="left">62.5%</td>
-<td align="left">52.2%</td>
+<td align="left">62.7%</td>
+<td align="left">52.3%</td>
 </tr>
 <tr class="odd">
 <td align="left">Ethnicity</td>
 <td align="left">Not Hispanic or Latino</td>
 <td align="left">1/5</td>
-<td align="left">1/294</td>
-<td align="left">54.9%</td>
+<td align="left">1/286</td>
+<td align="left">55%</td>
 <td align="left">50.1%</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="left">1/3</td>
-<td align="left">1/312</td>
-<td align="left">63.5%</td>
-<td align="left">57.3%</td>
+<td align="left">1/303</td>
+<td align="left">63.6%</td>
+<td align="left">57.4%</td>
 </tr>
 <tr class="odd">
 <td align="left">Sex</td>
 <td align="left">Male</td>
 <td align="left">1/4</td>
-<td align="left">1/250</td>
+<td align="left">1/244</td>
 <td align="left">56.6%</td>
-<td align="left">50.3%</td>
+<td align="left">50.4%</td>
 </tr>
 </tbody>
 </table>

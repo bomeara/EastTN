@@ -68,7 +68,7 @@ The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions ba
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
 
-We can also plot using the new (Feb 2022) guidelines from the CDC for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. The dashed line shows 500 new cases per 7 days per 100K people; under TN law, the governor can allow mask mandates if the level hits 1,000 cases per 14 days per 100K, so this shows the weekly average needed for this (but having 1,300 cases in one week, and none the week before, would also trigger this).
+We can also plot using the new (Feb 2022) guidelines from the CDC for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. The dashed line shows 500 new cases per 7 days per 100K people; under TN law, the governor can allow mask mandates if the level hits 1,000 cases per 14 days per 100K, so this shows the weekly average needed for this (but having 1,300 cases in one week, and none the week before, would also trigger this). All counties went [well above the required threshold](https://twitter.com/BrettKelman/status/1484210159161327632?s=20) during the omicron wave but no masking requirements were reinstated, so this line might not be relevant in practice.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
@@ -77,6 +77,17 @@ cdc_local$`Community Level` <- factor(cdc_local$New_Community_Level, levels = c(
 cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "khaki1", "red")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1) + geom_hline(yintercept=500, linetype="dashed") 
 print(cdc_new_plot)
 ```
+
+Here are the deaths over time associated with covid in East TN (excluding Dec 22, 2021, when there seems to be an error in the state's death records):
+
+```{r deaths, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Covid associated deaths over time"}
+daily_focal_easttn <- subset(daily_focal, Region=="East TN")
+daily_focal_easttn <- subset(daily_focal_easttn, DATE!=as.Date("20211222", format="%Y%m%d"))
+try(daily_death_plot <- ggplot(daily_focal_easttn, aes(x=DATE, y=NEW_DEATHS)) + theme_light() + geom_ma(aes( linetype="a"), n=7) +  guides(linetype = "none") + ylab("Deaths per day (7 day average)") + xlab("Date") + ggtitle("Covid-Associated Deaths in East TN"))
+try(print(daily_death_plot))
+
+```
+
 
 Here are the percent of people who have active covid cases right now, who have tested and gotten positive tests, *and* who have reported this to the state:
 
