@@ -12,7 +12,7 @@ The purpose of this is to gather information on how the covid-19 pandemic is pro
 
 I am mostly doing this for my own curiosity as a parent in Oak Ridge, TN; though I work in science, I don't work in epidemiology. Thus, I'm not doing any calculations of future spread, etc. -- I'm taking published datasets and plotting them. For datasets that are presented as current conditions but do not have a history, I take a copy of them (usually every six hours) to be able to plot how they change over time.
 
-Use the menu above for information on vaccinations, conditions in schools, and more. This site was last updated on `r print(format(Sys.time(), "%I:%M %p on %A %B %d, %Y"))`, though many data sources have a lag of a week or more. 
+Use the menu above for information on vaccinations, conditions in schools, and more. This site was last updated on `r (format(Sys.time(), "%I:%M %p on %A %B %d, %Y"))`, though many data sources have a lag of a week or more. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 source("_packages.R")
