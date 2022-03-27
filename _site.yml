@@ -38,6 +38,8 @@ navbar:
           href: "comparisons.html"
     - text: "Travel"
       href: travel.html
+    - text: "Wastewater"
+      href: sewage.html
     - text: "About"
       href: about.html
 

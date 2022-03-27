@@ -130,7 +130,13 @@ CreateSchoolsOakRidge <- function() {
 				if (i==1) {
 					schools_oakridge <- local_info
 				} else {
-					schools_oakridge <- rbind(schools_oakridge, local_info)
+					previous_most_recent <- subset(schools_oakridge, Date==max(schools_oakridge$Date))
+					if(any(c(previous_most_recent$PercentPositiveStudentsYearToDate!=local_info$PercentPositiveStudentsYearToDate, previous_most_recent$PercentActiveCovidStudents!=local_info$PercentActiveCovidStudents), na.rm=TRUE)){
+						#(paste0(unique(local_info$Date), " DOESN'T match ", max(schools_oakridge$Date)))
+						schools_oakridge <- rbind(schools_oakridge, local_info) # only add new data
+					} else {
+						#print(paste0(unique(local_info$Date), " matches ", max(schools_oakridge$Date)))
+					}
 				}
 			}
 		})
@@ -165,13 +171,13 @@ CreateSchoolsKnox <- function() {
     school_knox_info$Active_Staff_Percent <- 100*school_knox_info$Active_Staff_Count/staff_total
     school_knox_info$Active_Students_Percent <- 100*school_knox_info$Active_Students_Count/student_total
 	
-	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
-	breakrows <- (as.Date(school_knox_info$Date) %in% breakdays)
+	# breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
+	# breakrows <- (as.Date(school_knox_info$Date) %in% breakdays)
 
-	school_knox_info$Active_Staff_Count[breakrows] <- NA
-	school_knox_info$Active_Students_Count[breakrows] <- NA
-	school_knox_info$Active_Staff_Percent[breakrows] <- NA
-	school_knox_info$Active_Students_Percent[breakrows] <- NA
+	# school_knox_info$Active_Staff_Count[breakrows] <- NA
+	# school_knox_info$Active_Students_Count[breakrows] <- NA
+	# school_knox_info$Active_Staff_Percent[breakrows] <- NA
+	# school_knox_info$Active_Students_Percent[breakrows] <- NA
 
 	
     return(school_knox_info)
@@ -196,7 +202,21 @@ CreateIndividualSchoolsKnox <- function() {
 			actual_time <- anytime::anytime(stringr::str_extract(knox_school_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
 			schools_day$Date <- actual_time
 			if(nrow(schools_day)>0) {
-				individual_schools_knox <- plyr::rbind.fill(individual_schools_knox, schools_day)	
+				if(nrow(individual_schools_knox)==0) {
+					individual_schools_knox <- plyr::rbind.fill(individual_schools_knox, schools_day)	
+				} else {
+					previous_most_recent <- subset(individual_schools_knox, Date==max(individual_schools_knox$Date))
+					if(any(c(
+						previous_most_recent$Student_Present!=schools_day$Student_Present,
+						previous_most_recent$Student_Active_Cases!=schools_day$Student_Active_Cases,
+						previous_most_recent$Staff_Present!=schools_day$Staff_Present,
+						previous_most_recent$Staff_Active_Cases!=schools_day$Staff_Active_Cases
+						), na.rm=TRUE)){
+						individual_schools_knox <- plyr::rbind.fill(individual_schools_knox, schools_day)	
+					} else {
+						#print(paste0(unique(schools_day$Date), " matches ", max(individual_schools_knox$Date)))
+					}
+				}
 			}
 		}, silent=TRUE)
     }
@@ -220,17 +240,17 @@ CreateIndividualSchoolsKnox <- function() {
 	individual_schools_knox$Staff_Maximum_Active_Cases <- as.numeric(gsub("≤", "", individual_schools_knox$Staff_Active_Cases))
 	
 	
-	breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
-	breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
+	# breakdays <- c(as.Date(paste0("2021-10-", c(11:15))), as.Date(paste0("2021-11-", c(24:26))), as.Date(paste0("2021-12-", c(20:31))), as.Date(paste0("2022-03-", c(14:18)))) 
+	# breakrows <- (as.Date(individual_schools_knox$Date) %in% breakdays)
 
-	individual_schools_knox$Student_Enrolled[breakrows] <- NA
-	individual_schools_knox$Student_Present[breakrows] <- NA
-	individual_schools_knox$Student_Present_Percent[breakrows] <- NA
-	individual_schools_knox$Student_Active_Cases[breakrows] <- NA
-	individual_schools_knox$Staff_Employed[breakrows] <- NA
-	individual_schools_knox$Staff_Present[breakrows] <- NA
-	individual_schools_knox$Staff_Present_Percent[breakrows] <- NA
-	individual_schools_knox$Staff_Active_Cases[breakrows] <- NA
+	# individual_schools_knox$Student_Enrolled[breakrows] <- NA
+	# individual_schools_knox$Student_Present[breakrows] <- NA
+	# individual_schools_knox$Student_Present_Percent[breakrows] <- NA
+	# individual_schools_knox$Student_Active_Cases[breakrows] <- NA
+	# individual_schools_knox$Staff_Employed[breakrows] <- NA
+	# individual_schools_knox$Staff_Present[breakrows] <- NA
+	# individual_schools_knox$Staff_Present_Percent[breakrows] <- NA
+	# individual_schools_knox$Staff_Active_Cases[breakrows] <- NA
 	
 	
 	return(individual_schools_knox)
@@ -1214,7 +1234,19 @@ GetHesitancyWorkingAge <- function(week=27, state_only=TRUE) {
     return(census_df)
 }
 
-
+# Gets sewage data from CDC at https://data.cdc.gov/Public-Health-Surveillance/NWSS-Public-SARS-CoV-2-Wastewater-Data/2ew6-ywp6
+GetSewageData <- function() {
+	sewage <- read.csv("https://data.cdc.gov/api/views/2ew6-ywp6/rows.csv")
+	focal_places <- c(496, 536, 405, 271)
+	sewage_focal <- subset(sewage, wwtp_id %in% focal_places)
+	sewage_focal$date_end <- as.Date(sewage_focal$date_end)
+	sewage_focal$Location <- rep(NA)
+	sewage_focal$Location[which(sewage_focal$wwtp_id==496)] <- "Bradley, TN"
+	sewage_focal$Location[which(sewage_focal$wwtp_id==536)] <- "Eastern Band Cherokee Indians, NC"
+	sewage_focal$Location[which(sewage_focal$wwtp_id==405)] <- "Jackson, NC"
+	sewage_focal$Location[which(sewage_focal$wwtp_id==271)] <- "Buncombe/Henderson, NC"
+	return(sewage_focal)
+}
 
 #This gets hesitancy estimated by county by the CDC: https://aspe.hhs.gov/pdf-report/vaccine-hesitancy
 GetHesitancyByCounty <- function() {

@@ -1,0 +1,29 @@
+---
+title: Wastewater Surveillance
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+The [CDC aggregates samples from wastewater](https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance). The four closest ones (as of March 27, 2022) are plotted below.
+
+The plots are all for sliding windows showing change over 15 days. I am plotting them by the final date in the window.
+
+The plot below shows the percentage change of covid in wastewater over 15 day intervals: positive means it's increasing over the 15 day period, negative shows it's going down. This is just relative to the window: going up slightly if they're already high or if they're very low means different things for amount of virus in a community. At most, it can decline by 100%; it can increase by a nearly infinite amount. To handle this, I'm plotting it with bounds of -100 to 100% gain over the 15 day interval.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Scatter plot of covid change over time"}
+source("_packages.R")
+tar_load(sewage)
+sewage$ptc_15d[which(sewage$ptc_15d>100)] <- 100
+sewage$ptc_15d[which(sewage$ptc_15d<(-100))] <- -100
+try(sewage_change <- ggplot(sewage, aes(x=date_end, y=ptc_15d, group=Location)) + geom_point(aes(colour=Location))+ theme_light() + ylab("Percentage change in covid over 15 days") + xlab("Date") + ggtitle("Percentage change in covid over 15 day, bounded by +/- 100%") + ylim(c(-100, 100)) + geom_hline(yintercept = 0) + facet_wrap(~ Location, ncol=2) + theme(legend.position = "none"))
+
+print(sewage_change)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Scatter plot of covid detection over time"}
+try(sewage_detection <- ggplot(sewage, aes(x=date_end, y=detect_prop_15d, group=Location)) + geom_point(aes(colour=Location))+ theme_light() + ylab("Detection of over 15 days") + xlab("Date") + ggtitle("Percentage detection of covid over 15 day interval") + facet_wrap(~ Location, ncol=2) + theme(legend.position = "none"))
+
+print(sewage_detection)
+```
