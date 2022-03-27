@@ -11,7 +11,7 @@
 
 
 
-<title>Last Eight Weeks</title>
+<title>Wastewater Surveillance</title>
 
 <script src="site_libs/header-attrs-2.11.3/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -348,18 +348,16 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Last Eight Weeks</h1>
+<h1 class="title toc-ignore">Wastewater Surveillance</h1>
 
 </div>
 
 
-<p>We can focus on just the last eight weeks, as some past peaks may obscure local dynamics otherwise.</p>
-<p>Total people in the area who have active covid infections right now <em>and</em> for whom this has been reported to the state. There is all East TN as well as Knox and Anderson counties.</p>
-<p><img src="lasteightweeks_files/figure-html/percentageactive-1.png" title="Percentage of people in the region with active covid-19" alt="Percentage of people in the region with active covid-19" width="672" /></p>
-<p>We can also look at deaths per day, though this lags infections by weeks:</p>
-<p><img src="lasteightweeks_files/figure-html/numberdead-1.png" title="Covid deaths per day" alt="Covid deaths per day" width="672" /></p>
-<p>The <a href="https://covid.knoxcountytn.gov">Knox County Health Department</a> puts out information on hospital capacity in their region, which is Anderson, Bledsoe, Blount, Bradley, Campbell, Carter, Claiborne, Cocke, Cumberland, Grainger, Greene, Hamblen, Hamilton, Hancock, Hawkins, Jefferson, Johnson, Knox, Loudon, Marion, McMinn, Meigs, Monroe, Morgan, Polk, Rhea, Roane, Scott, Sevier, Sullivan, Unicoi, Union, Washington Counties; there are 19 hospitals in this region with potential ICU beds.</p>
-<p><img src="lasteightweeks_files/figure-html/hospitalcapacityplot-1.png" width="672" /></p>
+<p>The <a href="https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance">CDC aggregates samples from wastewater</a>. The four closest ones (as of March 27, 2022) are plotted below.</p>
+<p>The plots are all for sliding windows showing change over 15 days. I am plotting them by the final date in the window.</p>
+<p>The plot below shows the percentage change of covid in wastewater over 15 day intervals: positive means it’s increasing over the 15 day period, negative shows it’s going down. This is just relative to the window: going up slightly if they’re already high or if they’re very low means different things for amount of virus in a community. At most, it can decline by 100%; it can increase by a nearly infinite amount. To handle this, I’m plotting it with bounds of -100 to 100% gain over the 15 day interval.</p>
+<p><img src="sewage_files/figure-html/unnamed-chunk-1-1.png" title="Scatter plot of covid change over time" alt="Scatter plot of covid change over time" width="672" /></p>
+<p><img src="sewage_files/figure-html/unnamed-chunk-2-1.png" title="Scatter plot of covid detection over time" alt="Scatter plot of covid detection over time" width="672" /></p>
 
 
 
