@@ -18,11 +18,12 @@ try(system('mv ~/Downloads/3\\ active\\ self_isolations_group_Page\\ 1_Bar\\ cha
 
 #options(clustermq.scheduler = "multiprocess")
 #tar_make_clustermq(workers = parallel::detectCores()-1)
-rerun <- FALSE
+rerun <- TRUE
 if(rerun) {
 	try(tar_invalidate(contains("_")))
 	try(tar_invalidate(contains("sum")))
 	try(tar_invalidate(contains("utk")))
+	try(tar_invalidate(contains("sewage")))
 	try(tar_invalidate(cdc_weekly_metadata))
   	try(tar_invalidate(cdc_all_metadata))
   	try(tar_invalidate(hesitancy_by_county))

@@ -22,6 +22,8 @@ try(sewage_change <- ggplot(sewage, aes(x=date_end, y=ptc_15d, group=Location)) 
 print(sewage_change)
 ```
 
+This plot shows percentage of samples where covid was detected over a 15 day window.
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Scatter plot of covid detection over time"}
 try(sewage_detection <- ggplot(sewage, aes(x=date_end, y=detect_prop_15d, group=Location)) + geom_point(aes(colour=Location))+ theme_light() + ylab("Detection of over 15 days") + xlab("Date") + ggtitle("Percentage detection of covid over 15 day interval") + facet_wrap(~ Location, ncol=2) + theme(legend.position = "none"))
 

@@ -33,20 +33,3 @@ print(plot_sex_covid_vaccination_full)
 #vax_plot <- ggarrange(plot_race_covid_vaccination_full, plot_ethnicity_covid_vaccination_full, plot_sex_covid_vaccination_full, labels=c("", "", ""), ncol=3, nrow=1)
 #print(vax_plot)
 ```
-
-One concern has been changes in the number of people getting vaccinated over time. These plots show for each demographic group the percentage of individuals in that group getting fully vaccinated (7 day rolling mean). There has been an expansion of who can get vaccinated: adults in high risk categories, all adults, children age 12 and up. These plots show the dramatic decrease in demand for getting vaccinated, despite the proportion of fully vaccinated people being well below what is recommended. The vaccination capacity is clearly higher than demand at the moment.
-
-```{r vaccination_increase, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-
-plot_race_covid_vaccination_delta_full <- ggplot(subset(race_vaccine, !is.na(race_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Race)) + geom_line(aes(colour=Race))+ theme_light() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") + theme(legend.justification = c(1, 1), legend.position = c(1, 1))
-print(plot_race_covid_vaccination_delta_full)
-
-plot_ethnicity_covid_vaccination_delta_full <- ggplot(subset(ethnicity_vaccine, !is.na(ethnicity_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Ethnicity)) + geom_line(aes(colour=Ethnicity))+ theme_light() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") + theme(legend.justification = c(1, 1), legend.position = c(1, 1))
-print(plot_ethnicity_covid_vaccination_delta_full)
-
-plot_sex_covid_vaccination_delta_full <- ggplot(subset(sex_vaccine, !is.na(sex_vaccine$IncreasePercentFullyVaccinated7Day)), aes(x=DATE, y=IncreasePercentFullyVaccinated7Day, group=Sex)) + geom_line(aes(colour=Sex))+ theme_light() + xlab("Date") + ylab("Daily % of people becoming fully vaccinated per day \n(seven day mean)") + theme(legend.justification = c(1, 1), legend.position = c(1, 1))
-print(plot_sex_covid_vaccination_delta_full)
-
-#vax_speed_plot <- ggarrange(plot_race_covid_vaccination_delta_full, plot_ethnicity_covid_vaccination_delta_full, plot_sex_covid_vaccination_delta_full, labels=c("", "", ""), ncol=3, nrow=1)
-#print(vax_speed_plot)
-```
