@@ -353,10 +353,11 @@ $(document).ready(function () {
 </div>
 
 
-<p>The <a href="https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance">CDC aggregates samples from wastewater</a>. The four closest ones (as of March 27, 2022) are plotted below.</p>
+<p>The <a href="https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance">CDC aggregates samples from wastewater</a>. Some states have great, detailed coverage – Tennessee is not one of them. I’m plotting data from the four closest sites to our region. This is based on “closest” of March 27, 2022; it’s possible that new sites will come online (for example, UT Knoxville had been <a href="https://cee.utk.edu/wastewater-monitoring-plan-could-keep-campus-safe-from-covid-19/">tracking covid in its wastewater</a>, but these data are not available currently from the CDC).</p>
 <p>The plots are all for sliding windows showing change over 15 days. I am plotting them by the final date in the window.</p>
 <p>The plot below shows the percentage change of covid in wastewater over 15 day intervals: positive means it’s increasing over the 15 day period, negative shows it’s going down. This is just relative to the window: going up slightly if they’re already high or if they’re very low means different things for amount of virus in a community. At most, it can decline by 100%; it can increase by a nearly infinite amount. To handle this, I’m plotting it with bounds of -100 to 100% gain over the 15 day interval.</p>
 <p><img src="sewage_files/figure-html/unnamed-chunk-1-1.png" title="Scatter plot of covid change over time" alt="Scatter plot of covid change over time" width="672" /></p>
+<p>This plot shows percentage of samples where covid was detected over a 15 day window.</p>
 <p><img src="sewage_files/figure-html/unnamed-chunk-2-1.png" title="Scatter plot of covid detection over time" alt="Scatter plot of covid detection over time" width="672" /></p>
 
 

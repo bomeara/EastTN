@@ -6,7 +6,7 @@ output:
        in_header: GA_Script.html
 ---
 
-The [CDC aggregates samples from wastewater](https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance). The four closest ones (as of March 27, 2022) are plotted below.
+The [CDC aggregates samples from wastewater](https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance). Some states have great, detailed coverage -- Tennessee is not one of them. I'm plotting data from the four closest sites to our region. This is based on "closest" of March 27, 2022; it's possible that new sites will come online (for example, UT Knoxville had been [tracking covid in its wastewater](https://cee.utk.edu/wastewater-monitoring-plan-could-keep-campus-safe-from-covid-19/), but these data are not available currently from the CDC).
 
 The plots are all for sliding windows showing change over 15 days. I am plotting them by the final date in the window.
 
