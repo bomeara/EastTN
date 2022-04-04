@@ -6,7 +6,7 @@ output:
        in_header: GA_Script.html
 ---
 
-Oak Ridge Schools were releasing information on cases in schools; this release, and tracking of cases, stopped in March 2022. The below plots are based on the data that were released and will be updated if new data appear. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/. 
+Oak Ridge Schools were releasing information on cases in schools; this release, and tracking of cases, stopped in March 2022, so dark gray rectangles are used after that to show the areas where data are lacking. The below plots are based on the data that were released and will be updated if new data appear. You can also get information at https://www.oakridger.com/ and https://oakridgetoday.com/. 
 
 The plot below shows the proportion of students with active covid cases at any one time. 
 
@@ -20,7 +20,7 @@ data_ends <- subset(schools_oakridge_nonzero, Date==max(schools_oakridge$Date))
 data_ends$Label <- paste0(data_ends$School, " (", round(data_ends$PercentActiveCovidStudents,1), '%)')
 schools_oakridge_nonzero$PercentActiveCovidStudents <- as.numeric(schools_oakridge_nonzero$PercentActiveCovidStudents)
 #try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_point(aes(colour=School)) + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + scale_color_discrete(guide = FALSE) + scale_y_continuous(sec.axis = sec_axis(~ ., labels=data_ends$Label, breaks = data_ends$PercentActiveCovidStudents)) + facet_wrap(~ School, ncol=3))
-try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_point(aes(colour=PercentActiveCovidStudents)) + scale_colour_gradient2(mid="purple", midpoint=1.5, high="red", low="blue") + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none"))
+try(oakridge_schools_active <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentActiveCovidStudents, group=School)) + geom_point(aes(colour=PercentActiveCovidStudents)) + scale_colour_gradient2(mid="purple", midpoint=1.5, high="red", low="blue") + theme_light() + ylab("Percentage of students with active covid infections") + xlab("Date") + ggtitle("Student active covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") + geom_rect(mapping=aes(xmin=as.POSIXct(as.Date("2022-03-15")), xmax=Sys.time(), ymin=0, ymax=5)))
 
 print(oakridge_schools_active)
 ```
@@ -35,7 +35,7 @@ schools_oakridge_nonzero$PercentPositiveStudentsYearToDate <- as.numeric(schools
 
 schools_oakridge_nonzero$PercentActiveCovidStudents <- as.numeric(schools_oakridge_nonzero$PercentActiveCovidStudents)
 
-try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_point(aes(colour=PercentPositiveStudentsYearToDate)) + scale_colour_gradient2(mid="purple", midpoint=3, high="red", low="blue") + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none") )
+try(oakridge_schools_ytd <- ggplot(schools_oakridge_nonzero, aes(x=Date, y=PercentPositiveStudentsYearToDate, group=School)) + geom_point(aes(colour=PercentPositiveStudentsYearToDate)) + scale_colour_gradient2(mid="purple", midpoint=3, high="red", low="blue") + theme_light() + ylab("Percentage of students testing positive for covid\n(since start of 2021-2 school year)") + xlab("Date") + ggtitle("Student covid infections in Oak Ridge, TN") + facet_wrap(~ School, ncol=3) + theme(legend.position = "none")  + geom_rect(mapping=aes(xmin=as.POSIXct(as.Date("2022-03-15")), xmax=Sys.time(), ymin=0, ymax=40)))
 print(oakridge_schools_ytd)
 ```
 
