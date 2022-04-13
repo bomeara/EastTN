@@ -6,14 +6,37 @@ output:
        in_header: GA_Script.html
 ---
 
-The [CDC aggregates samples from wastewater](https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance). Some states have great, detailed coverage -- Tennessee is not one of them. I'm plotting data from the four closest sites to our region. This is based on "closest" of March 27, 2022; it's possible that new sites will come online (for example, UT Knoxville had been [tracking covid in its wastewater](https://cee.utk.edu/wastewater-monitoring-plan-could-keep-campus-safe-from-covid-19/), but these data are not available currently from the CDC).
+The [CDC aggregates samples from wastewater](https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance), as does [Biobot analytics](https://biobot.io/). 
 
-The plots are all for sliding windows showing change over 15 days. I am plotting them by the final date in the window.
+Perhaps the most informative data are from [Biobot analytics](https://biobot.io/), as they show concentration over time (CDC shows change over time or presence/absence only).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of covid in wastewater over time"}
+source("_packages.R")
+tar_load(biobot_sewage)
+biobot_sewage_nearby <- subset(biobot_sewage, state %in% c("TN", "NC", "GA"))
+
+try(sewage_biobot <- ggplot(biobot_sewage_nearby, aes(x=date, y=effective_concentration_rolling_average, group=name)) + geom_line(aes(colour=name))+ theme_light() + ylab("Rolling average of covid concentration") + xlab("Date") + ggtitle("Concentration of covid in wastewater") + facet_wrap(~ name, ncol=2) + theme(legend.position = "none"))
+
+print(sewage_biobot)
+```
+
+Or zooming in on the last three months:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of covid in wastewater over last three months"}
+biobot_sewage_90 <- subset(biobot_sewage, Sys.Date() - biobot_sewage$date <= 90)
+
+biobot_sewage_nearby_90 <- subset(biobot_sewage_90, state %in% c("TN", "NC", "GA"))
+
+try(sewage_biobot_90 <- ggplot(biobot_sewage_nearby_90, aes(x=date, y=effective_concentration_rolling_average, group=name)) + geom_line(aes(colour=name))+ theme_light() + ylab("Rolling average of covid concentration") + xlab("Date") + ggtitle("Concentration of covid in wastewater") + facet_wrap(~ name, ncol=2) + theme(legend.position = "none"))
+
+print(sewage_biobot_90)
+```
+
+The plots below are all for sliding windows showing change over 15 days. I am plotting them by the final date in the window. Some states have great, detailed coverage in the CDC's data -- Tennessee is not one of them. I'm plotting data from the four closest sites to our region. This is based on "closest" of March 27, 2022; it's possible that new sites will come online (for example, UT Knoxville had been [tracking covid in its wastewater](https://cee.utk.edu/wastewater-monitoring-plan-could-keep-campus-safe-from-covid-19/), but these data are not available currently).
 
 The plot below shows the percentage change of covid in wastewater over 15 day intervals: positive means it's increasing over the 15 day period, negative shows it's going down. This is just relative to the window: going up slightly if they're already high or if they're very low means different things for amount of virus in a community. At most, it can decline by 100%; it can increase by a nearly infinite amount. To handle this, I'm plotting it with bounds of -100 to 100% gain over the 15 day interval.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Scatter plot of covid change over time"}
-source("_packages.R")
 tar_load(sewage)
 sewage$ptc_15d[which(sewage$ptc_15d>100)] <- 100
 sewage$ptc_15d[which(sewage$ptc_15d<(-100))] <- -100

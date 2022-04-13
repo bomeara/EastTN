@@ -35,6 +35,7 @@ list(
   tar_target(hhs_capacity_tn, CreateHHSDataTN()),
   tar_target(hhs_capacity_tn_focal, CreateHHSDataFocalCities(hhs_capacity_tn)),
   tar_target(hhs_capacity_tn_focal_latest_pretty, CreateHHSDataFocalCitiesPretty(hhs_capacity_tn_focal)),
+  tar_target(biobot_sewage, GetBiobotSewage()),
   tar_target(covid_by_demographic_in_tn, CreateDemographicDataInTN()),
   tar_target(sumtab, CreateSummaryTable(covid_by_demographic_in_tn)),
   tar_target(sumtabfraction, ComputeSummaryTableFraction(sumtab)),
