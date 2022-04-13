@@ -1285,3 +1285,11 @@ JoinHesitancyWithCDCWeekly <- function(hesitancy_by_county, cdc_weekly) {
     result_simplified <- result_simplified[!is.na(result_simplified$County),]
     return(result_simplified)
 }
+
+GetBiobotSewage <- function() {
+	biobot <- read.csv("https://raw.githubusercontent.com/biobotanalytics/covid19-wastewater-data/master/wastewater_by_county.csv")
+	biobot <- biobot[, -1] # empty first col
+	biobot$date <- as.Date(biobot$sampling_week)
+	biobot$effective_concentration_rolling_average <- as.numeric(biobot$effective_concentration_rolling_average)
+	return(biobot)
+}
