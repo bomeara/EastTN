@@ -13,7 +13,7 @@
 
 <title>Last Eight Weeks</title>
 
-<script src="site_libs/header-attrs-2.11.3/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -71,6 +71,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -91,6 +92,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -243,7 +247,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -256,7 +260,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Last X Weeks
      
     <span class="caret"></span>
@@ -280,7 +284,7 @@ $(document).ready(function () {
   <a href="microcovid.html">Risk by Activity</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Hospitalization
      
     <span class="caret"></span>
@@ -295,7 +299,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     K-12 Schools
      
     <span class="caret"></span>
@@ -310,7 +314,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     UT Knoxville
      
     <span class="caret"></span>
@@ -354,8 +358,6 @@ $(document).ready(function () {
 
 
 <p>We can focus on just the last eight weeks, as some past peaks may obscure local dynamics otherwise.</p>
-<p>Total people in the area who have active covid infections right now <em>and</em> for whom this has been reported to the state. There is all East TN as well as Knox and Anderson counties.</p>
-<p><img src="lasteightweeks_files/figure-html/percentageactive-1.png" title="Percentage of people in the region with active covid-19" alt="Percentage of people in the region with active covid-19" width="672" /></p>
 <p>We can also look at deaths per day, though this lags infections by weeks:</p>
 <p><img src="lasteightweeks_files/figure-html/numberdead-1.png" title="Covid deaths per day" alt="Covid deaths per day" width="672" /></p>
 <p>The <a href="https://covid.knoxcountytn.gov">Knox County Health Department</a> puts out information on hospital capacity in their region, which is Anderson, Bledsoe, Blount, Bradley, Campbell, Carter, Claiborne, Cocke, Cumberland, Grainger, Greene, Hamblen, Hamilton, Hancock, Hawkins, Jefferson, Johnson, Knox, Loudon, Marion, McMinn, Meigs, Monroe, Morgan, Polk, Rhea, Roane, Scott, Sevier, Sullivan, Unicoi, Union, Washington Counties; there are 19 hospitals in this region with potential ICU beds.</p>

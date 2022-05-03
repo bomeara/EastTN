@@ -31,19 +31,17 @@ cdc_local <- subset(cdc_local, Cases_7_days_per_100K_County>0) # since these ref
 cdc_local$Date <- as.Date(cdc_local$ReportDate, format="%Y%m%d")
 counties_in_hospital_region <- FocalCountiesEastTN()
 last_hospital_update <- max(hospital_knox$Date)
-daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
+#daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
 daily_focal$PercentDead <- 100*daily_focal$TOTAL_DEATHS/daily_focal$Population
 daily_focal$PercentHospitalized <- 100*daily_focal$TOTAL_HOSPITALIZED/daily_focal$Population
 daily_focal$PercentConfirmed <- 100*daily_focal$TOTAL_CONFIRMED/daily_focal$Population
 daily_region <- subset(daily_focal, Region=="East TN")
-current_active_region <- daily_region$PercentActive[which.max(daily_region$DATE)]
+#current_active_region <- daily_region$PercentActive[which.max(daily_region$DATE)]
 current_percent_dead_region <- daily_region$PercentDead[which.max(daily_region$DATE)]
 current_percent_hospitalized_region <- daily_region$PercentHospitalized[which.max(daily_region$DATE)]
 current_percent_confirmed_region <- daily_region$PercentConfirmed[which.max(daily_region$DATE)]
 neyland_capacity <- 102455
 ```
-
-Currently, at least 1 of every `r round(100/current_active_region)` people in our region (`r round(current_active_region,2)`%) have *active covid infections* (based on the tests reported to the state; additional people may have covid but have not been tested). Another way of looking at this: if UTK's Neyland Stadium had this percentage of people with active covid infections, `r format(round(0.01*current_active_region*neyland_capacity),big.mark=",",scientific=FALSE)` people in the 102,455 person stadium would have covid right now (though hopefully people who know they are sick stay home). Over the course of the pandemic, `r format(round(0.01*current_percent_dead_region*neyland_capacity),big.mark=",",scientific=FALSE)` people in a full stadium would have died from covid, `r format(round(0.01*current_percent_hospitalized_region*neyland_capacity),big.mark=",",scientific=FALSE)` would have been hospitalized, and `r format(round(0.01*current_percent_confirmed_region*neyland_capacity),big.mark=",",scientific=FALSE)` would have had a case of covid.
 
 As of the last time the data were updated, the 19 regional hospitals around Knoxville had **only `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, Resource=="ICU Beds")$Total.Capacity,1)` total**, based on info from the [Knox County Health Department](https://covid.knoxcountytn.gov/case-count.html).
 
@@ -100,10 +98,10 @@ try(print(daily_death_plot))
 ```
 
 
-Here are the percent of people who have active covid cases right now, who have tested and gotten positive tests, *and* who have reported this to the state. Since data are released with a lag, the dark gray rectangle shows the region from the last released data point to the present. 
 
-```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
-
+```{r percentageactive, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
+# Here are the percent of people who have active covid cases right now, who have tested and gotten positive tests, *and* who have reported this to the state. Since data are released with a lag, the dark gray rectangle shows the region from the last released data point to the present. 
+ 
 active <- ggplot(daily_focal, aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() + theme(legend.justification = c(0, 1), legend.position = c(0.1, .9)) + geom_rect(mapping=aes(xmin=24*60*60+max(DATE), xmax=Sys.time(), ymin=0, ymax=3))
 
 print(active)

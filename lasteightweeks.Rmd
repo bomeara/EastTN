@@ -15,7 +15,7 @@ tar_load(daily_focal)
 counties_in_hospital_region <- FocalCountiesEastTN()
 last_hospital_update <- max(hospital_knox$Date)
 elapsed_seconds <- 56*24*60*60 # for 56 days
-daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
+#daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
 daily_focal$PercentDead <- 100*daily_focal$TOTAL_DEATHS/daily_focal$Population
 daily_focal$PercentHospitalized <- 100*daily_focal$TOTAL_HOSPITALIZED/daily_focal$Population
 daily_focal$PercentConfirmed <- 100*daily_focal$TOTAL_CONFIRMED/daily_focal$Population
@@ -44,9 +44,9 @@ schools_oakridge_for_focal$Region <- "ORS student"
 
 We can focus on just the last eight weeks, as some past peaks may obscure local dynamics otherwise.
 
-Total people in the area who have active covid infections right now *and* for whom this has been reported to the state. There is all East TN as well as Knox and Anderson counties.
 
-```{r percentageactive, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
+```{r percentageactive, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of people in the region with active covid-19"}
+Total people in the area who have active covid infections right now *and* for whom this has been reported to the state. There is all East TN as well as Knox and Anderson counties.
 
 
 active <- ggplot(subset(daily_focal, daily_focal$DATE >= daily_focal$DATE[nrow(daily_focal)]-elapsed_seconds), aes(x=DATE, y=PercentActive, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of people with active covid infections each day") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light()

@@ -22,7 +22,7 @@ CreateDailyFocal <- function(counties_in_east_tn=FocalCountiesEastTN()) {
     dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/Public-Dataset-County-New.XLSX"
     download.file(dataURL, destfile=temp, mode='wb')
 
-    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("date", "text", rep("numeric",21)))
+    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("text", "date", rep("numeric",17)))
 
     daily_knox <- subset(daily, COUNTY=="Knox") %>% select(-"COUNTY")
     daily_knox$Region <- "Knox County"
@@ -53,7 +53,7 @@ CreateDailyFocal <- function(counties_in_east_tn=FocalCountiesEastTN()) {
     daily_focal <- dplyr::bind_rows(daily_knox, daily_oakridge, daily_region)
     daily_focal$Tests_per_100k <- 100000*(daily_focal$NEW_TESTS/daily_focal$Population)
     daily_focal$New_cases_per_100k <- 100000*(daily_focal$NEW_CASES/daily_focal$Population)
-    daily_focal$Active_cases_per_100k <- 100000*(daily_focal$TOTAL_ACTIVE/daily_focal$Population)
+    #daily_focal$Active_cases_per_100k <- 100000*(daily_focal$TOTAL_ACTIVE/daily_focal$Population)
     daily_focal$PositivityPercentage_per_week <- 100*daily_focal$PositivityRate_per_week
 
     return(daily_focal)
