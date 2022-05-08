@@ -22,7 +22,7 @@ CreateDailyFocal <- function(counties_in_east_tn=FocalCountiesEastTN()) {
     dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/Public-Dataset-County-New.XLSX"
     download.file(dataURL, destfile=temp, mode='wb')
 
-    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("text", "date", rep("numeric",17)))
+    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("text", "date", rep("numeric",18)))
 
     daily_knox <- subset(daily, COUNTY=="Knox") %>% select(-"COUNTY")
     daily_knox$Region <- "Knox County"
@@ -87,7 +87,7 @@ CreateHospitalKnox <- function() {
         local_beds <- NA
         try({
 			local_beds <- suppressWarnings(read.csv(hospital_knox_files[i]))
-        if(!is.na(local_beds)) {
+        if(nrow(local_beds)>0) {
             local_beds$East.Region.Hospitals <- gsub('All Hospital Beds*', 'All Hospital Beds *', gsub('All Hospital Beds *', 'All Hospital Beds', local_beds$East.Region.Hospitals, fixed=TRUE), fixed=TRUE)
             local_beds$Total.Capacity <- as.numeric(gsub(",",'', local_beds$Total.Capacity))
             local_beds$Current.Census <- as.numeric(gsub(",",'', local_beds$Current.Census))
@@ -95,14 +95,13 @@ CreateHospitalKnox <- function() {
             local_beds$Available.Capacity <- as.numeric(gsub('%','', local_beds$Available.Capacity))
             local_beds$Date <- anytime::anytime(stringr::str_extract(hospital_knox_files[i], "\\d+_\\d+_\\d+_\\d+_\\d+_\\d+"))
             colnames(local_beds) <- gsub("\\.$", "", colnames(local_beds))
-            if (i==1) {
-                hospital_knox <- local_beds
-            } else {
-                hospital_knox <- rbind(hospital_knox, local_beds)
-            }
+            hospital_knox <- rbind(hospital_knox, local_beds)
         }
 		}, silent=TRUE)
+		#print(i)
+		#print(nrow(hospital_knox))
     }
+	hospital_knox<<- hospital_knox
     hospital_knox <- subset(hospital_knox, East.Region.Hospitals != "Adult Floor Beds/Non-ICU")
     hospital_knox <- hospital_knox[which(nchar(hospital_knox$East.Region.Hospitals)>0),]
     hospital_knox$Current.Utilization[which(hospital_knox$Current.Utilization>100)] <- hospital_knox$Current.Utilization[which(hospital_knox$Current.Utilization>100)]/100 #to fix two days of data where Knox County was multiplying these by 100, getting 7935% utilization
@@ -763,7 +762,7 @@ Get17To25Knox <- function() {
     dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/Public-Dataset-Daily-County-Cases-17-25-Years.XLSX"
     download.file(dataURL, destfile=temp, mode='wb')
 
-    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("date", "text", rep("numeric",8)))
+    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("date", "text", rep("numeric",7)))
     daily_knox <- subset(daily, COUNTY=="Knox")
     daily_knox$DATE <- as.Date(daily_knox$DATE)
     return(daily_knox)
