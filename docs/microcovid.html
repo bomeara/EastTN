@@ -357,24 +357,8 @@ $(document).ready(function () {
 </div>
 
 
-<p>The <a href="https://microcovid.org/">microCOVID Project</a> is a
-service that uses the best available data to estimate the risk of
-different activities. It does not replace advice from a medical
-professional, but as a way to deciding how to balance risk, it can be
-useful. It computes “microcovids,” a one in a million chance of getting
-covid: every 10,000 microcovids means a 1% chance of getting covid at
-the event.</p>
-<p>Microcovid.org’s point estimate the percentage chance of getting
-covid in a one hour lecture for someone (the rows) with a classroom of
-people with vaccination state matching that of Knox County and with
-different masks as columns. You can see the details of the scenario I
-set up <a
-href="https://www.microcovid.org/?distance=normal&amp;duration=60&amp;interaction=oneTime&amp;personCount=10&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">here</a>;
-you can change your vaccination and masks, the classroom’s conditions,
-etc. Note that the numbers are the odds of the focal person getting
-covid; it does not capture how severe the disease is (vaccination
-dramatically cuts the risk of death if you do get covid, for
-example):</p>
+<p>The <a href="https://microcovid.org/">microCOVID Project</a> is a service that uses the best available data to estimate the risk of different activities. It does not replace advice from a medical professional, but as a way to deciding how to balance risk, it can be useful. It computes “microcovids,” a one in a million chance of getting covid: every 10,000 microcovids means a 1% chance of getting covid at the event.</p>
+<p>Microcovid.org’s point estimate the percentage chance of getting covid in a one hour lecture for someone (the rows) with a classroom of people with vaccination state matching that of Knox County and with different masks as columns. You can see the details of the scenario I set up <a href="https://www.microcovid.org/?distance=normal&amp;duration=60&amp;interaction=oneTime&amp;personCount=10&amp;riskProfile=average&amp;scenarioName=custom&amp;setting=indoor&amp;subLocation=US_47093&amp;theirMask=none&amp;topLocation=US_47&amp;voice=normal&amp;yourMask=basic&amp;yourVaccineDoses=2&amp;yourVaccineType=pfizer">here</a>; you can change your vaccination and masks, the classroom’s conditions, etc. Note that the numbers are the odds of the focal person getting covid; it does not capture how severe the disease is (vaccination dramatically cuts the risk of death if you do get covid, for example):</p>
 <table>
 <thead>
 <tr class="header">
@@ -387,26 +371,25 @@ example):</p>
 <tbody>
 <tr class="odd">
 <td align="left">Boosted &amp; N95</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
+<td align="left">1/Inf (0%)</td>
+<td align="left">1/Inf (0%)</td>
+<td align="left">1/Inf (0%)</td>
 </tr>
 <tr class="even">
 <td align="left">Vax but no booster &amp; cloth</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
+<td align="left">1/1000 (0.1%)</td>
+<td align="left">1/1000 (0.1%)</td>
+<td align="left">1/Inf (0%)</td>
 </tr>
 <tr class="odd">
 <td align="left">Not vax, no mask</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
+<td align="left">1/1000 (0.1%)</td>
+<td align="left">1/1000 (0.1%)</td>
+<td align="left">1/Inf (0%)</td>
 </tr>
 </tbody>
 </table>
-<p>And the same probability of getting covid over <em>six</em> class
-sessions with these conditions;</p>
+<p>And the same probability of getting covid over <em>six</em> class sessions with these conditions;</p>
 <table>
 <thead>
 <tr class="header">
@@ -419,21 +402,21 @@ sessions with these conditions;</p>
 <tbody>
 <tr class="odd">
 <td align="left">Boosted &amp; N95</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
+<td align="left">1/1000 (0.1%)</td>
+<td align="left">1/1000 (0.1%)</td>
+<td align="left">1/Inf (0%)</td>
 </tr>
 <tr class="even">
 <td align="left">Vax but no booster &amp; cloth</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
+<td align="left">1/167 (0.6%)</td>
+<td align="left">1/250 (0.4%)</td>
+<td align="left">1/1000 (0.1%)</td>
 </tr>
 <tr class="odd">
 <td align="left">Not vax, no mask</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
-<td align="left">1/NA (NA%)</td>
+<td align="left">1/167 (0.6%)</td>
+<td align="left">1/250 (0.4%)</td>
+<td align="left">1/1000 (0.1%)</td>
 </tr>
 </tbody>
 </table>
