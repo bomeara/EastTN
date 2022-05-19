@@ -27,6 +27,7 @@ if(rerun) {
 	try(tar_invalidate(cdc_weekly_metadata))
   	try(tar_invalidate(cdc_all_metadata))
   	try(tar_invalidate(hesitancy_by_county))
+	try(tar_invalidate(cdc_all_reports))
 } 
 tar_make()
 Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin/pandoc")
