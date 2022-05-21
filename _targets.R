@@ -24,6 +24,7 @@ list(
   tar_target(cdc_weekly, GetCommunityTransmissionReport(report_url=cdc_weekly_metadata$report_url)),
   tar_target(cdc_all_metadata, GetAllCommunityTransmissionReportDates()),
   tar_target(cdc_all_reports, GetAllCommunityTransmissionReports(cdc_all_metadata$report_urls, cdc_all_metadata$report_dates)),
+  tar_target(cdc_reports_new_2022, GetCommunityLevels2022Format()),
   tar_target(aggregation_by_county, JoinHesitancyWithCDCWeekly(hesitancy_by_county, cdc_weekly)),
   tar_target(aggregation_table_csv, WriteCSVTable(aggregation_by_county), format="file"),
   tar_target(daily_focal, CreateDailyFocal()),
