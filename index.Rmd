@@ -86,14 +86,6 @@ positivity <- ggplot(daily_focal, aes(x=DATE, y=PositivityPercentage_per_week, g
 print(positivity)
 ```
 
-And zooming in on the last three months:
-
-```{r percentagpositivelastthreemonths, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Percentage of positive tests over last three months"}
-
-positivity <- ggplot(daily_focal, aes(x=DATE, y=PositivityPercentage_per_week, group=Region)) + geom_line(aes(colour=Region)) + ylab("Percent of positive tests reported to state") + xlab("Date") + ylim(0,NA)  + xlim(max(daily_focal$DATE)-90, max(daily_focal$DATE)) + scale_colour_viridis_d(end=0.8) + theme_light() + theme(legend.justification = c(0, 1), legend.position = c(0.1, .9))
-
-print(positivity)
-```
 
 
 Here are the deaths over time associated with covid in East TN (excluding Dec 22, 2021, when there seems to be an error in the state's death records).  
