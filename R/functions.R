@@ -1050,6 +1050,7 @@ GetCommunityLevels2022Format <- function() {
 	
 	# cdc_county_with_hospital <- cdc_county_with_hospital %>% select(County, "FIPS", "State Abbreviation", "Population", "Cases per 100k - last 7 days", "Deaths per 100k - last 7 days", "Community Transmission Level - last 7 days", "% staffed adult ICU beds occupied_State", "% staffed adult ICU beds occupied_County", "People who are fully vaccinated as % of total population", "Proportion_Fully_Vaccinated_Under_65", "Vaccination_Data_Is_For_County", "Area of Concern Category", "Proportion_Fully_Vaccinated_12_to_17" , "Proportion_Fully_Vaccinated_18_plus", "Proportion_Fully_Vaccinated_65_plus", "Proportion_Fully_Vaccinated_All", "Proportion_Initiating_Vaccination_Last_7_days_12_to_17", "Proportion_Initiating_Vaccination_Last_7_days_18_plus", "Proportion_Initiating_Vaccination_Last_7_days_65_plus", "Percent_inpatient_beds_occupied_by_covid_patient_County",  "Confirmed_covid_admissions_per_100K_7_days_County", "Confirmed_covid_admissions_7_days_County", "Cases_7_days_County", "Cases_7_days_per_100K_County", "Deaths_7_days_County")
 	cdc_community_new_oldcolnames <- data.frame(County=cdc_community_new$county, FIPS=cdc_community_new$county_fips, `State Abbreviation`=cdc_community_new$state, Population=cdc_community_new$county_population, Percent_inpatient_beds_occupied_by_covid_patient_County=cdc_community_new$covid_inpatient_bed_utilization, Confirmed_covid_admissions_per_100K_7_days_County=cdc_community_new$covid_hospital_admissions_per_100k, Cases_7_days_per_100K_County=cdc_community_new$covid_cases_per_100k, ReportDate=cdc_community_new$date_updated, New_Community_Level=cdc_community_new$covid.19_community_level)
+	cdc_community_new_oldcolnames$ReportDate <- gsub('-',"", cdc_community_new_oldcolnames$ReportDate)
 	return(cdc_community_new_oldcolnames)
 }
 
@@ -1104,7 +1105,7 @@ GetAllCommunityTransmissionReports <- function(urls, dates) {
 		all_reports <- plyr::rbind.fill(all_reports, local_report)
 		Sys.sleep(3)	
 	}	
-	return(as.data.frame(all_reports))
+	return(GetCommunityLevel(as.data.frame(all_reports)))
 }
 
 CombineOldAndNewCDC <- function(cdc_all_reports_old, cdc_reports_new_2022) {
