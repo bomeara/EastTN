@@ -825,6 +825,9 @@ GetTYSFlights <- function() {
 	for (i in seq_along(flight_files)) {
 		flights <- read.table(paste0("~/Dropbox/Flight/", flight_files[i]), header=TRUE, sep=",")
 		tys_flights <- rbind(tys_flights, flights)
+		if(i%%10==0) {
+			print(paste0("done ", i, " of ", length(flight_files)))
+		}
 	}
 	#print(sort(unique(paste0(tys_flights$YEAR, "_",tys_flights$MONTH))))
 	tys_flights_only <- rbind(subset(tys_flights, ORIGIN=="TYS"), subset(tys_flights, DEST=="TYS"))

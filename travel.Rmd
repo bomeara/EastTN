@@ -11,7 +11,7 @@ output:
 source("_packages.R")
 source("R/functions.R")
 tar_load(tsa_throughput)
-tar_load(tysflights)
+#tar_load(tysflights)
 tsa_throughput$Throughput <- as.numeric(tsa_throughput$Throughput)
 tsa_throughput <- tsa_throughput[!is.na(tsa_throughput$Throughput),]
 
@@ -91,14 +91,14 @@ spiral_text(x="2023-12-15", y=50000, text="Dec",
 
 
 
-Travel volume differs by day of week. Here, we're comparing 2019 vs 2021 (as travel picks back up). 
+Travel volume differs by day of week. 
 
 ```{r tsa_day_of_week, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 tsa_throughput$Day <- weekdays(tsa_throughput$Date)
 tsa_throughput$Year <- format(tsa_throughput$Date, "%Y")
 
 tsa_throughput$Day <- factor(tsa_throughput$Day, c( "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday", "Sunday"))
-plot_tsa_day <- ggplot(subset(tsa_throughput, Year!="2020"), aes(x=Day , y=Throughput, fill=Year)) + geom_boxplot()+ theme_light() + xlab("Day") + ylab("Number of Screened Passengers")
+plot_tsa_day <- ggplot(tsa_throughput, aes(x=Day , y=Throughput, fill=Year)) + geom_boxplot()+ theme_light() + xlab("Day") + ylab("Number of Screened Passengers")
 print(plot_tsa_day)
 ```
 

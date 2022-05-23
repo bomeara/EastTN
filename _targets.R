@@ -59,8 +59,8 @@ list(
   tar_target(schools_knox_out, target_save_csv(schools_knox, filename="data/schools_knox.csv"), format="file"),
   tar_target(microcovid_data, GetMicrocovid()),
   tar_target(microcovid_summary, SummarizeMicrocovidData(microcovid_data)),
-  tar_target(tsa_throughput, GetTSAThroughput()),
-  tar_target(tysflights, GetTYSFlights())
+  tar_target(tsa_throughput, GetTSAThroughput())
+  #tar_target(tysflights, GetTYSFlights())
 
 
   #tar_render(yearbyyear, "yearbyyear.Rmd", params = list(daily_focal=daily_focal, schoolkids_daily=schoolkids_daily)),
