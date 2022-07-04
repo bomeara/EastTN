@@ -72,7 +72,7 @@ We can also plot using the [new (Feb 2022) guidelines from the CDC](https://www.
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
 cdc_local$`Community Level` <- factor(cdc_local$New_Community_Level, levels = c("Low", "Medium", "High"))
 
-cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "khaki1", "red")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1) + geom_hline(yintercept=500, linetype="dashed") 
+cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "goldenrod2", "orangered2")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1) + geom_hline(yintercept=500, linetype="dashed") 
 print(cdc_new_plot)
 ```
 
