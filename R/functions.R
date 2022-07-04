@@ -358,8 +358,9 @@ CreateHHSDataFocalCities <- function(hhs_capacity_tn) {
 
 CreateHHSDataFocalCitiesPretty <- function(hhs_capacity_tn_focal) {
 	
-    hhs_capacity_tn_focal_latest <- subset(hhs_capacity_tn_focal, DATE==max(DATE))
-    hhs_capacity_tn_focal_latest <- hhs_capacity_tn_focal_latest[order(hhs_capacity_tn_focal_latest$all_adult_hospital_inpatient_beds_7_day_avg, decreasing=TRUE),]
+    #hhs_capacity_tn_focal_latest <- subset(hhs_capacity_tn_focal, DATE==max(DATE))
+	hhs_capacity_tn_focal_latest <- hhs_capacity_tn_focal %>% group_by(hospital_name) %>% slice_max(DATE, n = 1) %>% ungroup()
+    hhs_capacity_tn_focal_latest <- hhs_capacity_tn_focal_latest[order(hhs_capacity_tn_focal_latest$DATE, decreasing=TRUE),]
     hhs_capacity_tn_focal_latest_pretty <- hhs_capacity_tn_focal_latest[,c(
         "hospital_name", 
         "city", 
@@ -368,7 +369,8 @@ CreateHHSDataFocalCitiesPretty <- function(hhs_capacity_tn_focal) {
         "percentage_adult_hospital_inpatient_bed_unoccupied_of_all_inpatient_beds", 
         "total_staffed_adult_icu_beds_7_day_avg", 
         "number_unoccupied_adult_hospital_ICU_beds", 
-        "percentage_adult_hospital_inpatient_ICU_bed_unoccupied_of_all_inpatient_ICU_beds"
+        "percentage_adult_hospital_inpatient_ICU_bed_unoccupied_of_all_inpatient_ICU_beds",
+		"DATE"
     )]
     colnames(hhs_capacity_tn_focal_latest_pretty) <- c(
         "Hospital", 
@@ -378,7 +380,8 @@ CreateHHSDataFocalCitiesPretty <- function(hhs_capacity_tn_focal) {
         "Adult beds % avail", 
         "Adult ICU total", 
         "Adult ICU number avail", 
-        "Adult ICU % avail"
+        "Adult ICU % avail",
+		"Last updated"
     )
 
     for (i in 3:ncol(hhs_capacity_tn_focal_latest_pretty)) {
@@ -966,7 +969,7 @@ GetCommunityTransmissionReport <- function(report_url) {
     cdc_list <-
         path %>% 
         excel_sheets() %>% 
-        set_names() %>% 
+        rlang::set_names() %>% 
         map(~ read_excel(path = path, sheet = .x, skip = 1), .id = "Sheet")
     cdc_county <- cdc_list[["Counties"]]
     cdc_state <- cdc_list[["States"]]
