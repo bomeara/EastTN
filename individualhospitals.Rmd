@@ -6,7 +6,7 @@ output:
        in_header: GA_Script.html
 ---
 
-The US Department of Health and Human Services gives data on hospital usage. Here are data for hospitals in our area.
+The US Department of Health and Human Services gives data on hospital usage. Here are data for hospitals in our area. Note that many have apparently stopped reporting their information.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 source("_packages.R")
