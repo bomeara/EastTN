@@ -384,7 +384,7 @@ CreateHHSDataFocalCitiesPretty <- function(hhs_capacity_tn_focal) {
 		"Last updated"
     )
 
-    for (i in 3:ncol(hhs_capacity_tn_focal_latest_pretty)) {
+    for (i in 3:(ncol(hhs_capacity_tn_focal_latest_pretty)-1)) {
         hhs_capacity_tn_focal_latest_pretty[,i]<- round(hhs_capacity_tn_focal_latest_pretty[,i])
     }
 
@@ -1079,7 +1079,7 @@ GetCommunityLevel <- function(cdc_county_with_hospital) {
 					cdc_county_with_hospital$New_Community_Level[i] <- "High"
 				}
 			}
-		})
+		}, silent=TRUE)
 	}
 	return(cdc_county_with_hospital)
 }
