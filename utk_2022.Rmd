@@ -1,0 +1,19 @@
+---
+title: UTK 2022-2023 academic year
+output:
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+
+Official information about covid at UTK available at https://studenthealth.utk.edu/covid-19/. There is a health support form, information about vaccination and therapeutics, and some [suggestions](https://studenthealth.utk.edu/covid-19-what-to-do-if-you-are-sick/) on what to do if you are sick. 
+
+There is no public data on incidence at UTK or guidance on mitigating spread.
+
+For information on conditions in Knox County, TN, besides the info on this site (including info on hospitalizations, wastewater testing, and more), you may also want to see:
+
+* [Knox County Health Department](https://covid.knoxcountytn.gov/case-count.html)
+* [CDC page for this county](https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=Tennessee&data-type=CommunityLevels&list_select_county=47093&null=CommunityLevels)
+* [NYT page for this county](https://www.nytimes.com/interactive/2021/us/knox-tennessee-covid-cases.html)
+* [Covid ActNow info on Knoxville metro area](https://covidactnow.org/us/metro/knoxville_tn/?s=37602511)

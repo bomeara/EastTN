@@ -30,12 +30,12 @@ navbar:
           href: "knoxschools.html"
     - text: "UT Knoxville"
       menu:
+        - text: "2022-3 Academic Year"
+          href: "utk_2022.html"
         - text: "2021-2 Academic Year"
           href: "utk_2021.html"
         - text: "2020-1 Academic Year"
           href: "utk_2020.html"
-        - text: "Comparisons with others"
-          href: "comparisons.html"
     - text: "Travel"
       href: travel.html
     - text: "Wastewater"
