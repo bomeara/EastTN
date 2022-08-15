@@ -1060,6 +1060,13 @@ GetCommunityLevels2022Format <- function() {
 	return(cdc_community_new_oldcolnames)
 }
 
+# From https://healthdata.gov/dataset/United-States-COVID-19-County-Level-of-Community-T/n7kn-5qdx
+GetCommunityTransmission2022Format <- function() {
+	cdc_community_new <- read.csv("https://data.cdc.gov/api/views/8396-v7yb/rows.csv?accessType=DOWNLOAD")	
+	return(cdc_community_new)
+}
+
+
 
 GetCommunityLevel <- function(cdc_county_with_hospital) {
 	cdc_county_with_hospital$New_Community_Level <- NA
