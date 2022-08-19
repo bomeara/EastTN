@@ -67,7 +67,7 @@ The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions ba
 
 CDC puts out two metrics: community transmission and community levels. In [their words](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html): 
 
-<blockquote>
+<blockquote style="font-size:10px">
 What is the difference between Community Transmission and COVID-19 Community Levels? Community Transmission refers to measures of the presence and spread of SARS-CoV-2, the virus that causes COVID-19. COVID-19 Community Levels refer to the measures of the impact of COVID-19 in terms of hospitalizations and healthcare system strain, while accounting for transmission in the community.
 </blockquote>
 
