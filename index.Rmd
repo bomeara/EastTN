@@ -65,34 +65,14 @@ The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions ba
 
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
-CDC puts out two metrics: community transmission and community levels. In [their words](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html): 
 
-<blockquote style="font-size:10px">
-What is the difference between Community Transmission and COVID-19 Community Levels? Community Transmission refers to measures of the presence and spread of SARS-CoV-2, the virus that causes COVID-19. COVID-19 Community Levels refer to the measures of the impact of COVID-19 in terms of hospitalizations and healthcare system strain, while accounting for transmission in the community.
-</blockquote>
-
-These plots show community spread: how covid is moving through our communities and infecting people, not the effect this has on the healthcare system. The main thing to focus on is the color, though I am plotting the test positivity rate on the y axis (the plots below these show the rise in number of people with new cases per week for similar dates). It may feel hard to distinguish red from orange, but that is largely due to how little orange there is -- it's nearly all red (other people have now started adding purples for even higher spread, but I am sticking with CDC's palette). 
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
-tar_load(cdc_transmission_new_2022)
-fips <- c(47001, 47093)
-cdc_transmission_new_focal <- subset(cdc_transmission_new_2022, fips_code %in%  fips)
-cdc_transmission_new_focal$community_transmission_level <- stringr::str_to_title(cdc_transmission_new_focal$community_transmission_level)
-cdc_transmission_new_focal$report_date <- as.Date(cdc_transmission_new_focal$report_date, format="%Y/%m/%d") # 2021/08/29
-cdc_transmission_new_focal$`Community Transmission` <- factor(cdc_transmission_new_focal$community_transmission_level, levels = c("Low", "Moderate", "Substantial", "High"))
-
-cdc_transmission_plot <- ggplot(cdc_transmission_new_focal, aes(x=report_date, y=percent_test_results_reported_positive_last_7_days, color=`Community Transmission`)) + scale_color_manual(values=c("skyblue1", "yellow2", "sandybrown", "red")) + geom_point() + ylab("Test positivity rate") + xlab("Date") + facet_wrap(~ county_name, ncol=1)
-print(cdc_transmission_plot)
-```
-
-
-The above plots area about spread of the disease in communities; the plots below are about how at risk the health care system is (see this [NPR story](https://www.npr.org/sections/health-shots/2022/03/10/1085797307/cdcs-new-covid-metrics-can-leave-individuals-struggling-to-understand-their-risk)). We can also plot using the [(Feb 2022) guidelines from the CDC](https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html) for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. 
+We can also plot using the [new (Feb 2022) guidelines from the CDC](https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html) for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. Note that though I plot case numbers, which are used by the CDC among other metrics, these might not be the most informative given the current state of testing; the hospitalization data (see tab above) could be useful.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
 cdc_local$`Community Level` <- factor(cdc_local$New_Community_Level, levels = c("Low", "Medium", "High"))
 
-cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "goldenrod2", "orangered2")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1)
+cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "gold2", "orangered2")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1) 
 print(cdc_new_plot)
 ```
 
