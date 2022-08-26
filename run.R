@@ -45,10 +45,15 @@ print(rmarkdown::find_pandoc())
 pandoc_available <- function(...) {
 	return(TRUE)
 }
-rmarkdown::render_site()
+
+#only render if need to update page organization
+#rmarkdown::render_site()
+
 Sys.sleep(10)
 system("cp /Users/bomeara/Documents/MyDocuments/GitClones/EastTN/data/*csv /Users/bomeara/Documents/MyDocuments/GitClones/EastTN/docs")
 #system("open docs/index.html")
-system("git add docs")
-system("git commit -m'updated data' -a")
-system('git push')
+
+
+#system("git add docs")
+#system("git commit -m'updated data' -a")
+#system('git push')
