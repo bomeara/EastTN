@@ -13,7 +13,7 @@
 
 <title>Hospitals in Knoxville region</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -152,11 +152,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -365,10 +369,10 @@ Hancock, Hawkins, Jefferson, Johnson, Knox, Loudon, Marion, McMinn,
 Meigs, Monroe, Morgan, Polk, Rhea, Roane, Scott, Sevier, Sullivan,
 Unicoi, Union, Washington Counties; there are 19 hospitals in this
 region with potential ICU beds.</p>
-<p>As of the last time the data were updated, regional hospitals had 30
-ICU beds available of 317 total, and 320 available ventilators out of
-427 total, (25 percent capacity). The hospitals overall had 330 beds
-available of 2484 total (so was at 87 percent capacity). This is based
+<p>As of the last time the data were updated, regional hospitals had 10
+ICU beds available of 324 total, and 283 available ventilators out of
+346 total, (18 percent capacity). The hospitals overall had 175 beds
+available of 2502 total (so was at 93 percent capacity). This is based
 on 19 acute care hospitals in the East TN region. When a line hits 100%
 (indicated in red), the local hospitals are theoretically full for that
 resource (for <em>all</em> patients, not just covid patients), though
@@ -379,7 +383,7 @@ using their percent utilization metric.</p>
 <p><img src="hospitals_knox_files/figure-html/hospitalcapacityplot-1.png" width="672" /></p>
 <p>Trends in hospitalization of covid patients over time. The vertical
 dotted line shows the last day with updated capacity information from
-Knox County, when there were 30 ICU beds available (ignoring surge
+Knox County, when there were 10 ICU beds available (ignoring surge
 capacity) for people in the East Tennessee region. The seven day average
 is shown.</p>
 <p><img src="hospitals_knox_files/figure-html/plotsD-1.png" width="672" /></p>

@@ -13,7 +13,7 @@
 
 <title>Oak Ridge Schools</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -152,11 +152,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -372,12 +376,12 @@ href="https://oakridgetoday.com/"
 class="uri">https://oakridgetoday.com/</a>.</p>
 <p>The plot below shows the proportion of students with active covid
 cases at any one time over the 2021-2022 school year.</p>
-<p><img src="oakridgeschools_files/figure-html/unnamed-chunk-1-1.png" title="Line plot of active covid cases now in Oak Ridge schools" alt="Line plot of active covid cases now in Oak Ridge schools" width="672" /></p>
+<p><img src="oakridgeschools_files/figure-html/unnamed-chunk-1-1.png" alt="Line plot of active covid cases now in Oak Ridge schools" width="672" /></p>
 <p>What percentage of students in a school have gotten covid over the
 2021-2022 year alone? Note that this assumes each student gets covid no
 more than once. However, a bout of covid gives only partial immunity, so
 some students may have had covid more than once.</p>
-<p><img src="oakridgeschools_files/figure-html/unnamed-chunk-2-1.png" title="Line plot of positive covid cases year to date" alt="Line plot of positive covid cases year to date" width="672" /></p>
+<p><img src="oakridgeschools_files/figure-html/unnamed-chunk-2-1.png" alt="Line plot of positive covid cases year to date" width="672" /></p>
 </div>
 
 

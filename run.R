@@ -34,8 +34,8 @@ if(rerun) {
 	try(tar_invalidate(contains("tsa")))
 	try(tar_invalidate(contains("microcovid")))
 	try(tar_invalidate(contains("hospital")))
-	try(tar_invalidate(contains("knox")))
-	try(tar_invalidate(contains("anderson")))
+	#try(tar_invalidate(contains("knox")))
+	#try(tar_invalidate(contains("anderson")))
 } 
 tar_make()
 Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin/pandoc")
@@ -47,7 +47,7 @@ pandoc_available <- function(...) {
 }
 
 #only render if need to update page organization
-#rmarkdown::render_site()
+rmarkdown::render_site()
 
 Sys.sleep(10)
 system("cp /Users/bomeara/Documents/MyDocuments/GitClones/EastTN/data/*csv /Users/bomeara/Documents/MyDocuments/GitClones/EastTN/docs")

@@ -13,7 +13,7 @@
 
 <title>Knox County Schools</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -152,11 +152,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -364,8 +368,8 @@ this every 24 hours and plot it. See also this page populated by parents
 and guardians of students as an unofficial project, which gives more
 granular data on individual schools: <a href="https://kcsdashboard.org/"
 class="uri">https://kcsdashboard.org/</a>.</p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-1-1.png" title="Line plot of active covid cases" alt="Line plot of active covid cases" width="672" /></p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-2-1.png" title="Line plot of active covid cases now in Knox County schools" alt="Line plot of active covid cases now in Knox County schools" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-1-1.png" alt="Line plot of active covid cases" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-2-1.png" alt="Line plot of active covid cases now in Knox County schools" width="672" /></p>
 <div id="byschool" class="section level3">
 <h3>Individual Schools</h3>
 <p>Knox County Schools now have data on individual schools. We can see
@@ -375,9 +379,9 @@ aggregated by type: elementary, middle, high school, or other (such as
 Knox Adaptive Education Center or Richard Yoakley Alternative School).
 Note that lines do not change over school breaks.</p>
 <p>Plotting this by individual school over time, students first:</p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-4-1.png" title="percentage of students present by school" alt="percentage of students present by school" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-4-1.png" alt="percentage of students present by school" width="672" /></p>
 <p>And staff:</p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-5-1.png" title="percentage of staff present by school" alt="percentage of staff present by school" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-5-1.png" alt="percentage of staff present by school" width="672" /></p>
 </div>
 <div id="diy" class="section level3">
 <h3>Family-Provided Data</h3>
@@ -385,7 +389,7 @@ Note that lines do not change over school breaks.</p>
 href="https://kcsdashboard.org/">KCS DIY COVID-19 Dashboard</a> from
 reports by families directly, we can see how long students have gone
 from having symptoms to getting a positive test result:</p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-6-1.png" title="first symptoms vs first test" alt="first symptoms vs first test" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-6-1.png" alt="first symptoms vs first test" width="672" /></p>
 <p>We can also see which grades have the most student reports from this
 family-provided data. However, this only comes from 119 student cases,
 while far more than 816 students have gotten covid in 2021-2022 school
@@ -397,7 +401,7 @@ indication of cases by grade, for example. To report your student’s own
 case to the DIY dashboard, go to <a
 href="https://kcsdashboard.org/reports/create">https://kcsdashboard.org/reports/create</a>
 and fill out the form.</p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-7-1.png" title="distribution by grade" alt="distribution by grade" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-7-1.png" alt="distribution by grade" width="672" /></p>
 </div>
 <div id="countyvsstate" class="section level3">
 <h3>County-Provided vs State-Provided Data</h3>
@@ -409,7 +413,7 @@ cases, while Knox County Schools only includes active cases, which
 depending on definition can be all of those who have been 10 days or 14
 days since the onset of symptoms and who have a positive test
 result.</p>
-<p><img src="knoxschools_files/figure-html/unnamed-chunk-8-1.png" title="school vs state data" alt="school vs state data" width="672" /></p>
+<p><img src="knoxschools_files/figure-html/unnamed-chunk-8-1.png" alt="school vs state data" width="672" /></p>
 </div>
 
 

@@ -13,7 +13,7 @@
 
 <title>Wastewater Surveillance</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -152,11 +152,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -365,9 +369,9 @@ href="https://biobot.io/">Biobot analytics</a>.</p>
 href="https://biobot.io/">Biobot analytics</a>, as they show
 concentration over time (CDC shows change over time or presence/absence
 only).</p>
-<p><img src="sewage_files/figure-html/unnamed-chunk-1-1.png" title="Line plot of covid in wastewater over time" alt="Line plot of covid in wastewater over time" width="672" /></p>
+<p><img src="sewage_files/figure-html/unnamed-chunk-1-1.png" alt="Line plot of covid in wastewater over time" width="672" /></p>
 <p>Or zooming in on the last three months:</p>
-<p><img src="sewage_files/figure-html/unnamed-chunk-2-1.png" title="Line plot of covid in wastewater over last three months" alt="Line plot of covid in wastewater over last three months" width="672" /></p>
+<p><img src="sewage_files/figure-html/unnamed-chunk-2-1.png" alt="Line plot of covid in wastewater over last three months" width="672" /></p>
 <p>The plots below are all for sliding windows showing change over 15
 days. I am plotting them by the final date in the window. Some states
 have great, detailed coverage in the CDC’s data – Tennessee is not one
@@ -385,10 +389,10 @@ means different things for amount of virus in a community. At most, it
 can decline by 100%; it can increase by a nearly infinite amount. To
 handle this, I’m plotting it with bounds of -100 to 100% gain over the
 15 day interval.</p>
-<p><img src="sewage_files/figure-html/unnamed-chunk-3-1.png" title="Scatter plot of covid change over time" alt="Scatter plot of covid change over time" width="672" /></p>
+<p><img src="sewage_files/figure-html/unnamed-chunk-3-1.png" alt="Scatter plot of covid change over time" width="672" /></p>
 <p>This plot shows percentage of samples where covid was detected over a
 15 day window.</p>
-<p><img src="sewage_files/figure-html/unnamed-chunk-4-1.png" title="Scatter plot of covid detection over time" alt="Scatter plot of covid detection over time" width="672" /></p>
+<p><img src="sewage_files/figure-html/unnamed-chunk-4-1.png" alt="Scatter plot of covid detection over time" width="672" /></p>
 
 
 
