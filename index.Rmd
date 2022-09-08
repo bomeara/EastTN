@@ -21,6 +21,7 @@ tar_load(hospital_knox)
 tar_load(daily_focal)
 tar_load(tn_death_predictions)
 tar_load(tn_death_history)
+
 tar_load(cdc_all_reports)
 cdc_knox <- GetCommunityLevel(subset(cdc_all_reports, FIPS==047093))
 cdc_knox$County <- "Knox"
@@ -29,6 +30,19 @@ cdc_anderson$County <- "Anderson"
 cdc_local <- rbind(cdc_knox, cdc_anderson) 
 cdc_local <- subset(cdc_local, Cases_7_days_per_100K_County>0) # since these reflect lack of reporting
 cdc_local$Date <- as.Date(cdc_local$ReportDate, format="%Y%m%d")
+
+tar_load(cdc_transmission_new_2022)
+cdc_knox_transmission <- subset(cdc_transmission_new_2022, fips_code==047093)
+cdc_knox_transmission$County <- "Knox"
+cdc_anderson_transmission <- subset(cdc_transmission_new_2022, fips_code==047001)
+cdc_anderson_transmission$County <- "Anderson"
+cdc_local_transmission <- rbind(cdc_knox_transmission, cdc_anderson_transmission) 
+cdc_local_transmission$Date <- as.Date(cdc_local_transmission$report_date, format="%Y/%m/%d")
+cdc_local_transmission <- cdc_local_transmission[!is.na(cdc_local_transmission$percent_test_results_reported_positive_last_7_days),]
+
+
+
+
 counties_in_hospital_region <- FocalCountiesEastTN()
 last_hospital_update <- max(hospital_knox$Date)
 #daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
@@ -65,8 +79,22 @@ The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions ba
 
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
+CDC provides [two different ways](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html) of summarizing covid in a community:
 
-We can also plot using the [new (Feb 2022) guidelines from the CDC](https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html) for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. Note that though I plot case numbers, which are used by the CDC among other metrics, these might not be the most informative given the current state of testing; the hospitalization data (see tab above) could be useful.
+* **Community Transmission** refers to measures of the presence and spread of SARS-CoV-2, the virus that causes COVID-19. This is used in the blue / yellow / orange / red maps, like [here](https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&list_select_county=all_counties&data-type=Risk&null=Risk).
+* **COVID-19 Community Levels** refer to the measures of the impact of COVID-19 in terms of hospitalizations and healthcare system strain, while accounting for transmission in the community. This is used in the pastel yellow / green / orange map (red does not exist), like [here](https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&list_select_county=all_counties&data-type=CommunityLevels&null=CommunityLevels).
+
+The plot below uses color to indicate community transmission -- how the disease is spreading. For the y-axis, I am showing the test positivity rate, though this is less informative as testing and reporting of tests drop off.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Positivity rate and CDC transmission level"}
+cdc_local_transmission$`Community Transmission Level` <- factor(stringr::str_to_title(cdc_local_transmission$community_transmission_level), levels = c("Low", "Moderate", "Substantial", "High"))
+
+cdc_transmission_plot <- ggplot(cdc_local_transmission, aes(x=Date, y=percent_test_results_reported_positive_last_7_days, color=`Community Transmission Level`)) + scale_color_manual(values=c("dodgerblue", "yellow2", "darkorange", "red1")) + geom_point() + ylab("Positivity rate over last 7 days") + xlab("Date") + facet_wrap(~ County, ncol=1) 
+print(cdc_transmission_plot)
+```
+
+
+We can plot using the [Feb 2022 guidelines from the CDC](https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html) for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. Note that though I plot case numbers, which are used by the CDC among other metrics, these might not be the most informative given the current state of testing; the hospitalization data (see tab above) could be useful.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}

@@ -372,33 +372,53 @@ datasets and plotting them. For datasets that are presented as current
 conditions but do not have a history, I take a copy of them (usually
 every six hours) to be able to plot how they change over time.</p>
 <p>Use the menu above for information on vaccinations, conditions in
-schools, and more. This site was last updated on 08:50 AM on Friday
-September 02, 2022, though many data sources have a lag of a week or
+schools, and more. This site was last updated on 10:24 PM on Wednesday
+September 07, 2022, though many data sources have a lag of a week or
 more.</p>
 <p>As of the last time the data were updated, the 19 regional hospitals
 around Knoxville had <strong>only 10 ICU beds available of 324
 total</strong>, based on info from the <a
 href="https://covid.knoxcountytn.gov/case-count.html">Knox County Health
 Department</a>.</p>
-<p>As of Sat, Aug 27, 2022, <strong>27,389 people have died from covid
+<p>As of Sat, Sep 03, 2022, <strong>27,487 people have died from covid
 in Tennessee.</strong></p>
 <p>The <a href="https://covid19forecasthub.org">COVID-19 Forecast
 Hub</a> makes predictions based on a number of models every week. They
-predict that in the week ending on <strong>Sep 03, an additional 79
-people (range 39-122) will have died from covid in Tennessee</strong>,
-with 76 more covid deaths by Sep 10.</p>
+predict that in the week ending on <strong>Sep 10, an additional 76
+people (range 25-128) will have died from covid in Tennessee</strong>,
+with 77 more covid deaths by Sep 17.</p>
 <p><em>To get a vaccine to protect others and yourself, go to <a
 href="https://www.vaccines.gov/"
 class="uri">https://www.vaccines.gov/</a>.</em></p>
-<p>We can also plot using the <a
-href="https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html">new
-(Feb 2022) guidelines from the CDC</a> for low, medium, high community
-level; I’ve also recalculated past data so we can see how it would apply
-then. Note that though I plot case numbers, which are used by the CDC
-among other metrics, these might not be the most informative given the
-current state of testing; the hospitalization data (see tab above) could
-be useful.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="Cases per 100K and CDC color" width="672" /></p>
+<p>CDC provides <a
+href="https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html">two
+different ways</a> of summarizing covid in a community:</p>
+<ul>
+<li><strong>Community Transmission</strong> refers to measures of the
+presence and spread of SARS-CoV-2, the virus that causes COVID-19. This
+is used in the blue / yellow / orange / red maps, like <a
+href="https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&amp;list_select_county=all_counties&amp;data-type=Risk&amp;null=Risk">here</a>.</li>
+<li><strong>COVID-19 Community Levels</strong> refer to the measures of
+the impact of COVID-19 in terms of hospitalizations and healthcare
+system strain, while accounting for transmission in the community. This
+is used in the pastel yellow / green / orange map (red does not exist),
+like <a
+href="https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&amp;list_select_county=all_counties&amp;data-type=CommunityLevels&amp;null=CommunityLevels">here</a>.</li>
+</ul>
+<p>The plot below uses color to indicate community transmission – how
+the disease is spreading. For the y-axis, I am showing the test
+positivity rate, though this is less informative as testing and
+reporting of tests drop off.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="Positivity rate and CDC transmission level" width="672" /></p>
+<p>We can plot using the <a
+href="https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html">Feb
+2022 guidelines from the CDC</a> for low, medium, high community level;
+I’ve also recalculated past data so we can see how it would apply then.
+Note that though I plot case numbers, which are used by the CDC among
+other metrics, these might not be the most informative given the current
+state of testing; the hospitalization data (see tab above) could be
+useful.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" alt="Cases per 100K and CDC color" width="672" /></p>
 <p>Here are the percent of tests positive, averaged over a week.</p>
 <p><img src="index_files/figure-html/percentagpositive-1.png" alt="Percentage of positive tests over time" width="672" /></p>
 <p>Here are the deaths over time associated with covid in East TN
@@ -495,7 +515,7 @@ Tennessee’s definitions of groups):</p>
 <td align="left">Sex</td>
 <td align="left">Male</td>
 <td align="left">1/3</td>
-<td align="left">1/227</td>
+<td align="left">1/222</td>
 <td align="left">58.2%</td>
 <td align="left">52.3%</td>
 </tr>
