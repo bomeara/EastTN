@@ -14,8 +14,6 @@ navbar:
       href: yearbyyear.html
     - text: "Vaccination"
       href: vaccination.html
-    - text: "Risk by Activity"
-      href: microcovid.html
     - text: "Hospitalization"
       menu:
         - text: "Knoxville Region"
