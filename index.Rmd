@@ -19,7 +19,7 @@ source("_packages.R")
 source("R/functions.R")
 tar_load(hospital_knox)
 tar_load(daily_focal)
-tar_load(tn_death_predictions)
+#tar_load(tn_death_predictions)
 tar_load(tn_death_history)
 
 tar_load(cdc_all_reports)
@@ -59,7 +59,7 @@ neyland_capacity <- 102455
 
 As of the last time the data were updated, the 19 regional hospitals around Knoxville had **only `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available of `r tail(subset(hospital_knox, Resource=="ICU Beds")$Total.Capacity,1)` total**, based on info from the [Knox County Health Department](https://covid.knoxcountytn.gov/case-count.html).
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 
 	tn_death_predictions_point <- subset(tn_death_predictions, type=="point")
 
@@ -71,11 +71,15 @@ As of the last time the data were updated, the 19 regional hospitals around Knox
 
 
 #knitr::kable(tn_death_prediction_organized)
+
+# commenting out the following b/c the hub was failing
+
+#The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models every week. They predict that in the week ending on **`r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")`, an additional `r tn_death_prediction_organized$Expected_Deaths[1]` people (range `r tn_death_prediction_organized$Range[1]`) will have died from covid in Tennessee**, with `r tn_death_prediction_organized$Expected_Deaths[2]` more covid deaths by `r format(as.Date(tn_death_prediction_organized$Date[2]),format="%b %d")`.
+
 ```
 
 As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b %d, %Y")`, **`r format(tail(tn_death_history$value,1),big.mark=",",scientific=FALSE)` people have died from covid in Tennessee.** 
 
-The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models every week. They predict that in the week ending on **`r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")`, an additional `r tn_death_prediction_organized$Expected_Deaths[1]` people (range `r tn_death_prediction_organized$Range[1]`) will have died from covid in Tennessee**, with `r tn_death_prediction_organized$Expected_Deaths[2]` more covid deaths by `r format(as.Date(tn_death_prediction_organized$Date[2]),format="%b %d")`.
 
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 

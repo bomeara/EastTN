@@ -47,7 +47,7 @@ list(
   tar_target(utk_active_cases_reported, ComputeUTKActiveCasesReported()),
   tar_target(utk_isolations_reported, ComputeUTKIsolationsReported()),
   tar_target(knox17to25, Get17To25Knox()),
-  tar_target(tn_death_predictions, GetTNDeathPredictions()),
+  #tar_target(tn_death_predictions, GetTNDeathPredictions()),
   tar_target(tn_death_history, GetTNDeathRecord()),
   tar_target(individual_schools_knox, CreateIndividualSchoolsKnox()),
   tar_target(sewage, GetSewageData()),
