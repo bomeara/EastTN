@@ -80,8 +80,71 @@ As of the last time the data were updated, the 19 regional hospitals around Knox
 
 As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b %d, %Y")`, **`r format(tail(tn_death_history$value,1),big.mark=",",scientific=FALSE)` people have died from covid in Tennessee.** 
 
-
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
+
+
+Here is a plot of the fourteen day average of deaths over time in just East Tennessee (excluding Dec. 22, 2021, when there was an apparent error in the state's data). There is a line plot further down the page; the spiral plot is better at showing repeated seasonal trends. Note that death is a lagging indicator: lots of people can start getting covid but they start dying days to months later.
+
+
+```{r death_spiral, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.alt="Spiral plot of deaths over time"}
+daily_focal_easttn <- subset(daily_focal, Region=="East TN")
+daily_focal_easttn <- subset(daily_focal_easttn, DATE!=as.Date("20211222", format="%Y%m%d"))
+daily_focal_easttn$RollMean14DayDeath <- zoo::rollmean(daily_focal_easttn$NEW_DEATHS, k=14, align="right", fill=NA)
+daily_focal_easttn <- subset(daily_focal_easttn, !is.na(daily_focal_easttn$RollMean14DayDeath))
+
+
+spiral_initialize_by_time(xlim=c(min(daily_focal_easttn$DATE), max(daily_focal_easttn$DATE)),
+                          unit_on_axis = "days", period="years",
+                          start=90,
+                          flip="horizontal", normalize_year = TRUE)
+ymax <- max(daily_focal_easttn$RollMean14DayDeath)
+spiral_track(ylim=c(0, ymax*.9),
+             background=FALSE, background_gp = gpar(col = NA, fill = NA))
+spiral_polygon(x=c(daily_focal_easttn$DATE, rev(daily_focal_easttn$DATE)),
+               y=c(daily_focal_easttn$RollMean14DayDeath/2, -rev(daily_focal_easttn$RollMean14DayDeath/2)),
+               gp = gpar(col="black", fill="darkred"))
+spiral_lines(x=daily_focal_easttn$DATE, y=0)
+
+y_offset <- 5
+spiral_text(x="2023-01-15", y=y_offset, text="Jan",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-02-15", y=y_offset, text="Feb",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-03-15", y=y_offset, text="Mar",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-04-15", y=y_offset, text="Apr",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-05-15", y=y_offset, text="May",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))			
+spiral_text(x="2023-06-15", y=y_offset, text="Jun",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-07-15", y=y_offset, text="Jul",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-08-15", y=y_offset, text="Aug",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+spiral_text(x="2023-09-15", y=y_offset, text="Sep",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))	
+spiral_text(x="2023-10-15", y=y_offset, text="Oct",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))			
+spiral_text(x="2023-11-15", y=y_offset, text="Nov",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))			
+spiral_text(x="2023-12-15", y=y_offset, text="Dec",
+            facing = "curved_inside", just = "centre",
+            gp=gpar(cex=1, fontfamily="Courier"))
+								
+```
+
 
 CDC provides [two different ways](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html) of summarizing covid in a community:
 
