@@ -102,7 +102,8 @@ spiral_track(ylim=c(0, ymax*.9),
              background=FALSE, background_gp = gpar(col = NA, fill = NA))
 spiral_polygon(x=c(daily_focal_easttn$DATE, rev(daily_focal_easttn$DATE)),
                y=c(daily_focal_easttn$RollMean14DayDeath/2, -rev(daily_focal_easttn$RollMean14DayDeath/2)),
-               gp = gpar(col="black", fill="darkred"))
+               gp = gpar(col="black", fill="darkred"))			   
+			   
 spiral_lines(x=daily_focal_easttn$DATE, y=0)
 
 y_offset <- 5
