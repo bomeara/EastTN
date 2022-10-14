@@ -13,7 +13,7 @@
 
 <title>East TN information</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -189,8 +189,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -198,16 +198,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -369,15 +362,15 @@ datasets and plotting them. For datasets that are presented as current
 conditions but do not have a history, I take a copy of them (usually
 every six hours) to be able to plot how they change over time.</p>
 <p>Use the menu above for information on vaccinations, conditions in
-schools, and more. This site was last updated on 09:40 PM on Thursday
-October 06, 2022, though many data sources have a lag of a week or
+schools, and more. This site was last updated on 06:25 PM on Thursday
+October 13, 2022, though many data sources have a lag of a week or
 more.</p>
 <p>As of the last time the data were updated, the 19 regional hospitals
-around Knoxville had <strong>only 18 ICU beds available of 317
+around Knoxville had <strong>only 30 ICU beds available of 317
 total</strong>, based on info from the <a
 href="https://covid.knoxcountytn.gov/case-count.html">Knox County Health
 Department</a>.</p>
-<p>As of Sat, Oct 01, 2022, <strong>27,816 people have died from covid
+<p>As of Sat, Oct 08, 2022, <strong>27,910 people have died from covid
 in Tennessee.</strong></p>
 <p><em>To get a vaccine to protect others and yourself, go to <a
 href="https://www.vaccines.gov/"
@@ -474,7 +467,7 @@ Tennessee’s definitions of groups):</p>
 <td align="left">Race</td>
 <td align="left">Native Hawaiian or Other Pacific Islander</td>
 <td align="left">1/3</td>
-<td align="left">1/556</td>
+<td align="left">1/526</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -490,7 +483,7 @@ Tennessee’s definitions of groups):</p>
 <td align="left">Ethnicity</td>
 <td align="left">Hispanic</td>
 <td align="left">1/4</td>
-<td align="left">1/667</td>
+<td align="left">1/625</td>
 <td align="left">66.1%</td>
 <td align="left">56%</td>
 </tr>
@@ -498,7 +491,7 @@ Tennessee’s definitions of groups):</p>
 <td align="left">Ethnicity</td>
 <td align="left">Not Hispanic or Latino</td>
 <td align="left">1/4</td>
-<td align="left">1/263</td>
+<td align="left">1/256</td>
 <td align="left">56.6%</td>
 <td align="left">52.1%</td>
 </tr>
