@@ -19,9 +19,7 @@ source("_packages.R")
 source("R/functions.R")
 tar_load(hospital_knox)
 tar_load(daily_focal)
-#tar_load(tn_death_predictions)
 tar_load(tn_death_history)
-
 tar_load(cdc_all_reports)
 cdc_knox <- GetCommunityLevel(subset(cdc_all_reports, FIPS==047093))
 cdc_knox$County <- "Knox"
@@ -30,19 +28,6 @@ cdc_anderson$County <- "Anderson"
 cdc_local <- rbind(cdc_knox, cdc_anderson) 
 cdc_local <- subset(cdc_local, Cases_7_days_per_100K_County>0) # since these reflect lack of reporting
 cdc_local$Date <- as.Date(cdc_local$ReportDate, format="%Y%m%d")
-
-tar_load(cdc_transmission_new_2022)
-cdc_knox_transmission <- subset(cdc_transmission_new_2022, fips_code==047093)
-cdc_knox_transmission$County <- "Knox"
-cdc_anderson_transmission <- subset(cdc_transmission_new_2022, fips_code==047001)
-cdc_anderson_transmission$County <- "Anderson"
-cdc_local_transmission <- rbind(cdc_knox_transmission, cdc_anderson_transmission) 
-cdc_local_transmission$Date <- as.Date(cdc_local_transmission$report_date, format="%Y/%m/%d")
-cdc_local_transmission <- cdc_local_transmission[!is.na(cdc_local_transmission$percent_test_results_reported_positive_last_7_days),]
-
-
-
-
 counties_in_hospital_region <- FocalCountiesEastTN()
 last_hospital_update <- max(hospital_knox$Date)
 #daily_focal$PercentActive <- 100*daily_focal$TOTAL_ACTIVE/daily_focal$Population
@@ -71,104 +56,40 @@ As of the last time the data were updated, the 19 regional hospitals around Knox
 
 
 #knitr::kable(tn_death_prediction_organized)
-
-# commenting out the following b/c the hub was failing
-
-#The [COVID-19 Forecast Hub](https://covid19forecasthub.org) makes predictions based on a number of models every week. They predict that in the week ending on **`r format(as.Date(tn_death_prediction_organized$Date[1]),format="%b %d")`, an additional `r tn_death_prediction_organized$Expected_Deaths[1]` people (range `r tn_death_prediction_organized$Range[1]`) will have died from covid in Tennessee**, with `r tn_death_prediction_organized$Expected_Deaths[2]` more covid deaths by `r format(as.Date(tn_death_prediction_organized$Date[2]),format="%b %d")`.
-
 ```
 
 As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b %d, %Y")`, **`r format(tail(tn_death_history$value,1),big.mark=",",scientific=FALSE)` people have died from covid in Tennessee.** 
 
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
+CDC puts out two metrics: community transmission and community levels. In [their words](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html): 
 
-Here is a plot of the fourteen day average of deaths over time in just East Tennessee (excluding Dec. 22, 2021, when there was an apparent error in the state's data). There is a line plot further down the page; the spiral plot is better at showing repeated seasonal trends. Note that death is a lagging indicator: lots of people can start getting covid but they start dying days to months later.
+<blockquote style="font-size:10px">
+What is the difference between Community Transmission and COVID-19 Community Levels? Community Transmission refers to measures of the presence and spread of SARS-CoV-2, the virus that causes COVID-19. COVID-19 Community Levels refer to the measures of the impact of COVID-19 in terms of hospitalizations and healthcare system strain, while accounting for transmission in the community.
+</blockquote>
 
+These plots show community spread: how covid is moving through our communities and infecting people, not the effect this has on the healthcare system. The main thing to focus on is the color, though I am plotting the test positivity rate on the y axis (the plots below these show the rise in number of people with new cases per week for similar dates). It may feel hard to distinguish red from orange, but that is largely due to how little orange there is -- it's nearly all red (other people have now started adding purples for even higher spread, but I am sticking with CDC's palette). 
 
-```{r death_spiral, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.alt="Spiral plot of deaths over time"}
-daily_focal_easttn <- subset(daily_focal, Region=="East TN")
-daily_focal_easttn <- subset(daily_focal_easttn, DATE!=as.Date("20211222", format="%Y%m%d"))
-daily_focal_easttn$RollMean14DayDeath <- zoo::rollmean(daily_focal_easttn$NEW_DEATHS, k=14, align="right", fill=NA)
-daily_focal_easttn <- subset(daily_focal_easttn, !is.na(daily_focal_easttn$RollMean14DayDeath))
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
+tar_load(cdc_transmission_new_2022)
+fips <- c(47001, 47093)
+cdc_transmission_new_focal <- subset(cdc_transmission_new_2022, fips_code %in%  fips)
+cdc_transmission_new_focal$community_transmission_level <- stringr::str_to_title(cdc_transmission_new_focal$community_transmission_level)
+cdc_transmission_new_focal$report_date <- as.Date(cdc_transmission_new_focal$report_date, format="%Y/%m/%d") # 2021/08/29
+cdc_transmission_new_focal$`Community Transmission` <- factor(cdc_transmission_new_focal$community_transmission_level, levels = c("Low", "Moderate", "Substantial", "High"))
 
-
-spiral_initialize_by_time(xlim=c(min(daily_focal_easttn$DATE), max(daily_focal_easttn$DATE)),
-                          unit_on_axis = "days", period="years",
-                          start=90,
-                          flip="horizontal", normalize_year = TRUE)
-ymax <- max(daily_focal_easttn$RollMean14DayDeath)
-spiral_track(ylim=c(0, ymax*.9),
-             background=FALSE, background_gp = gpar(col = NA, fill = NA))
-spiral_polygon(x=c(daily_focal_easttn$DATE, rev(daily_focal_easttn$DATE)),
-               y=c(daily_focal_easttn$RollMean14DayDeath/2, -rev(daily_focal_easttn$RollMean14DayDeath/2)),
-               gp = gpar(col="black", fill="darkred"))			   
-			   
-spiral_lines(x=daily_focal_easttn$DATE, y=0)
-
-y_offset <- 5
-spiral_text(x="2023-01-15", y=y_offset, text="Jan",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-02-15", y=y_offset, text="Feb",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-03-15", y=y_offset, text="Mar",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-04-15", y=y_offset, text="Apr",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-05-15", y=y_offset, text="May",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))			
-spiral_text(x="2023-06-15", y=y_offset, text="Jun",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-07-15", y=y_offset, text="Jul",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-08-15", y=y_offset, text="Aug",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-spiral_text(x="2023-09-15", y=y_offset, text="Sep",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))	
-spiral_text(x="2023-10-15", y=y_offset, text="Oct",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))			
-spiral_text(x="2023-11-15", y=y_offset, text="Nov",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))			
-spiral_text(x="2023-12-15", y=y_offset, text="Dec",
-            facing = "curved_inside", just = "centre",
-            gp=gpar(cex=1, fontfamily="Courier"))
-								
-```
-
-
-CDC provides [two different ways](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html) of summarizing covid in a community:
-
-* **Community Transmission** refers to measures of the presence and spread of SARS-CoV-2, the virus that causes COVID-19. This is used in the blue / yellow / orange / red maps, like [here](https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&list_select_county=all_counties&data-type=Risk&null=Risk).
-* **COVID-19 Community Levels** refer to the measures of the impact of COVID-19 in terms of hospitalizations and healthcare system strain, while accounting for transmission in the community. This is used in the pastel yellow / green / orange map (red does not exist), like [here](https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&list_select_county=all_counties&data-type=CommunityLevels&null=CommunityLevels).
-
-The plot below uses color to indicate community transmission -- how the disease is spreading. For the y-axis, I am showing the test positivity rate, though this is less informative as testing and reporting of tests drop off.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Positivity rate and CDC transmission level"}
-cdc_local_transmission$`Community Transmission Level` <- factor(stringr::str_to_title(cdc_local_transmission$community_transmission_level), levels = c("Low", "Moderate", "Substantial", "High"))
-
-cdc_transmission_plot <- ggplot(cdc_local_transmission, aes(x=Date, y=percent_test_results_reported_positive_last_7_days, color=`Community Transmission Level`)) + scale_color_manual(values=c("dodgerblue", "yellow2", "darkorange", "red1")) + geom_point() + ylab("Positivity rate over last 7 days") + xlab("Date") + facet_wrap(~ County, ncol=1) 
+cdc_transmission_plot <- ggplot(cdc_transmission_new_focal, aes(x=report_date, y=percent_test_results_reported_positive_last_7_days, color=`Community Transmission`)) + scale_color_manual(values=c("skyblue1", "yellow2", "sandybrown", "red")) + geom_point() + ylab("Test positivity rate") + xlab("Date") + facet_wrap(~ county_name, ncol=1)
 print(cdc_transmission_plot)
 ```
 
 
-We can plot using the [Feb 2022 guidelines from the CDC](https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html) for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. Note that though I plot case numbers, which are used by the CDC among other metrics, these might not be the most informative given the current state of testing; the hospitalization data (see tab above) could be useful.
+The above plots area about spread of the disease in communities; the plots below are about how at risk the health care system is (see this [NPR story](https://www.npr.org/sections/health-shots/2022/03/10/1085797307/cdcs-new-covid-metrics-can-leave-individuals-struggling-to-understand-their-risk)). We can also plot using the [(Feb 2022) guidelines from the CDC](https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html) for low, medium, high community level; I've also recalculated past data so we can see how it would apply then. 
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Cases per 100K and CDC color"}
 cdc_local$`Community Level` <- factor(cdc_local$New_Community_Level, levels = c("Low", "Medium", "High"))
 
-cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "gold2", "orangered2")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1) 
+cdc_new_plot <- ggplot(cdc_local, aes(x=Date, y=Cases_7_days_per_100K_County, color=`Community Level`)) + scale_color_manual(values=c("mediumseagreen", "goldenrod2", "orangered2")) + geom_point() + ylab("Seven day number of covid cases per 100K people") + xlab("Date") + facet_wrap(~ County, ncol=1)
 print(cdc_new_plot)
 ```
 

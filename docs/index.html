@@ -13,7 +13,7 @@
 
 <title>East TN information</title>
 
-<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -362,54 +362,49 @@ datasets and plotting them. For datasets that are presented as current
 conditions but do not have a history, I take a copy of them (usually
 every six hours) to be able to plot how they change over time.</p>
 <p>Use the menu above for information on vaccinations, conditions in
-schools, and more. This site was last updated on 05:56 PM on Thursday
-November 10, 2022, though many data sources have a lag of a week or
+schools, and more. This site was last updated on 10:53 AM on Monday
+November 28, 2022, though many data sources have a lag of a week or
 more.</p>
 <p>As of the last time the data were updated, the 19 regional hospitals
-around Knoxville had <strong>only 19 ICU beds available of 317
+around Knoxville had <strong>only 24 ICU beds available of 317
 total</strong>, based on info from the <a
 href="https://covid.knoxcountytn.gov/case-count.html">Knox County Health
 Department</a>.</p>
-<p>As of Sat, Nov 05, 2022, <strong>28,122 people have died from covid
+<p>As of Sat, Nov 26, 2022, <strong>28,298 people have died from covid
 in Tennessee.</strong></p>
 <p><em>To get a vaccine to protect others and yourself, go to <a
 href="https://www.vaccines.gov/"
 class="uri">https://www.vaccines.gov/</a>.</em></p>
-<p>Here is a plot of the fourteen day average of deaths over time in
-just East Tennessee (excluding Dec. 22, 2021, when there was an apparent
-error in the state’s data). There is a line plot further down the page;
-the spiral plot is better at showing repeated seasonal trends. Note that
-death is a lagging indicator: lots of people can start getting covid but
-they start dying days to months later.</p>
-<p><img src="index_files/figure-html/death_spiral-1.png" alt="Spiral plot of deaths over time" width="672" /></p>
-<p>CDC provides <a
-href="https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html">two
-different ways</a> of summarizing covid in a community:</p>
-<ul>
-<li><strong>Community Transmission</strong> refers to measures of the
-presence and spread of SARS-CoV-2, the virus that causes COVID-19. This
-is used in the blue / yellow / orange / red maps, like <a
-href="https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&amp;list_select_county=all_counties&amp;data-type=Risk&amp;null=Risk">here</a>.</li>
-<li><strong>COVID-19 Community Levels</strong> refer to the measures of
-the impact of COVID-19 in terms of hospitalizations and healthcare
-system strain, while accounting for transmission in the community. This
-is used in the pastel yellow / green / orange map (red does not exist),
-like <a
-href="https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&amp;list_select_county=all_counties&amp;data-type=CommunityLevels&amp;null=CommunityLevels">here</a>.</li>
-</ul>
-<p>The plot below uses color to indicate community transmission – how
-the disease is spreading. For the y-axis, I am showing the test
-positivity rate, though this is less informative as testing and
-reporting of tests drop off.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="Positivity rate and CDC transmission level" width="672" /></p>
-<p>We can plot using the <a
-href="https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html">Feb
-2022 guidelines from the CDC</a> for low, medium, high community level;
-I’ve also recalculated past data so we can see how it would apply then.
-Note that though I plot case numbers, which are used by the CDC among
-other metrics, these might not be the most informative given the current
-state of testing; the hospitalization data (see tab above) could be
-useful.</p>
+<p>CDC puts out two metrics: community transmission and community
+levels. In <a
+href="https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html">their
+words</a>:</p>
+<blockquote style="font-size:10px">
+What is the difference between Community Transmission and COVID-19
+Community Levels? Community Transmission refers to measures of the
+presence and spread of SARS-CoV-2, the virus that causes COVID-19.
+COVID-19 Community Levels refer to the measures of the impact of
+COVID-19 in terms of hospitalizations and healthcare system strain,
+while accounting for transmission in the community.
+</blockquote>
+<p>These plots show community spread: how covid is moving through our
+communities and infecting people, not the effect this has on the
+healthcare system. The main thing to focus on is the color, though I am
+plotting the test positivity rate on the y axis (the plots below these
+show the rise in number of people with new cases per week for similar
+dates). It may feel hard to distinguish red from orange, but that is
+largely due to how little orange there is – it’s nearly all red (other
+people have now started adding purples for even higher spread, but I am
+sticking with CDC’s palette).</p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" alt="Cases per 100K and CDC color" width="672" /></p>
+<p>The above plots area about spread of the disease in communities; the
+plots below are about how at risk the health care system is (see this <a
+href="https://www.npr.org/sections/health-shots/2022/03/10/1085797307/cdcs-new-covid-metrics-can-leave-individuals-struggling-to-understand-their-risk">NPR
+story</a>). We can also plot using the <a
+href="https://www.cdc.gov/coronavirus/2019-ncov/your-health/covid-by-county.html">(Feb
+2022) guidelines from the CDC</a> for low, medium, high community level;
+I’ve also recalculated past data so we can see how it would apply
+then.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" alt="Cases per 100K and CDC color" width="672" /></p>
 <p>Here are the percent of tests positive, averaged over a week.</p>
 <p><img src="index_files/figure-html/percentagpositive-1.png" alt="Percentage of positive tests over time" width="672" /></p>
@@ -442,7 +437,7 @@ Tennessee’s definitions of groups):</p>
 <tr class="odd">
 <td align="left">Race</td>
 <td align="left">American Indian or Alaska Native</td>
-<td align="left">1/9</td>
+<td align="left">1/8</td>
 <td align="left">1/1250</td>
 <td align="left"></td>
 <td align="left"></td>
@@ -458,7 +453,7 @@ Tennessee’s definitions of groups):</p>
 <tr class="odd">
 <td align="left">Race</td>
 <td align="left">Black or African American</td>
-<td align="left">1/4</td>
+<td align="left">1/3</td>
 <td align="left">1/263</td>
 <td align="left">43.5%</td>
 <td align="left">38.3%</td>

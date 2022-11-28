@@ -6,13 +6,7 @@ output:
        in_header: GA_Script.html
 ---
 
-### 2022-2023
-
-No data are being released.
-
-### 2021-2022
-
-This is from daily data scraped from Knox County Schools' website. See also this page populated by parents and guardians of students as an unofficial project, which gives more granular data on individual schools: https://kcsdashboard.org/.
+Knox County Schools are releasing information at https://www.knoxschools.org/covid, I take a snapshot of this every 24 hours and plot it. See also this page populated by parents and guardians of students as an unofficial project, which gives more granular data on individual schools: https://kcsdashboard.org/.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of active covid cases"}
 
