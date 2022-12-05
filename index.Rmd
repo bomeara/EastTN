@@ -62,11 +62,21 @@ As of `r format(as.Date(tail(tn_death_history$target_end_date,1)),format="%a, %b
 
 *To get a vaccine to protect others and yourself, go to https://www.vaccines.gov/.*
 
-CDC puts out two metrics: community transmission and community levels. In [their words](https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html): 
-
-<blockquote style="font-size:10px">
-What is the difference between Community Transmission and COVID-19 Community Levels? Community Transmission refers to measures of the presence and spread of SARS-CoV-2, the virus that causes COVID-19. COVID-19 Community Levels refer to the measures of the impact of COVID-19 in terms of hospitalizations and healthcare system strain, while accounting for transmission in the community.
-</blockquote>
+<p>The CDC provides <a
+href="https://www.cdc.gov/coronavirus/2019-ncov/science/science-briefs/indicators-monitoring-community-levels.html">two
+different ways</a> of summarizing covid in a community:</p>
+<ul>
+<li><strong>Community Transmission</strong> refers to measures of the
+presence and spread of SARS-CoV-2, the virus that causes COVID-19. This
+is used in the blue / yellow / orange / red maps, like <a
+href="https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&amp;list_select_county=all_counties&amp;data-type=Risk&amp;null=Risk">here</a>.</li>
+<li><strong>COVID-19 Community Levels</strong> refer to the measures of
+the impact of COVID-19 in terms of hospitalizations and healthcare
+system strain, while accounting for transmission in the community. This
+is used in the pastel yellow / green / orange map (red does not exist),
+like <a
+href="https://covid.cdc.gov/covid-data-tracker/#county-view?list_select_state=all_states&amp;list_select_county=all_counties&amp;data-type=CommunityLevels&amp;null=CommunityLevels">here</a>.</li>
+</ul>
 
 These plots show community spread: how covid is moving through our communities and infecting people, not the effect this has on the healthcare system. The main thing to focus on is the color, though I am plotting the test positivity rate on the y axis (the plots below these show the rise in number of people with new cases per week for similar dates). It may feel hard to distinguish red from orange, but that is largely due to how little orange there is -- it's nearly all red (other people have now started adding purples for even higher spread, but I am sticking with CDC's palette). 
 
