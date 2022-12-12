@@ -24,7 +24,7 @@ if(rerun) {
 	#try(tar_invalidate(contains("utk")))
 	try(tar_invalidate(contains("sewage")))
 	try(tar_invalidate(contains("cdc_reports_new_2022")))
-	try(tar_invalidate(contains("cdc_all_reports")))
+	#try(tar_invalidate(contains("cdc_all_reports")))
 	try(tar_invalidate(contains("daily")))
 	try(tar_invalidate(contains("hhs")))
 	try(tar_invalidate(contains("tn")))
