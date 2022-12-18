@@ -39,3 +39,7 @@ _targets
 
 # R Environment Variables
 .Renviron
+
+.DS_Store
+Aug*.png
+
