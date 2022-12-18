@@ -28,12 +28,12 @@ try(print(hosp_plot))
 
 ```
 
-Trends in hospitalization of covid patients over time. The vertical dotted line shows the last day with updated capacity information from Knox County, when there were `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available (ignoring surge capacity) for people in the East Tennessee region. The seven day average is shown.
+Trends in hospitalization of covid patients over time. The vertical dotted line shows the last day with updated capacity information from Knox County, when there were `r tail(subset(hospital_knox, Resource=="ICU Beds")$Available,1)` ICU beds available (ignoring surge capacity) for people in the East Tennessee region. The seven day average is shown. This is on a log10 scale so the 2021 spike doesn't obscure other patterns.
 
 ```{r plotsD, echo=FALSE, message=FALSE, warning=FALSE}
 
 
-new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") 
+new_hospitalization <- ggplot(subset(daily_focal[!is.na(daily_focal$NEW_HOSPITALIZED),], DATE>="2021-06-01"), aes(x=DATE, y=NEW_HOSPITALIZED, group=Region)) + geom_ma(aes(colour=Region, linetype="a"), n=7) + guides(linetype = FALSE) + ylab("Number of new covid hospitalizations each day (7 day avg)") + xlab("Date") + ylim(0,NA)  + scale_colour_viridis_d(end=0.8) + theme_light() + geom_vline(xintercept=as.POSIXct(last_hospital_update), col="black", linetype="dotted") +  scale_y_continuous(trans='log10')
 
 print(new_hospitalization)
 
