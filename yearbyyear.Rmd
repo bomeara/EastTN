@@ -45,8 +45,8 @@ try(print(daily_case_by_year_plot))
 
 Or deaths over time across all individuals (excluding Dec 22, 2021, when there seems to be an error in the state's death records):
 
-```{r dejavudeath, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of deaths in 2020 vs 2021"}
+```{r dejavudeath, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of deaths by years"}
 daily_focal_by_year <- subset(daily_focal_by_year, DATE!=as.Date("20211222", format="%Y%m%d"))
-try(daily_death_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_DEATHS, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a"), n=min(7, min(table(schoolkids_daily_by_year$Year)))) +  guides(linetype = "none") + ylab("Deaths per day\n(7 day average)") + xlab("Date") + ggtitle("Deaths in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("darkgray","black", 'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal')) 
+try(daily_death_by_year_plot <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_DEATHS, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a"), n=min(7, min(table(schoolkids_daily_by_year$Year)))) +  guides(linetype = "none") + ylab("Deaths per day\n(7 day average)") + xlab("Date") + ggtitle("Deaths in different years in East TN") + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("cadetblue", "darkgray","black", 'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal')) 
 try(print(daily_death_by_year_plot))
 ```

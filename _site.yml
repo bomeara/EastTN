@@ -12,8 +12,6 @@ navbar:
           href: "lasteightweeks.html"
     - text: "Cases year by year"
       href: yearbyyear.html
-    - text: "Vaccination"
-      href: vaccination.html
     - text: "Hospitalization"
       menu:
         - text: "Knoxville Region"
@@ -34,10 +32,12 @@ navbar:
           href: "utk_2021.html"
         - text: "2020-1 Academic Year"
           href: "utk_2020.html"
-    - text: "Travel"
-      href: travel.html
     - text: "Wastewater"
       href: sewage.html
+    - text: "Vaccination"
+      href: vaccination.html
+    - text: "Travel"
+      href: travel.html
     - text: "About"
       href: about.html
 
