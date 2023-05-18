@@ -46,6 +46,15 @@ try(daily_death_by_year_plot_log <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_
 try(print(daily_death_by_year_plot_log))
 ```
 
+And with a trend line
+
+```{r dejavudeathlogsmooth, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of deaths by years log scale"}
+
+try(daily_death_by_year_plot_log_smooth <- ggplot(daily_focal_by_year, aes(x=MONTH_DAY_IFFY_YEAR, y=NEW_DEATHS, group=Year)) + theme_light() + geom_ma(aes(colour=Year, linetype="a"), n=min(7, min(table(schoolkids_daily_by_year$Year)))) +  guides(linetype = "none") + ylab("Deaths per day\n(7 day average)") + xlab("Date") + ggtitle("Deaths in different years in East TN") + scale_y_continuous(trans = "log1p"
+) + scale_x_date(date_labels = "%b", breaks = "2 months", limits=c(as.Date("2021-01-01", format="%Y-%m-%d"), as.Date("2021-12-31", format="%Y-%m-%d"))) + scale_color_manual(values=c("cadetblue", "darkgray","black", 'red')) + theme(legend.position='top', legend.justification='left',legend.direction='horizontal')) + geom_smooth(se=FALSE)
+try(print(daily_death_by_year_plot_log_smooth))
+```
+
 We can see how students age 5-18 (so equivalent to K-12, generally) have had positive cases in East Tennessee.
 
 ```{r dejavuschoolkids, echo=FALSE, message=FALSE, warning=FALSE, fig.alt="Line plot of cases in children 5-18 in various years"}
