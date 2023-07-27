@@ -6,6 +6,12 @@ output:
        in_header: tablestyle.html
 ---
 
+## No more data
+
+July 27, 2023: The data sources I was using for this site are no longer being updated. The only remaining sources seem to be sewage data; CDC has it [https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance](here) but it's all relative (Covid levels in sewage versus the highest at any point at that site, but sites came online at different times). Biobot Analytics has data on absolute numbers through time (as well as variants) [https://biobot.io/data/covid-19](here) but they no longer have freely accessible raw data. Even hospitals release data only sporadically and incompletely now. I might poke around later to see what's available but for now I'm not updating this site.
+
+### Old site
+
 Different universities vary in their approaches. Over [1,125 university campuses require covid vaccination for students and/or staff](https://www.chronicle.com/blogs/live-coronavirus-updates/heres-a-list-of-colleges-that-will-require-students-to-be-vaccinated-against-covid-19), though UTK is not one of them.
 
 It can be instructive to compare UTK's policies and data to elsewhere. Below shows the current policies (Jan. 13, 2022) of UTK and its aspirational peers.

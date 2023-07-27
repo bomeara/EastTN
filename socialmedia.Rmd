@@ -6,6 +6,12 @@ output:
        in_header: GA_Script.html
 ---
 
+## No more data
+
+July 27, 2023: The data sources I was using for this site are no longer being updated. The only remaining sources seem to be sewage data; CDC has it [https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance](here) but it's all relative (Covid levels in sewage versus the highest at any point at that site, but sites came online at different times). Biobot Analytics has data on absolute numbers through time (as well as variants) [https://biobot.io/data/covid-19](here) but they no longer have freely accessible raw data. Even hospitals release data only sporadically and incompletely now. I might poke around later to see what's available but for now I'm not updating this site.
+
+### Old site
+
 This is a feed from local reporters and health departments who typically have information about covid in TN. 
 
 <a class="twitter-timeline" href="https://twitter.com/omearabrian/lists/1440308997542735883?ref_src=twsrc%5Etfw">Tweets from reporters and health departments covering covid in TN</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

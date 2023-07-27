@@ -7,6 +7,12 @@ output:
 ---
 
 
+## No more data
+
+July 27, 2023: The data sources I was using for this site are no longer being updated. The only remaining sources seem to be sewage data; CDC has it [https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance](here) but it's all relative (Covid levels in sewage versus the highest at any point at that site, but sites came online at different times). Biobot Analytics has data on absolute numbers through time (as well as variants) [https://biobot.io/data/covid-19](here) but they no longer have freely accessible raw data. Even hospitals release data only sporadically and incompletely now. I might poke around later to see what's available but for now I'm not updating this site.
+
+### Old site
+
 
 Tennessee releases information on demographics of individuals getting vaccinated. All terminology follows that used by the state, including terms like race and sex. The way the census and Tennessee count individuals who identify as not being in Asian, White, or Black or African American groups (people who are multiracial, Native American, Pacific Islander, other) seems to differ in ways that make calculating the percentage of members of the these groups difficult; the same happens for people who do not identify as male or female.
 

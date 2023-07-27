@@ -8,6 +8,12 @@ params:
   sumtab: "unknown"
 ---
 
+## No more data
+
+July 27, 2023: The data sources I was using for this site are no longer being updated. The only remaining sources seem to be sewage data; CDC has it [https://covid.cdc.gov/covid-data-tracker/#wastewater-surveillance](here) but it's all relative (Covid levels in sewage versus the highest at any point at that site, but sites came online at different times). Biobot Analytics has data on absolute numbers through time (as well as variants) [https://biobot.io/data/covid-19](here) but they no longer have freely accessible raw data. Even hospitals release data only sporadically and incompletely now. I might poke around later to see what's available but for now I'm not updating this site.
+
+### Old site
+
 The purpose of this is to gather information on how the covid-19 pandemic is progressing in East TN. There are good sites that have info on the pandemic generally across the US and world, but Tennessee as well as local entities put out info that is not captured by these sites. 
 
 I am mostly doing this for my own curiosity as a parent in Oak Ridge, TN; though I work in science, I don't work in epidemiology. Thus, I'm not doing any calculations of future spread, etc. -- I'm taking published datasets and plotting them. For datasets that are presented as current conditions but do not have a history, I take a copy of them (usually every six hours) to be able to plot how they change over time.
