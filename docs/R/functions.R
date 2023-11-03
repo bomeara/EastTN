@@ -22,7 +22,7 @@ CreateDailyFocal <- function(counties_in_east_tn=FocalCountiesEastTN()) {
     dataURL <- "https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/Public-Dataset-County-New.XLSX"
     download.file(dataURL, destfile=temp, mode='wb')
 
-    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("text", "date", rep("numeric",18)))
+    daily <- readxl::read_xlsx(temp, sheet =1, col_types=c("text", "date", rep("numeric",17)))
 
     daily_knox <- subset(daily, COUNTY=="Knox") %>% select(-"COUNTY")
     daily_knox$Region <- "Knox County"
